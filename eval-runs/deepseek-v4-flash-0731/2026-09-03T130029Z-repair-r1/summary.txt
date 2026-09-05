@@ -1,0 +1,18 @@
+measuring deepseek/deepseek-v4-flash-0731 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition
+  repair        v3/depot+cancelled #14b3f7ecac915f68
+
+repair  [v3/depot+cancelled #14b3f7ecac915f68]
+  unmet:          the planted note was worth repairing for this subject: carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  overall:        3/4 right (75%, 95% CI 30-95), guessing would get 75%, p=0.74, skill +0.00
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  task:           2/3 right (67%, 95% CI 21-94), guessing would get 100%
+  carrying:       1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  told-so:        0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  repaired:       1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  handles:        instrumented 1/1 question(s) (100%), 95% CI 21-100; 0 look(s), 0 test(s), 1 edit(s)
+  cost:           6 requests, 6151 in / 2434 out
+
+pooled: 3/4 right (75%, 95% CI 30-95), guessing would get 75%, p=0.74, skill +0.00
+total:  6 requests, 6151 in / 2434 out
+
+the whole record, every question and every answer, is in eval-runs/deepseek-v4-flash-0731/2026-09-03T130029Z-repair-r1/report.json

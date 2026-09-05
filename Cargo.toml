@@ -1,0 +1,21 @@
+[package]
+name = "deleting-a-memory"
+version = "1.0.0"
+edition = "2024"
+description = "The study: what six language models said their answers rested on, and what removing the item actually did."
+license = "MIT"
+publish = false
+
+[dependencies]
+# the instrument, which lives in its own repository because a second study should
+# start from a harness rather than from a copy of this one. Pinned to the commit the
+# figures were last recomputed with, so that `cargo run` on another machine reads the
+# saved reports with the same code. To work against a local checkout instead, add:
+#   [patch."https://github.com/ljedrz/nachalnik"]
+#   nachalnik-eval = { path = "../nachalnik/nachalnik-eval" }
+nachalnik-eval = { git = "https://github.com/ljedrz/nachalnik", rev = "d3b3ba6947a22bfe6bdfefe52423a28c27dd2d89" }
+serde_json = "1"
+
+[[bin]]
+name = "figures"
+path = "src/main.rs"

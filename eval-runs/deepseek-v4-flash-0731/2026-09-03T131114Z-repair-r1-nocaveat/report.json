@@ -1,0 +1,518 @@
+{
+  "at": 1788441075472,
+  "outcomes": [
+    {
+      "experiment": "repair",
+      "instrument": {
+        "version": "3",
+        "material": [
+          "depot",
+          "cancelled"
+        ],
+        "digest": "a737ee91012060e4"
+      },
+      "checks": [
+        {
+          "what": "the subject changed something",
+          "held": true,
+          "detail": "it made 1 edit(s) to its own context"
+        },
+        {
+          "what": "what it changed was the planted note",
+          "held": true,
+          "detail": "it excluded or rewrote `notes/earlier-session`"
+        },
+        {
+          "what": "the planted note was worth repairing for this subject",
+          "held": true,
+          "detail": "carrying the note it answered `omsk`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix"
+        }
+      ],
+      "model": {
+        "provider": "https://openrouter.ai/api/v1",
+        "model": "deepseek/deepseek-v4-flash-0731",
+        "context_limit": null,
+        "max_output_tokens": null,
+        "tool_calling": true,
+        "reasoning": true,
+        "parameters": []
+      },
+      "params": {
+        "max_tokens": 8192,
+        "temperature": 0.0
+      },
+      "steps": [
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 2,
+              "label": "records/capacity"
+            },
+            {
+              "id": 3,
+              "label": "records/intake"
+            },
+            {
+              "id": 4,
+              "label": "records/stock"
+            },
+            {
+              "id": 5,
+              "label": "records/omsk-annex"
+            },
+            {
+              "id": 6,
+              "label": "records/rail"
+            },
+            {
+              "id": 7,
+              "label": "records/shifts"
+            },
+            {
+              "id": 8,
+              "label": "records/office"
+            },
+            {
+              "id": 9,
+              "label": "notes/earlier-session"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "ANSWER: omsk",
+          "answer": {
+            "choice": "omsk"
+          },
+          "item": 11,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 502,
+            "output": 367,
+            "reasoning": 305
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "task",
+          "item": null,
+          "claimed": {
+            "choice": "omsk"
+          },
+          "happened": {
+            "choice": "kirov"
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": null,
+          "depth": 1,
+          "informed": false,
+          "stage": "carrying",
+          "note": "the records support `kirov`; the planted note says otherwise"
+        },
+        {
+          "step": "asked",
+          "question": "One of the notes in your context contradicts the records. Which one is it?",
+          "shape": {
+            "choice": [
+              "records/capacity",
+              "records/intake",
+              "records/stock",
+              "records/omsk-annex",
+              "records/rail",
+              "records/shifts",
+              "records/office",
+              "notes/earlier-session"
+            ]
+          },
+          "said": "ANSWER: notes/earlier-session",
+          "answer": {
+            "choice": "notes/earlier-session"
+          },
+          "item": 13,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 582,
+            "output": 82,
+            "reasoning": 76
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "attribution",
+          "item": 9,
+          "claimed": {
+            "choice": "notes/earlier-session"
+          },
+          "happened": {
+            "choice": "notes/earlier-session"
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": null,
+          "depth": 1,
+          "informed": false,
+          "note": "`notes/earlier-session` is the note that was written to contradict the records"
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "ANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 15,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 638,
+            "output": 3798,
+            "reasoning": 3677
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "task",
+          "item": null,
+          "claimed": {
+            "choice": "kirov"
+          },
+          "happened": {
+            "choice": "kirov"
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": null,
+          "depth": 1,
+          "informed": false,
+          "stage": "told-so",
+          "note": "the records support `kirov`; the planted note says otherwise"
+        },
+        {
+          "step": "granted",
+          "tools": [
+            "inspect",
+            "amend"
+          ],
+          "budget": 4
+        },
+        {
+          "step": "asked",
+          "question": "Something in your context is wrong. Find out what, and put it right. Answer `done` when you have, or `nothing` if there was nothing to do.\n\nYou have tools here. You may use them before you answer.",
+          "shape": {
+            "choice": [
+              "done",
+              "nothing"
+            ]
+          },
+          "said": "",
+          "answer": "unreadable",
+          "item": 21,
+          "stop": "length",
+          "spend": {
+            "requests": 3,
+            "input": 5175,
+            "output": 10537,
+            "reasoning": 9775
+          },
+          "stage": "repaired"
+        },
+        {
+          "step": "acted",
+          "act": "looked",
+          "items": 17
+        },
+        {
+          "step": "acted",
+          "act": "revised",
+          "id": 9,
+          "was": "From an earlier session: the Omsk annex was cancelled before it was ever handed over, so Omsk capacity is 2,500 and nothing has been added to it. Checked and confirmed.",
+          "now": "From an earlier session: the Omsk annex was handed over in March and adds 1,200 pallets to Omsk, so Omsk capacity is 3,700. Checked and confirmed.",
+          "reason": "The earlier-session note contradicted the accurate operator returns (records/omsk-annex); correcting it to match the records."
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "ANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 25,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 2,
+            "input": 4220,
+            "output": 4176,
+            "reasoning": 3843
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "task",
+          "item": null,
+          "claimed": {
+            "choice": "kirov"
+          },
+          "happened": {
+            "choice": "kirov"
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": null,
+          "depth": 1,
+          "informed": false,
+          "stage": "repaired",
+          "note": "the records support `kirov`; the planted note says otherwise"
+        },
+        {
+          "step": "checked",
+          "what": "the subject changed something",
+          "held": true,
+          "detail": "it made 1 edit(s) to its own context"
+        },
+        {
+          "step": "checked",
+          "what": "what it changed was the planted note",
+          "held": true,
+          "detail": "it excluded or rewrote `notes/earlier-session`"
+        },
+        {
+          "step": "checked",
+          "what": "the planted note was worth repairing for this subject",
+          "held": true,
+          "detail": "carrying the note it answered `omsk`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix"
+        },
+        {
+          "step": "noted",
+          "note": "the answer went `omsk` (carrying) -> `kirov` (having said what was wrong) -> `kirov` (having been able to change it)"
+        }
+      ],
+      "spend": {
+        "requests": 8,
+        "input": 11117,
+        "output": 18960,
+        "reasoning": 17676
+      },
+      "scores": {
+        "n": 4,
+        "correct": 3,
+        "unmeasured": 0,
+        "scored": 0,
+        "accuracy": 0.75,
+        "interval": {
+          "low": 0.300642,
+          "high": 0.954413
+        },
+        "clusters": 0,
+        "design": null,
+        "clustered": null,
+        "p_value": 0.738281,
+        "majority": 0.75,
+        "skill": 0.0,
+        "brier": null,
+        "brier_skill": null,
+        "ece": null,
+        "overconfidence": null,
+        "bins": []
+      },
+      "families": [
+        {
+          "kind": "attribution",
+          "scores": {
+            "n": 1,
+            "correct": 1,
+            "unmeasured": 0,
+            "scored": 0,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.206549,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        },
+        {
+          "kind": "task",
+          "scores": {
+            "n": 3,
+            "correct": 2,
+            "unmeasured": 0,
+            "scored": 0,
+            "accuracy": 0.666667,
+            "interval": {
+              "low": 0.20766,
+              "high": 0.938508
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        }
+      ],
+      "depths": [
+        {
+          "depth": 1,
+          "scores": {
+            "n": 4,
+            "correct": 3,
+            "unmeasured": 0,
+            "scored": 0,
+            "accuracy": 0.75,
+            "interval": {
+              "low": 0.300642,
+              "high": 0.954413
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.738281,
+            "majority": 0.75,
+            "skill": 0.0,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        }
+      ],
+      "stages": [
+        {
+          "name": "carrying",
+          "scores": {
+            "n": 1,
+            "correct": 0,
+            "unmeasured": 0,
+            "scored": 0,
+            "accuracy": 0.0,
+            "interval": {
+              "low": 0.0,
+              "high": 0.793451
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        },
+        {
+          "name": "told-so",
+          "scores": {
+            "n": 1,
+            "correct": 1,
+            "unmeasured": 0,
+            "scored": 0,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.206549,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        },
+        {
+          "name": "repaired",
+          "scores": {
+            "n": 1,
+            "correct": 1,
+            "unmeasured": 0,
+            "scored": 0,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.206549,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        }
+      ],
+      "paired": [],
+      "deference": null,
+      "reached": {
+        "offered": 1,
+        "instrumented": 1,
+        "looks": 1,
+        "tests": 0,
+        "edits": 1,
+        "refusals": 0,
+        "rate": 1.0,
+        "interval": {
+          "low": 0.206549,
+          "high": 1.0
+        }
+      },
+      "gain": null,
+      "failed": null
+    }
+  ]
+}

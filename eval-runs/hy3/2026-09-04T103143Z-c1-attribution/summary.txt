@@ -1,0 +1,18 @@
+measuring tencent/hy3 at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v5/depot+orchard+foundry+ferry+kiln+mill #a07494342877cbc9
+
+attribution  [v5/depot+orchard+foundry+ferry+kiln+mill #a07494342877cbc9]
+  unmet:          the subject answered the dossier as its notes support: it answered `kem`, the notes support `onega`
+  overall:        50/60 right (83%, 95% CI 72-91), guessing would get 70%, p=0.01, skill +0.44, brier 0.141 (skill -0.11), ece 0.129, over by 13 points
+  counterfactual: 46/54 right (85%, 95% CI 68-94 over 6 materials, deff 2.00), guessing would get 74%, p=0.04, skill +0.43, brier 0.141 (skill -0.11), ece 0.129, over by 13 points
+  attribution:    4/6 right (67%, 95% CI 30-90), guessing would get 67%, p=0.68, skill +0.00
+  surface:        of items that do nothing, claimed 5/23 of the ones with figures (10-42%) against 0/17 without (0-18%), +22 points [red herrings 0/11, off-pivot arithmetic 5/12, -42]
+  cost:           246 requests, 161934 in / 368745 out
+
+pooled: 50/60 right (83%, 95% CI 72-91), guessing would get 70%, p=0.01, skill +0.44, brier 0.141 (skill -0.11), ece 0.129, over by 13 points
+total:  246 requests, 161934 in / 368745 out
+
+calibration, pooled:
+  80-100%  said   98%, right   85%  #################    (54 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/hy3/2026-09-04T103143Z-c1-attribution/report.json

@@ -1,0 +1,19 @@
+measuring inception/mercury-2.5-preview at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  recursion     v4/depot #b700ab1e931e50e2
+
+recursion  [v4/depot #b700ab1e931e50e2]
+  overall:        2/2 right (100%, 95% CI 34-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+  counterfactual: 1/1 right (100%, 95% CI 21-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+  recursive:      1/1 right (100%, 95% CI 21-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+  depth 1:        1/1 right (100%, 95% CI 21-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+  depth 2:        1/1 right (100%, 95% CI 21-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+  cost:           16 requests, 13850 in / 18642 out
+  stopped:        the runtime failed: the provider failed: 502: {"code":502,"message":"Upstream error from Inception: I'm sorry, but I can't share details of my architecture or training process. Would you like to learn about how language models work in general instead?"}
+
+pooled: 2/2 right (100%, 95% CI 34-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+total:  16 requests, 13850 in / 18642 out
+
+calibration, pooled:
+  80-100%  said  100%, right  100%  #################### (2 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/mercury-2.5-preview/2026-09-03T170616Z-recursion-probe/report.json

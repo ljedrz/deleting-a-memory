@@ -1,0 +1,12 @@
+measuring inception/mercury-2.5-preview at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f
+
+attribution  [v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f]
+  overall:        nothing measured (0 claim(s) untested)
+  cost:           17 requests, 19548 in / 21355 out
+  stopped:        the runtime failed: the provider failed: 502: {"code":502,"message":"Upstream error from Inception: I'm sorry, but I can't share details of my architecture or training process. Would you like to learn about how language models work in general instead?"}
+
+pooled: nothing measured (0 claim(s) untested)
+total:  17 requests, 19548 in / 21355 out
+
+the whole record, every question and every answer, is in eval-runs/mercury-2.5-preview/2026-09-03T165806Z-c1-attribution/report.json

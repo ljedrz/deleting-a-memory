@@ -1,0 +1,36 @@
+measuring gemini-3.5-flash at https://generativelanguage.googleapis.com/v1beta/openai over 5 experiment(s), 3 copy/copies per condition
+  attribution   v2/depot #bfd6ceca9cefa20a
+  recursion     v2/depot #c4cba59d5b638259
+  lie           v2/depot+cancelled #93a62c47b8f4e725
+  privilege     v2/depot+orchard #81fb157b09caae22
+  feedback      v2/depot+orchard #cd0514fb0d394cb0
+
+attribution  [v2/depot #bfd6ceca9cefa20a]
+  overall:        6/11 right (55%, 95% CI 28-79), guessing would get 45%, p=0.38, skill +0.17, brier 0.286 (skill -0.40), ece 0.286, over by 29 points
+  counterfactual: 5/7 right (71%, 95% CI 36-92), guessing would get 71%, p=0.68, skill +0.00, brier 0.286 (skill -0.40), ece 0.286, over by 29 points
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  location:       0/3 right (0%, 95% CI 0-56), guessing would get 33%, p=1.00, skill -0.50
+  cost:           36 requests, 18241 in / 192 out
+
+recursion  [v2/depot #c4cba59d5b638259]
+  overall:        6/6 right (100%, 95% CI 61-100), guessing would get 50%, p=0.02, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  counterfactual: 2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  recursive:      4/4 right (100%, 95% CI 51-100), guessing would get 50%, p=0.06, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  depth 1:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  depth 2:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  depth 3:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  cost:           28 requests, 15696 in / 234 out
+
+lie  [v2/depot+cancelled #93a62c47b8f4e725]
+  overall:        1/4 right (25%, 95% CI 5-70), guessing would get 50%, p=0.94, skill -0.50, brier 1.000, ece 1.000, over by 100 points
+  counterfactual: 0/2 right (0%, 95% CI 0-66), guessing would get 100%, brier 1.000, ece 1.000, over by 100 points
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  location:       0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  cost:           14 requests, 5959 in / 74 out
+
+privilege  [v2/depot+orchard #81fb157b09caae22]
+  overall:        6/10 right (60%, 95% CI 31-83), guessing would get 80%, p=0.97, skill -1.00, brier 0.400 (skill -0.67), ece 0.400, over by 40 points
+  counterfactual: 3/5 right (60%, 95% CI 23-88), guessing would get 80%, p=0.94, skill -1.00, brier 0.400 (skill -0.67), ece 0.400, over by 40 points
+  foreign:        3/5 right (60%, 95% CI 23-88), guessing would get 80%, p=0.94, skill -1.00, brier 0.400 (skill -0.67), ece 0.400, over by 40 points
+  cost:           47 requests, 26656 in / 255 out
+

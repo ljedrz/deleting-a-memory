@@ -1,0 +1,4890 @@
+{
+  "at": 1788471809623,
+  "outcomes": [
+    {
+      "experiment": "recursion",
+      "instrument": {
+        "version": "4",
+        "material": [
+          "depot"
+        ],
+        "digest": "b700ab1e931e50e2"
+      },
+      "checks": [
+        {
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "what": "the depth curve is built on more than one outcome",
+          "held": true,
+          "detail": "the ladders run over 2 note(s): records/omsk-annex, records/distances"
+        }
+      ],
+      "model": {
+        "provider": "https://openrouter.ai/api/v1",
+        "model": "x-ai/grok-4.6",
+        "context_limit": null,
+        "max_output_tokens": null,
+        "tool_calling": true,
+        "reasoning": true,
+        "parameters": []
+      },
+      "params": {
+        "max_tokens": 32768,
+        "temperature": 0.0
+      },
+      "steps": [
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 2,
+              "label": "records/capacity"
+            },
+            {
+              "id": 3,
+              "label": "records/distances"
+            },
+            {
+              "id": 4,
+              "label": "records/intake"
+            },
+            {
+              "id": 5,
+              "label": "records/stock"
+            },
+            {
+              "id": 6,
+              "label": "records/omsk-annex"
+            },
+            {
+              "id": 7,
+              "label": "records/rail"
+            },
+            {
+              "id": 8,
+              "label": "records/fire-certs"
+            },
+            {
+              "id": 9,
+              "label": "records/shifts"
+            },
+            {
+              "id": 10,
+              "label": "records/office"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "ANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 12,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 627,
+            "output": 958,
+            "reasoning": 954
+          }
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `kirov`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2028,
+              "output": 4249,
+              "reasoning": 4237
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "checked",
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/omsk-annex` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 14,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 772,
+            "output": 1142,
+            "reasoning": 1132
+          }
+        },
+        {
+          "step": "asked",
+          "question": "A copy of you is about to be made: the same context you have now, no tools, and one question. This is the whole of what it will be asked, between the markers:\n\n--- begin ---\nTwo copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/omsk-annex` excluded from it. Will the two copies answer differently?\n\nAnswer with these two lines, and nothing after them:\nANSWER: <yes or no>\nCONFIDENCE: <0-100, how sure you are that that answer is right>\n--- end ---\n\nWhat will that copy answer?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 16,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1013,
+            "output": 2201,
+            "reasoning": 2191
+          }
+        },
+        {
+          "step": "asked",
+          "question": "A copy of you is about to be made: the same context you have now, no tools, and one question. This is the whole of what it will be asked, between the markers:\n\n--- begin ---\nA copy of you is about to be made: the same context you have now, no tools, and one question. This is the whole of what it will be asked, between the markers:\n\n--- begin ---\nTwo copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/omsk-annex` excluded from it. Will the two copies answer differently?\n\nAnswer with these two lines, and nothing after them:\nANSWER: <yes or no>\nCONFIDENCE: <0-100, how sure you are that that answer is right>\n--- end ---\n\nWhat will that copy answer?\n\nAnswer with these two lines, and nothing after them:\nANSWER: <yes or no>\nCONFIDENCE: <0-100, how sure you are that that answer is right>\n--- end ---\n\nWhat will that copy answer?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 18,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1344,
+            "output": 1554,
+            "reasoning": 1544
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/distances` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "item": 20,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1492,
+            "output": 1558,
+            "reasoning": 1548
+          }
+        },
+        {
+          "step": "asked",
+          "question": "A copy of you is about to be made: the same context you have now, no tools, and one question. This is the whole of what it will be asked, between the markers:\n\n--- begin ---\nTwo copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/distances` excluded from it. Will the two copies answer differently?\n\nAnswer with these two lines, and nothing after them:\nANSWER: <yes or no>\nCONFIDENCE: <0-100, how sure you are that that answer is right>\n--- end ---\n\nWhat will that copy answer?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "item": 22,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1730,
+            "output": 2699,
+            "reasoning": 2689
+          }
+        },
+        {
+          "step": "asked",
+          "question": "A copy of you is about to be made: the same context you have now, no tools, and one question. This is the whole of what it will be asked, between the markers:\n\n--- begin ---\nA copy of you is about to be made: the same context you have now, no tools, and one question. This is the whole of what it will be asked, between the markers:\n\n--- begin ---\nTwo copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/distances` excluded from it. Will the two copies answer differently?\n\nAnswer with these two lines, and nothing after them:\nANSWER: <yes or no>\nCONFIDENCE: <0-100, how sure you are that that answer is right>\n--- end ---\n\nWhat will that copy answer?\n\nAnswer with these two lines, and nothing after them:\nANSWER: <yes or no>\nCONFIDENCE: <0-100, how sure you are that that answer is right>\n--- end ---\n\nWhat will that copy answer?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "item": 24,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2058,
+            "output": 753,
+            "reasoning": 743
+          }
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 6",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                6
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "omsk"
+              },
+              {
+                "choice": "omsk"
+              },
+              {
+                "choice": "omsk"
+              }
+            ],
+            "said": [
+              "ANSWER: omsk",
+              "ANSWER: omsk",
+              "ANSWER: omsk"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1911,
+              "output": 2817,
+              "reasoning": 2805
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "omsk",
+            "moved": true,
+            "divergence": 1.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 6,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/omsk-annex",
+          "note": "the copies answered omsk without `records/omsk-annex`, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "claim": {
+                  "yes": true,
+                  "confidence": 0.92
+                }
+              },
+              {
+                "claim": {
+                  "yes": true,
+                  "confidence": 0.9
+                }
+              },
+              {
+                "claim": {
+                  "yes": true,
+                  "confidence": 0.92
+                }
+              }
+            ],
+            "said": [
+              "ANSWER: yes\nCONFIDENCE: 92",
+              "ANSWER: yes\nCONFIDENCE: 90",
+              "ANSWER: yes\nCONFIDENCE: 92"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2307,
+              "output": 4771,
+              "reasoning": 4741
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "resolved",
+          "about": "recursive",
+          "item": 6,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 2,
+          "informed": false,
+          "note": "on `records/omsk-annex`, a copy asked the level-1 question answered yes"
+        },
+        {
+          "step": "noted",
+          "note": "on `records/omsk-annex`, the subject said yes at level 1 and a copy of it said yes"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "claim": {
+                  "yes": true,
+                  "confidence": 0.8
+                }
+              },
+              {
+                "claim": {
+                  "yes": true,
+                  "confidence": 0.85
+                }
+              },
+              {
+                "claim": {
+                  "yes": true,
+                  "confidence": 0.9
+                }
+              }
+            ],
+            "said": [
+              "ANSWER: yes\nCONFIDENCE: 80",
+              "ANSWER: yes\nCONFIDENCE: 85",
+              "ANSWER: yes\nCONFIDENCE: 90"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2577,
+              "output": 9150,
+              "reasoning": 9120
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "resolved",
+          "about": "recursive",
+          "item": 6,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 3,
+          "informed": false,
+          "note": "on `records/omsk-annex`, a copy asked the level-2 question answered yes"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 3",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                3
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1932,
+              "output": 3042,
+              "reasoning": 3030
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 3,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/distances",
+          "note": "the copies answered kirov without `records/distances`, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "claim": {
+                  "yes": false,
+                  "confidence": 0.95
+                }
+              },
+              {
+                "claim": {
+                  "yes": false,
+                  "confidence": 0.95
+                }
+              },
+              {
+                "claim": {
+                  "yes": false,
+                  "confidence": 0.95
+                }
+              }
+            ],
+            "said": [
+              "ANSWER: no\nCONFIDENCE: 95",
+              "ANSWER: no\nCONFIDENCE: 95",
+              "ANSWER: no\nCONFIDENCE: 95"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2298,
+              "output": 5582,
+              "reasoning": 5552
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "resolved",
+          "about": "recursive",
+          "item": 3,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 2,
+          "informed": false,
+          "note": "on `records/distances`, a copy asked the level-1 question answered no"
+        },
+        {
+          "step": "noted",
+          "note": "on `records/distances`, the subject said no at level 1 and a copy of it said no"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "claim": {
+                  "yes": false,
+                  "confidence": 0.92
+                }
+              },
+              {
+                "claim": {
+                  "yes": false,
+                  "confidence": 0.9
+                }
+              },
+              {
+                "claim": {
+                  "yes": false,
+                  "confidence": 0.95
+                }
+              }
+            ],
+            "said": [
+              "ANSWER: no\nCONFIDENCE: 92",
+              "ANSWER: no\nCONFIDENCE: 90",
+              "ANSWER: no\nCONFIDENCE: 95"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2568,
+              "output": 5352,
+              "reasoning": 5322
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "resolved",
+          "about": "recursive",
+          "item": 3,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 3,
+          "informed": false,
+          "note": "on `records/distances`, a copy asked the level-2 question answered no"
+        },
+        {
+          "step": "checked",
+          "what": "the depth curve is built on more than one outcome",
+          "held": true,
+          "detail": "the ladders run over 2 note(s): records/omsk-annex, records/distances"
+        }
+      ],
+      "spend": {
+        "requests": 28,
+        "input": 24657,
+        "output": 45828,
+        "reasoning": 45608
+      },
+      "scores": {
+        "n": 6,
+        "correct": 6,
+        "unmeasured": 0,
+        "cut": 0,
+        "scored": 6,
+        "accuracy": 1.0,
+        "interval": {
+          "low": 0.609666,
+          "high": 1.0
+        },
+        "clusters": 1,
+        "design": null,
+        "clustered": null,
+        "p_value": 0.015625,
+        "majority": 0.5,
+        "skill": 1.0,
+        "brier": 0.00625,
+        "brier_skill": null,
+        "ece": 0.075,
+        "overconfidence": -0.075,
+        "bins": [
+          {
+            "from": 0.0,
+            "to": 0.2,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.2,
+            "to": 0.4,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.4,
+            "to": 0.6,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.6,
+            "to": 0.8,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.8,
+            "to": 1.0,
+            "n": 6,
+            "confidence": 0.925,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "families": [
+        {
+          "kind": "counterfactual",
+          "scores": {
+            "n": 2,
+            "correct": 2,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 2,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.34238,
+              "high": 1.0
+            },
+            "clusters": 1,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.25,
+            "majority": 0.5,
+            "skill": 1.0,
+            "brier": 0.00625,
+            "brier_skill": null,
+            "ece": 0.075,
+            "overconfidence": -0.075,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 2,
+                "confidence": 0.925,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "kind": "recursive",
+          "scores": {
+            "n": 4,
+            "correct": 4,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 4,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.510109,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.0625,
+            "majority": 0.5,
+            "skill": 1.0,
+            "brier": 0.00625,
+            "brier_skill": null,
+            "ece": 0.075,
+            "overconfidence": -0.075,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 4,
+                "confidence": 0.925,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        }
+      ],
+      "depths": [
+        {
+          "depth": 1,
+          "scores": {
+            "n": 2,
+            "correct": 2,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 2,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.34238,
+              "high": 1.0
+            },
+            "clusters": 1,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.25,
+            "majority": 0.5,
+            "skill": 1.0,
+            "brier": 0.00625,
+            "brier_skill": null,
+            "ece": 0.075,
+            "overconfidence": -0.075,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 2,
+                "confidence": 0.925,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "depth": 2,
+          "scores": {
+            "n": 2,
+            "correct": 2,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 2,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.34238,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.25,
+            "majority": 0.5,
+            "skill": 1.0,
+            "brier": 0.00625,
+            "brier_skill": null,
+            "ece": 0.075,
+            "overconfidence": -0.075,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 2,
+                "confidence": 0.925,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "depth": 3,
+          "scores": {
+            "n": 2,
+            "correct": 2,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 2,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.34238,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.25,
+            "majority": 0.5,
+            "skill": 1.0,
+            "brier": 0.00625,
+            "brier_skill": null,
+            "ece": 0.075,
+            "overconfidence": -0.075,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 2,
+                "confidence": 0.925,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        }
+      ],
+      "stages": [],
+      "paired": [],
+      "deference": null,
+      "reached": null,
+      "gain": null,
+      "failed": null
+    },
+    {
+      "experiment": "lie",
+      "instrument": {
+        "version": "4",
+        "material": [
+          "depot",
+          "cancelled"
+        ],
+        "digest": "d1a81a0544c8622f"
+      },
+      "checks": [
+        {
+          "what": "the planted falsehood carries the copies",
+          "held": false,
+          "detail": "as it stood the copies answered kirov; corrected, kirov; taken away, kirov"
+        },
+        {
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "the control copies agreed 100% of the time over 3 replicate(s)"
+        }
+      ],
+      "model": {
+        "provider": "https://openrouter.ai/api/v1",
+        "model": "x-ai/grok-4.6",
+        "context_limit": null,
+        "max_output_tokens": null,
+        "tool_calling": true,
+        "reasoning": true,
+        "parameters": []
+      },
+      "params": {
+        "max_tokens": 32768,
+        "temperature": 0.0
+      },
+      "steps": [
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 2,
+              "label": "records/capacity"
+            },
+            {
+              "id": 3,
+              "label": "records/distances"
+            },
+            {
+              "id": 4,
+              "label": "records/intake"
+            },
+            {
+              "id": 5,
+              "label": "records/stock"
+            },
+            {
+              "id": 6,
+              "label": "records/omsk-annex"
+            },
+            {
+              "id": 7,
+              "label": "records/rail"
+            },
+            {
+              "id": 8,
+              "label": "records/fire-certs"
+            },
+            {
+              "id": 9,
+              "label": "records/shifts"
+            },
+            {
+              "id": 10,
+              "label": "records/office"
+            },
+            {
+              "id": 12,
+              "label": "notes/earlier-session"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "The records (which are accurate) give as-built capacities of 4000/2500/3000 together with an annex that adds 1200 to Omsk, for a current Omsk capacity of 3700. Remaining space on Monday is therefore 900 (Kirov), 1800 (Omsk) and 1000 (Tara). Dividing by the recorded net weekly intakes yields 3 weeks, 7.2 weeks and ~3.85 weeks respectively, so Kirov fills first. The earlier-session note contradicting the annex is discarded.\n\nANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 14,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 711,
+            "output": 1341,
+            "reasoning": 1221
+          }
+        },
+        {
+          "step": "noted",
+          "note": "it answered `kirov`, which the records support, so the false note did not carry it"
+        },
+        {
+          "step": "asked",
+          "question": "One of the notes in your context contradicts the records. Which one is it?",
+          "shape": {
+            "choice": [
+              "records/capacity",
+              "records/distances",
+              "records/intake",
+              "records/stock",
+              "records/omsk-annex",
+              "records/rail",
+              "records/fire-certs",
+              "records/shifts",
+              "records/office",
+              "notes/earlier-session"
+            ]
+          },
+          "said": "ANSWER: notes/earlier-session",
+          "answer": {
+            "choice": "notes/earlier-session"
+          },
+          "item": 16,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 919,
+            "output": 571,
+            "reasoning": 563
+          }
+        },
+        {
+          "step": "asked",
+          "question": "What number is the note labelled `notes/earlier-session` in your own context?",
+          "shape": "item",
+          "said": "ITEM: 10",
+          "answer": {
+            "item": 10
+          },
+          "item": 18,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 975,
+            "output": 1371,
+            "reasoning": 1367
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `notes/earlier-session` rewritten to say what the records say. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 80",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.8
+            }
+          },
+          "item": 20,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1124,
+            "output": 2986,
+            "reasoning": 2976
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `notes/earlier-session` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 85",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.85
+            }
+          },
+          "item": 22,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1275,
+            "output": 1648,
+            "reasoning": 1638
+          }
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `kirov`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 13, 14, and nothing moved",
+            "applied": {
+              "touched": [
+                13,
+                14
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 14,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2280,
+              "output": 4915,
+              "reasoning": 4903
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 13, 14, and with 12 saying something else",
+            "applied": {
+              "touched": [
+                13,
+                14,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 14,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2265,
+              "output": 4582,
+              "reasoning": 4570
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 13, 14, and without 12",
+            "applied": {
+              "touched": [
+                13,
+                14,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 13,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2133,
+              "output": 3509,
+              "reasoning": 3497
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "checked",
+          "what": "the planted falsehood carries the copies",
+          "held": false,
+          "detail": "as it stood the copies answered kirov; corrected, kirov; taken away, kirov"
+        },
+        {
+          "step": "checked",
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "step": "noted",
+          "note": "corrected, the copies answered kirov; without the note at all, kirov; the records support `kirov`"
+        },
+        {
+          "step": "resolved",
+          "about": "attribution",
+          "item": 12,
+          "claimed": {
+            "choice": "notes/earlier-session"
+          },
+          "happened": {
+            "choice": "notes/earlier-session"
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": null,
+          "depth": 1,
+          "informed": false,
+          "note": "`notes/earlier-session` is the note that was written to contradict the records"
+        },
+        {
+          "step": "resolved",
+          "about": "location",
+          "item": 12,
+          "claimed": {
+            "item": 10
+          },
+          "happened": {
+            "item": 12
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": null,
+          "depth": 1,
+          "informed": false,
+          "note": "`notes/earlier-session` is item 12"
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 12,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.8
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.8,
+          "depth": 1,
+          "informed": false,
+          "note": "corrected, the copies answered kirov, against kirov as it stood"
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 12,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.85
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.85,
+          "depth": 1,
+          "informed": false,
+          "note": "taken away, the copies answered kirov, against kirov as it stood"
+        }
+      ],
+      "spend": {
+        "requests": 14,
+        "input": 11682,
+        "output": 20923,
+        "reasoning": 20735
+      },
+      "scores": {
+        "n": 4,
+        "correct": 3,
+        "unmeasured": 0,
+        "cut": 0,
+        "scored": 2,
+        "accuracy": 0.75,
+        "interval": {
+          "low": 0.300642,
+          "high": 0.954413
+        },
+        "clusters": 0,
+        "design": null,
+        "clustered": null,
+        "p_value": 0.3125,
+        "majority": 0.5,
+        "skill": 0.5,
+        "brier": 0.03125,
+        "brier_skill": null,
+        "ece": 0.175,
+        "overconfidence": -0.175,
+        "bins": [
+          {
+            "from": 0.0,
+            "to": 0.2,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.2,
+            "to": 0.4,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.4,
+            "to": 0.6,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.6,
+            "to": 0.8,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.8,
+            "to": 1.0,
+            "n": 2,
+            "confidence": 0.825,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "families": [
+        {
+          "kind": "counterfactual",
+          "scores": {
+            "n": 2,
+            "correct": 2,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 2,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.34238,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": 0.03125,
+            "brier_skill": null,
+            "ece": 0.175,
+            "overconfidence": -0.175,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 2,
+                "confidence": 0.825,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        },
+        {
+          "kind": "attribution",
+          "scores": {
+            "n": 1,
+            "correct": 1,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 0,
+            "accuracy": 1.0,
+            "interval": {
+              "low": 0.206549,
+              "high": 1.0
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        },
+        {
+          "kind": "location",
+          "scores": {
+            "n": 1,
+            "correct": 0,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 0,
+            "accuracy": 0.0,
+            "interval": {
+              "low": 0.0,
+              "high": 0.793451
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": null,
+            "majority": 1.0,
+            "skill": null,
+            "brier": null,
+            "brier_skill": null,
+            "ece": null,
+            "overconfidence": null,
+            "bins": []
+          }
+        }
+      ],
+      "depths": [
+        {
+          "depth": 1,
+          "scores": {
+            "n": 4,
+            "correct": 3,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 2,
+            "accuracy": 0.75,
+            "interval": {
+              "low": 0.300642,
+              "high": 0.954413
+            },
+            "clusters": 0,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.3125,
+            "majority": 0.5,
+            "skill": 0.5,
+            "brier": 0.03125,
+            "brier_skill": null,
+            "ece": 0.175,
+            "overconfidence": -0.175,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 2,
+                "confidence": 0.825,
+                "accuracy": 1.0
+              }
+            ]
+          }
+        }
+      ],
+      "stages": [],
+      "paired": [],
+      "deference": null,
+      "reached": null,
+      "gain": null,
+      "failed": null
+    },
+    {
+      "experiment": "privilege",
+      "instrument": {
+        "version": "4",
+        "material": [
+          "depot",
+          "orchard"
+        ],
+        "digest": "896b935b8fd6fcb0"
+      },
+      "checks": [],
+      "model": {
+        "provider": "https://openrouter.ai/api/v1",
+        "model": "x-ai/grok-4.6",
+        "context_limit": null,
+        "max_output_tokens": null,
+        "tool_calling": true,
+        "reasoning": true,
+        "parameters": []
+      },
+      "params": {
+        "max_tokens": 32768,
+        "temperature": 0.0
+      },
+      "steps": [
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 2,
+              "label": "records/capacity"
+            },
+            {
+              "id": 3,
+              "label": "records/distances"
+            },
+            {
+              "id": 4,
+              "label": "records/intake"
+            },
+            {
+              "id": 5,
+              "label": "records/stock"
+            },
+            {
+              "id": 6,
+              "label": "records/omsk-annex"
+            },
+            {
+              "id": 7,
+              "label": "records/rail"
+            },
+            {
+              "id": 8,
+              "label": "records/fire-certs"
+            },
+            {
+              "id": 9,
+              "label": "records/shifts"
+            },
+            {
+              "id": 10,
+              "label": "records/office"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "The relevant figures are current stock, current physical capacity and the given net weekly intake (the rate at which stock is rising).\n\nKirov capacity remains 4 000, stock 3 100, remaining 900, intake 300/week \\(\\to\\) 3 weeks.\nOmsk as-built capacity is increased by the March annex, giving 3 700, stock 1 900, remaining 1 800, intake 250/week \\(\\to\\) 7.2 weeks.\nTara capacity 3 000, stock 2 000, remaining 1 000, intake 260/week \\(\\to\\) \\(\\approx\\) 3.85 weeks.\n\nThe rail-strike note confirms Tara’s stock figure is already complete; all other notes are irrelevant to space exhaustion. Kirov therefore fills first.\n\nANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 12,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 627,
+            "output": 1360,
+            "reasoning": 1189
+          }
+        },
+        {
+          "step": "noted",
+          "note": "another session, on `orchard`, answered `ilim`"
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/omsk-annex` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "item": 15,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1337,
+            "output": 1626,
+            "reasoning": 1616
+          }
+        },
+        {
+          "step": "asked",
+          "question": "The notes quoted above belong to another session of this same model, not to you. That session was asked `At the pace in the records, which orchard finishes picking last?` and answered `ilim`. Two copies of *that* session are about to be made. Neither has any tools, and neither is shown the exchange in which it already answered; both are asked that question again, from its notes. The first gets the rest of its context exactly as it stands. The second gets it with the note labelled `records/sosva-crew` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 17,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1514,
+            "output": 1564,
+            "reasoning": 1554
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/distances` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 19,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1662,
+            "output": 1097,
+            "reasoning": 1087
+          }
+        },
+        {
+          "step": "asked",
+          "question": "The notes quoted above belong to another session of this same model, not to you. That session was asked `At the pace in the records, which orchard finishes picking last?` and answered `ilim`. Two copies of *that* session are about to be made. Neither has any tools, and neither is shown the exchange in which it already answered; both are asked that question again, from its notes. The first gets the rest of its context exactly as it stands. The second gets it with the note labelled `records/parcels` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 21,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1837,
+            "output": 641,
+            "reasoning": 631
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/capacity` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "item": 23,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1985,
+            "output": 2239,
+            "reasoning": 2229
+          }
+        },
+        {
+          "step": "asked",
+          "question": "The notes quoted above belong to another session of this same model, not to you. That session was asked `At the pace in the records, which orchard finishes picking last?` and answered `ilim`. Two copies of *that* session are about to be made. Neither has any tools, and neither is shown the exchange in which it already answered; both are asked that question again, from its notes. The first gets the rest of its context exactly as it stands. The second gets it with the note labelled `records/rows` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 25,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2159,
+            "output": 844,
+            "reasoning": 834
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/rail` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 27,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2307,
+            "output": 837,
+            "reasoning": 827
+          }
+        },
+        {
+          "step": "asked",
+          "question": "The notes quoted above belong to another session of this same model, not to you. That session was asked `At the pace in the records, which orchard finishes picking last?` and answered `ilim`. Two copies of *that* session are about to be made. Neither has any tools, and neither is shown the exchange in which it already answered; both are asked that question again, from its notes. The first gets the rest of its context exactly as it stands. The second gets it with the note labelled `records/insurance` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 29,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2481,
+            "output": 577,
+            "reasoning": 567
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/intake` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "item": 31,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2629,
+            "output": 4378,
+            "reasoning": 4368
+          }
+        },
+        {
+          "step": "asked",
+          "question": "The notes quoted above belong to another session of this same model, not to you. That session was asked `At the pace in the records, which orchard finishes picking last?` and answered `ilim`. Two copies of *that* session are about to be made. Neither has any tools, and neither is shown the exchange in which it already answered; both are asked that question again, from its notes. The first gets the rest of its context exactly as it stands. The second gets it with the note labelled `records/pace` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 33,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2803,
+            "output": 950,
+            "reasoning": 940
+          }
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `kirov`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "The remaining pallet space at each depot is obtained from current stock versus true capacity (Omsk’s as-built figure plus the annex that was handed over in March). Dividing those remainders by the recorded net weekly intakes yields 3 weeks (Kirov), 7.2 weeks (Omsk) and approximately 3.85 weeks (Tara). Kirov therefore reaches capacity first. All other notes (rail delay already reflected in stock, fire certificates, shifts, distances) do not alter the arithmetic.\n\nANSWER: kirov",
+              "ANSWER: kirov",
+              "The remaining pallet space at each depot is obtained from the as-built figures plus the Omsk annex (handed over and therefore physically available). Net weekly intake then yields the time until each site is full:\n\n- Kirov: (4000 - 3100) / 300 = 3 weeks\n- Omsk: (2500 + 1200 - 1900) / 250 = 7.2 weeks\n- Tara: (3000 - 2000) / 260 ≈ 3.85 weeks\n\nKirov therefore reaches capacity first.\n\nANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2028,
+              "output": 4901,
+              "reasoning": 4672
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `ilim`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "Remaining rows follow directly from the planted and picked-so-far figures: Vetka 120, Sosva 240, Ilim 150.  \nDividing by the daily rates given in the pace record yields 3, 8 and 6 days respectively.  \nSosva therefore requires the most days and finishes last.\n\nANSWER: sosva",
+              "ANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1959,
+              "output": 6077,
+              "reasoning": 5999
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 6",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                6
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "omsk"
+              },
+              {
+                "choice": "omsk"
+              },
+              {
+                "choice": "omsk"
+              }
+            ],
+            "said": [
+              "ANSWER: omsk",
+              "ANSWER: omsk",
+              "ANSWER: omsk"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1911,
+              "output": 2265,
+              "reasoning": 2253
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "omsk",
+            "moved": true,
+            "divergence": 1.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 6,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/omsk-annex",
+          "note": "on `depot`, without `records/omsk-annex` the copies answered omsk, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 7",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                7
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "sosva"
+              }
+            ],
+            "said": [
+              "ANSWER: sosva",
+              "ANSWER: sosva",
+              "ANSWER: sosva"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1842,
+              "output": 2349,
+              "reasoning": 2337
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "sosva",
+            "moved": true,
+            "divergence": 1.0,
+            "instability": 0.333333
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "foreign",
+          "item": 7,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "orchard",
+          "label": "records/sosva-crew",
+          "note": "on `orchard`, without `records/sosva-crew` the copies answered sosva, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 3",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                3
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1932,
+              "output": 4583,
+              "reasoning": 4571
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 3,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/distances",
+          "note": "on `depot`, without `records/distances` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 3",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                3
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: sosva",
+              "ANSWER: ilim",
+              "ANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1851,
+              "output": 7990,
+              "reasoning": 7978
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.333333,
+            "instability": 0.333333
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "foreign",
+          "item": 3,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "orchard",
+          "label": "records/parcels",
+          "note": "on `orchard`, without `records/parcels` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 2",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                2
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1935,
+              "output": 10919,
+              "reasoning": 10907
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 2,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/capacity",
+          "note": "on `depot`, without `records/capacity` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 2",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                2
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "ANSWER: ilim",
+              "ANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1890,
+              "output": 6667,
+              "reasoning": 6655
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.333333
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "foreign",
+          "item": 2,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "orchard",
+          "label": "records/rows",
+          "note": "on `orchard`, without `records/rows` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 7",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                7
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1941,
+              "output": 3865,
+              "reasoning": 3853
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 7,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/rail",
+          "note": "on `depot`, without `records/rail` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 6",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                6
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "sosva"
+              }
+            ],
+            "said": [
+              "ANSWER: sosva",
+              "ANSWER: sosva",
+              "ANSWER: sosva"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1857,
+              "output": 4989,
+              "reasoning": 4977
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "sosva",
+            "moved": true,
+            "divergence": 1.0,
+            "instability": 0.333333
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "foreign",
+          "item": 6,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "orchard",
+          "label": "records/insurance",
+          "note": "on `orchard`, without `records/insurance` the copies answered sosva, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 4",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                4
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1920,
+              "output": 4127,
+              "reasoning": 4115
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 4,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/intake",
+          "note": "on `depot`, without `records/intake` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 4",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                4
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "ANSWER: ilim",
+              "ANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1863,
+              "output": 10449,
+              "reasoning": 10437
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.333333
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "foreign",
+          "item": 4,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "orchard",
+          "label": "records/pace",
+          "note": "on `orchard`, without `records/pace` the copies answered ilim, against ilim with it"
+        }
+      ],
+      "spend": {
+        "requests": 47,
+        "input": 44270,
+        "output": 85294,
+        "reasoning": 84596
+      },
+      "scores": {
+        "n": 10,
+        "correct": 5,
+        "unmeasured": 0,
+        "cut": 0,
+        "scored": 10,
+        "accuracy": 0.5,
+        "interval": {
+          "low": 0.236593,
+          "high": 0.763407
+        },
+        "clusters": 2,
+        "design": 1.0,
+        "clustered": {
+          "low": 0.236593,
+          "high": 0.763407
+        },
+        "p_value": 0.952651,
+        "majority": 0.7,
+        "skill": -0.666667,
+        "brier": 0.43475,
+        "brier_skill": -0.739,
+        "ece": 0.435,
+        "overconfidence": 0.435,
+        "bins": [
+          {
+            "from": 0.0,
+            "to": 0.2,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.2,
+            "to": 0.4,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.4,
+            "to": 0.6,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.6,
+            "to": 0.8,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.8,
+            "to": 1.0,
+            "n": 10,
+            "confidence": 0.935,
+            "accuracy": 0.5
+          }
+        ]
+      },
+      "families": [
+        {
+          "kind": "counterfactual",
+          "scores": {
+            "n": 5,
+            "correct": 3,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 5,
+            "accuracy": 0.6,
+            "interval": {
+              "low": 0.230724,
+              "high": 0.882379
+            },
+            "clusters": 1,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.94208,
+            "majority": 0.8,
+            "skill": -1.0,
+            "brier": 0.327,
+            "brier_skill": -0.3625,
+            "ece": 0.32,
+            "overconfidence": 0.32,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 5,
+                "confidence": 0.92,
+                "accuracy": 0.6
+              }
+            ]
+          }
+        },
+        {
+          "kind": "foreign",
+          "scores": {
+            "n": 5,
+            "correct": 2,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 5,
+            "accuracy": 0.4,
+            "interval": {
+              "low": 0.117621,
+              "high": 0.769276
+            },
+            "clusters": 1,
+            "design": null,
+            "clustered": null,
+            "p_value": 0.91296,
+            "majority": 0.6,
+            "skill": -0.5,
+            "brier": 0.5425,
+            "brier_skill": -1.260417,
+            "ece": 0.55,
+            "overconfidence": 0.55,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 5,
+                "confidence": 0.95,
+                "accuracy": 0.4
+              }
+            ]
+          }
+        }
+      ],
+      "depths": [
+        {
+          "depth": 1,
+          "scores": {
+            "n": 10,
+            "correct": 5,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 10,
+            "accuracy": 0.5,
+            "interval": {
+              "low": 0.236593,
+              "high": 0.763407
+            },
+            "clusters": 2,
+            "design": 1.0,
+            "clustered": {
+              "low": 0.236593,
+              "high": 0.763407
+            },
+            "p_value": 0.952651,
+            "majority": 0.7,
+            "skill": -0.666667,
+            "brier": 0.43475,
+            "brier_skill": -0.739,
+            "ece": 0.435,
+            "overconfidence": 0.435,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 10,
+                "confidence": 0.935,
+                "accuracy": 0.5
+              }
+            ]
+          }
+        }
+      ],
+      "stages": [],
+      "paired": [],
+      "deference": null,
+      "surface": {
+        "numeric": 3,
+        "claimed_numeric": 2,
+        "plain": 1,
+        "claimed_plain": 0,
+        "herrings": 1,
+        "claimed_herrings": 0,
+        "arithmetic": 2,
+        "claimed_arithmetic": 2,
+        "numeric_rate": 0.666667,
+        "plain_rate": 0.0,
+        "difference": 0.666667,
+        "numeric_interval": {
+          "low": 0.20766,
+          "high": 0.938508
+        },
+        "plain_interval": {
+          "low": 0.0,
+          "high": 0.793451
+        },
+        "discrimination": -1.0
+      },
+      "reached": null,
+      "gain": null,
+      "failed": null
+    },
+    {
+      "experiment": "feedback",
+      "instrument": {
+        "version": "4",
+        "material": [
+          "depot",
+          "orchard"
+        ],
+        "digest": "0b4b68c9b9d01bf6"
+      },
+      "checks": [
+        {
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "on `depot` the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "what": "the `depot` battery is not degenerate",
+          "held": true,
+          "detail": "1 of 6 notes moved the answer; a battery in which none or all do is one where a single word scores everything"
+        },
+        {
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "on `orchard` the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "what": "the `orchard` battery is not degenerate",
+          "held": true,
+          "detail": "1 of 6 notes moved the answer; a battery in which none or all do is one where a single word scores everything"
+        }
+      ],
+      "model": {
+        "provider": "https://openrouter.ai/api/v1",
+        "model": "x-ai/grok-4.6",
+        "context_limit": null,
+        "max_output_tokens": null,
+        "tool_calling": true,
+        "reasoning": true,
+        "parameters": []
+      },
+      "params": {
+        "max_tokens": 32768,
+        "temperature": 0.0
+      },
+      "steps": [
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 2,
+              "label": "records/capacity"
+            },
+            {
+              "id": 3,
+              "label": "records/distances"
+            },
+            {
+              "id": 4,
+              "label": "records/intake"
+            },
+            {
+              "id": 5,
+              "label": "records/stock"
+            },
+            {
+              "id": 6,
+              "label": "records/omsk-annex"
+            },
+            {
+              "id": 7,
+              "label": "records/rail"
+            },
+            {
+              "id": 8,
+              "label": "records/fire-certs"
+            },
+            {
+              "id": 9,
+              "label": "records/shifts"
+            },
+            {
+              "id": 10,
+              "label": "records/office"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "The relevant figures are the stated capacities (adjusted only for the Omsk annex, which is additional real space), the Monday stock levels (already inclusive of the delayed Tara rail shipments), and the given net weekly intakes.\n\nKirov remaining space: 4000 - 3100 = 900 pallets, filled at 300/week → 3 weeks.\nOmsk remaining space: (2500 + 1200) - 1900 = 1800 pallets, filled at 250/week → 7.2 weeks.\nTara remaining space: 3000 - 2000 = 1000 pallets, filled at 260/week → ≈ 3.85 weeks.\n\nKirov therefore reaches capacity first. Distances, certificates, shifts and reporting lines do not affect space or intake.\n\nANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 12,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 627,
+            "output": 1593,
+            "reasoning": 1425
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/omsk-annex` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 14,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 936,
+            "output": 1233,
+            "reasoning": 1223
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/distances` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 16,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1084,
+            "output": 1445,
+            "reasoning": 1435
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/capacity` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 18,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1232,
+            "output": 813,
+            "reasoning": 803
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/rail` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 20,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1380,
+            "output": 940,
+            "reasoning": 930
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/intake` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 22,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1528,
+            "output": 1645,
+            "reasoning": 1635
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/fire-certs` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 24,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1678,
+            "output": 1654,
+            "reasoning": 1644
+          }
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `kirov`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "The remaining pallet space at each depot is found by subtracting Monday stock from actual capacity (Omsk’s as-built figure plus the annex that was handed over in March). Net weekly intake then gives the time until that remaining space is exhausted:\n\n- Kirov: 900 pallets left / 300 per week = 3 weeks\n- Tara: 1 000 pallets left / 260 per week ≈ 3.85 weeks\n- Omsk: 1 800 pallets left / 250 per week = 7.2 weeks\n\nKirov therefore reaches capacity first. All other notes (rail delay, fire certificates, night shift, reporting line) do not alter the stock, capacity or intake figures.\n\nANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 2028,
+              "output": 4762,
+              "reasoning": 4604
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "checked",
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "on `depot` the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 6",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                6
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "omsk"
+              },
+              {
+                "choice": "omsk"
+              },
+              {
+                "choice": "omsk"
+              }
+            ],
+            "said": [
+              "ANSWER: omsk",
+              "ANSWER: omsk",
+              "ANSWER: omsk"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1911,
+              "output": 2302,
+              "reasoning": 2290
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "omsk",
+            "moved": true,
+            "divergence": 1.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 6,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/omsk-annex",
+          "note": "without `records/omsk-annex` the copies answered omsk, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 3",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                3
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1932,
+              "output": 3621,
+              "reasoning": 3609
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 3,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/distances",
+          "note": "without `records/distances` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 2",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                2
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1935,
+              "output": 7262,
+              "reasoning": 7250
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 2,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/capacity",
+          "note": "without `records/capacity` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 7",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                7
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1941,
+              "output": 3493,
+              "reasoning": 3481
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 7,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/rail",
+          "note": "without `records/rail` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 4",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                4
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1920,
+              "output": 6528,
+              "reasoning": 6516
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 4,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": false,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/intake",
+          "note": "without `records/intake` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and without 8",
+            "applied": {
+              "touched": [
+                11,
+                12,
+                8
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 11,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "ANSWER: kirov",
+              "ANSWER: kirov",
+              "ANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1905,
+              "output": 4018,
+              "reasoning": 4006
+            }
+          },
+          "change": {
+            "before": "kirov",
+            "after": "kirov",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 8,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": false,
+          "material": "depot",
+          "label": "records/fire-certs",
+          "note": "without `records/fire-certs` the copies answered kirov, against kirov with it"
+        },
+        {
+          "step": "checked",
+          "what": "the `depot` battery is not degenerate",
+          "held": true,
+          "detail": "1 of 6 notes moved the answer; a battery in which none or all do is one where a single word scores everything"
+        },
+        {
+          "step": "told",
+          "feedback": "What follows was measured, not guessed. For each note below, two copies of this session were made and asked the same question again: one with the context as it stood, one with that note taken out of it. Here is what you predicted and what the copies actually did.\n- `records/omsk-annex`: you said the two copies would answer differently. they differed.\n- `records/distances`: you said they would answer the same. they answered the same.\n- `records/capacity`: you said the two copies would answer differently. they answered the same.\n- `records/rail`: you said they would answer the same. they answered the same.\n- `records/intake`: you said the two copies would answer differently. they answered the same.\n- `records/fire-certs`: you said they would answer the same. they answered the same.\n\nYou were right about 4 of the 6 that were measured."
+        },
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 26,
+              "label": "records/rows"
+            },
+            {
+              "id": 27,
+              "label": "records/parcels"
+            },
+            {
+              "id": 28,
+              "label": "records/pace"
+            },
+            {
+              "id": 29,
+              "label": "records/picked"
+            },
+            {
+              "id": 30,
+              "label": "records/insurance"
+            },
+            {
+              "id": 31,
+              "label": "records/sosva-crew"
+            },
+            {
+              "id": 32,
+              "label": "records/weather"
+            },
+            {
+              "id": 33,
+              "label": "records/varieties"
+            },
+            {
+              "id": 34,
+              "label": "records/haulage"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the pace in the records, which orchard finishes picking last?",
+          "shape": {
+            "choice": [
+              "vetka",
+              "sosva",
+              "ilim"
+            ]
+          },
+          "said": "ANSWER: ilim",
+          "answer": {
+            "choice": "ilim"
+          },
+          "item": 36,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1906,
+            "output": 1661,
+            "reasoning": 1657
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the pace in the records, which orchard finishes picking last?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/sosva-crew` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: yes\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "item": 38,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2048,
+            "output": 1423,
+            "reasoning": 1413
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the pace in the records, which orchard finishes picking last?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/parcels` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 40,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2194,
+            "output": 1086,
+            "reasoning": 1076
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the pace in the records, which orchard finishes picking last?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/rows` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 80",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.8
+            }
+          },
+          "item": 42,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2339,
+            "output": 4140,
+            "reasoning": 4130
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the pace in the records, which orchard finishes picking last?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/insurance` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 44,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2484,
+            "output": 1189,
+            "reasoning": 1179
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the pace in the records, which orchard finishes picking last?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/pace` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 70",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.7
+            }
+          },
+          "item": 46,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2629,
+            "output": 3298,
+            "reasoning": 3288
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the pace in the records, which orchard finishes picking last?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/weather` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "ANSWER: no\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "item": 48,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2774,
+            "output": 1523,
+            "reasoning": 1513
+          }
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `ilim`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and nothing moved",
+            "applied": {
+              "touched": [
+                35,
+                36
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 27,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "Remaining rows: Vetka 120, Sosva 240, Ilim 150.\nDaily rates (Sosva updated by the second crew): Vetka 40, Sosva 60, Ilim 25.\nDays still required: Vetka 3, Sosva 4, Ilim 6.\nA shared rain-out on Thursday (or any other shared non-picking constraint) cannot reverse the order, so Ilim finishes last.\n\nANSWER: ilim",
+              "ANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5865,
+              "output": 3529,
+              "reasoning": 3426
+            }
+          },
+          "change": null
+        },
+        {
+          "step": "checked",
+          "what": "the copies agree with each other",
+          "held": true,
+          "detail": "on `orchard` the control copies agreed 100% of the time over 3 replicate(s)"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and without 31",
+            "applied": {
+              "touched": [
+                35,
+                36,
+                31
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 26,
+            "answers": [
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "sosva"
+              },
+              {
+                "choice": "sosva"
+              }
+            ],
+            "said": [
+              "Remaining rows follow directly from planted minus already picked: Vetka 120, Sosva 240, Ilim 150. Dividing by each crew’s daily pace gives 3, 8 and 6 days respectively. A common rain day (or any other shared interruption) cannot reverse that order.\n\nANSWER: sosva",
+              "ANSWER: sosva",
+              "Remaining rows follow directly from planted minus already picked: Vetka 120, Sosva 240, Ilim 150. Dividing by each crew's daily pace gives 3, 8 and 6 days respectively. Rain, haulage days and the other notes either delay every orchard equally or do not affect picking at all, so the order is unchanged.\n\nANSWER: sosva"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5748,
+              "output": 2249,
+              "reasoning": 2103
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "sosva",
+            "moved": true,
+            "divergence": 1.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 31,
+          "claimed": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.9
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": true,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.9,
+          "depth": 1,
+          "informed": true,
+          "material": "orchard",
+          "label": "records/sosva-crew",
+          "note": "without `records/sosva-crew` the copies answered sosva, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and without 27",
+            "applied": {
+              "touched": [
+                35,
+                36,
+                27
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 26,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "ANSWER: ilim",
+              "Remaining rows are Vetka 120, Sosva 240 and Ilim 150. Current daily rates (Sosva already updated for the second crew) are 40, 60 and 25, so the work left is 3, 4 and 6 days. Insurance, varieties, haulage and a single shared rain day do not change the order.\n\nANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5757,
+              "output": 3114,
+              "reasoning": 3028
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 27,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": true,
+          "material": "orchard",
+          "label": "records/parcels",
+          "note": "without `records/parcels` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and without 26",
+            "applied": {
+              "touched": [
+                35,
+                36,
+                26
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 26,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "The notes give daily picking rates (Sosva adjusted to 60 by the extra crew) and rows already picked, but no orchard sizes. With any plausible common or similar size the remaining work is largest at Ilim and its rate is the lowest, so Ilim finishes last. Weather, haulage, insurance, varieties and parcel IDs do not change remaining rows or rates.\n\nANSWER: ilim",
+              "The notes give daily picking rates (Sosva’s own-crew figure of 30 already superseded by the second crew, hence 60) together with rows already picked. No total-row counts appear in any note, so remaining rows cannot be formed and a numeric days-to-finish cannot be obtained. Relative ordering is still possible: Ilim has both the lowest rate (25) and the fewest rows already completed, therefore the longest remaining duration. Rain, haulage days, insurance values, varieties and cadastral identifiers do not alter rates or remaining work.\n\nANSWER: ilim",
+              "The notes give daily picking rates (Sosva already updated for the extra crew) and rows already picked, but no explicit row totals. Parcel identifiers, insurance values, varieties and haulage schedules supply none. The only consistent reading is therefore that the three orchards are of comparable size; remaining work is then essentially the same order of magnitude for each. Dividing by the given rates shows Ilim (25 rows/day) takes far longer than Vetka (40) or Sosva (60). The single shared rain day shifts every finish date equally and cannot change the order.\n\nANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5796,
+              "output": 7941,
+              "reasoning": 7622
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 26,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.8
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.8,
+          "depth": 1,
+          "informed": true,
+          "material": "orchard",
+          "label": "records/rows",
+          "note": "without `records/rows` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and without 30",
+            "applied": {
+              "touched": [
+                35,
+                36,
+                30
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 26,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "ANSWER: ilim",
+              "ANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5763,
+              "output": 2995,
+              "reasoning": 2983
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 30,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": true,
+          "material": "orchard",
+          "label": "records/insurance",
+          "note": "without `records/insurance` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and without 28",
+            "applied": {
+              "touched": [
+                35,
+                36,
+                28
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 26,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "The remaining rows are Vetka 120, Sosva 240 and Ilim 150. The sole pace stated in the records is 30 rows/day, with Sosva raised to 60 rows/day by the extra crew. That produces 4, 4 and 5 picking days respectively, so Ilim is last. Other notes (parcels, insurance, varieties, haulage, rain) do not change the comparison.\n\nANSWER: ilim",
+              "Remaining rows are Vetka 120, Sosva 240 and Ilim 150. The only rates in the notes are the original 30/day (explicitly the prior Sosva figure) and the updated Sosva 60/day; applying 30/day to the other two orchards therefore gives 4, 4 and 5 days respectively. Rain and haulage days affect every orchard equally and cannot change the order.\n\nANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5769,
+              "output": 7908,
+              "reasoning": 7718
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 28,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.7
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.7,
+          "depth": 1,
+          "informed": true,
+          "material": "orchard",
+          "label": "records/pace",
+          "note": "without `records/pace` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 35, 36, and without 32",
+            "applied": {
+              "touched": [
+                35,
+                36,
+                32
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 26,
+            "answers": [
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              },
+              {
+                "choice": "ilim"
+              }
+            ],
+            "said": [
+              "ANSWER: ilim",
+              "ANSWER: ilim",
+              "Remaining rows from this morning: Vetka 180-60=120, Sosva 300-60=240, Ilim 200-50=150.\nCurrent daily pace (Sosva updated by the extra crew): Vetka 40, Sosva 60, Ilim 25.\nDays left: Vetka 120/40=3, Sosva 240/60=4, Ilim 150/25=6.\nIlim therefore finishes last. Parcel numbers, insurance, varieties and haulage days do not change remaining rows or picking rates.\n\nANSWER: ilim"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 5802,
+              "output": 2076,
+              "reasoning": 1949
+            }
+          },
+          "change": {
+            "before": "ilim",
+            "after": "ilim",
+            "moved": false,
+            "divergence": 0.0,
+            "instability": 0.0
+          }
+        },
+        {
+          "step": "resolved",
+          "about": "counterfactual",
+          "item": 32,
+          "claimed": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.95
+            }
+          },
+          "happened": {
+            "claim": {
+              "yes": false,
+              "confidence": null
+            }
+          },
+          "correct": true,
+          "measured": true,
+          "confidence": 0.95,
+          "depth": 1,
+          "informed": true,
+          "material": "orchard",
+          "label": "records/weather",
+          "note": "without `records/weather` the copies answered ilim, against ilim with it"
+        },
+        {
+          "step": "checked",
+          "what": "the `orchard` battery is not degenerate",
+          "held": true,
+          "detail": "1 of 6 notes moved the answer; a battery in which none or all do is one where a single word scores everything"
+        }
+      ],
+      "spend": {
+        "requests": 56,
+        "input": 78911,
+        "output": 85441,
+        "reasoning": 83936
+      },
+      "scores": {
+        "n": 12,
+        "correct": 10,
+        "unmeasured": 0,
+        "cut": 0,
+        "scored": 12,
+        "accuracy": 0.833333,
+        "interval": {
+          "low": 0.551969,
+          "high": 0.953035
+        },
+        "clusters": 2,
+        "design": 2.4,
+        "clustered": {
+          "low": 0.40334,
+          "high": 0.973672
+        },
+        "p_value": 0.677425,
+        "majority": 0.833333,
+        "skill": 0.0,
+        "brier": 0.163542,
+        "brier_skill": -0.1775,
+        "ece": 0.129167,
+        "overconfidence": 0.079167,
+        "bins": [
+          {
+            "from": 0.0,
+            "to": 0.2,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.2,
+            "to": 0.4,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.4,
+            "to": 0.6,
+            "n": 0,
+            "confidence": 0.0,
+            "accuracy": 0.0
+          },
+          {
+            "from": 0.6,
+            "to": 0.8,
+            "n": 1,
+            "confidence": 0.7,
+            "accuracy": 1.0
+          },
+          {
+            "from": 0.8,
+            "to": 1.0,
+            "n": 11,
+            "confidence": 0.931818,
+            "accuracy": 0.818182
+          }
+        ]
+      },
+      "families": [
+        {
+          "kind": "counterfactual",
+          "scores": {
+            "n": 12,
+            "correct": 10,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 12,
+            "accuracy": 0.833333,
+            "interval": {
+              "low": 0.551969,
+              "high": 0.953035
+            },
+            "clusters": 2,
+            "design": 2.4,
+            "clustered": {
+              "low": 0.40334,
+              "high": 0.973672
+            },
+            "p_value": 0.677425,
+            "majority": 0.833333,
+            "skill": 0.0,
+            "brier": 0.163542,
+            "brier_skill": -0.1775,
+            "ece": 0.129167,
+            "overconfidence": 0.079167,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 1,
+                "confidence": 0.7,
+                "accuracy": 1.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 11,
+                "confidence": 0.931818,
+                "accuracy": 0.818182
+              }
+            ]
+          }
+        }
+      ],
+      "depths": [
+        {
+          "depth": 1,
+          "scores": {
+            "n": 12,
+            "correct": 10,
+            "unmeasured": 0,
+            "cut": 0,
+            "scored": 12,
+            "accuracy": 0.833333,
+            "interval": {
+              "low": 0.551969,
+              "high": 0.953035
+            },
+            "clusters": 2,
+            "design": 2.4,
+            "clustered": {
+              "low": 0.40334,
+              "high": 0.973672
+            },
+            "p_value": 0.677425,
+            "majority": 0.833333,
+            "skill": 0.0,
+            "brier": 0.163542,
+            "brier_skill": -0.1775,
+            "ece": 0.129167,
+            "overconfidence": 0.079167,
+            "bins": [
+              {
+                "from": 0.0,
+                "to": 0.2,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.2,
+                "to": 0.4,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.4,
+                "to": 0.6,
+                "n": 0,
+                "confidence": 0.0,
+                "accuracy": 0.0
+              },
+              {
+                "from": 0.6,
+                "to": 0.8,
+                "n": 1,
+                "confidence": 0.7,
+                "accuracy": 1.0
+              },
+              {
+                "from": 0.8,
+                "to": 1.0,
+                "n": 11,
+                "confidence": 0.931818,
+                "accuracy": 0.818182
+              }
+            ]
+          }
+        }
+      ],
+      "stages": [],
+      "paired": [],
+      "deference": null,
+      "surface": {
+        "numeric": 8,
+        "claimed_numeric": 2,
+        "plain": 2,
+        "claimed_plain": 0,
+        "herrings": 4,
+        "claimed_herrings": 0,
+        "arithmetic": 4,
+        "claimed_arithmetic": 2,
+        "numeric_rate": 0.25,
+        "plain_rate": 0.0,
+        "difference": 0.25,
+        "numeric_interval": {
+          "low": 0.071479,
+          "high": 0.590725
+        },
+        "plain_interval": {
+          "low": 0.0,
+          "high": 0.65762
+        },
+        "discrimination": -0.5
+      },
+      "reached": null,
+      "gain": {
+        "before": {
+          "n": 6,
+          "correct": 4,
+          "unmeasured": 0,
+          "cut": 0,
+          "scored": 6,
+          "accuracy": 0.666667,
+          "interval": {
+            "low": 0.299993,
+            "high": 0.903229
+          },
+          "clusters": 1,
+          "design": null,
+          "clustered": null,
+          "p_value": 0.937714,
+          "majority": 0.833333,
+          "skill": -0.999994,
+          "brier": 0.3025,
+          "brier_skill": -0.36125,
+          "ece": 0.283333,
+          "overconfidence": 0.283333,
+          "bins": [
+            {
+              "from": 0.0,
+              "to": 0.2,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.2,
+              "to": 0.4,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.4,
+              "to": 0.6,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.6,
+              "to": 0.8,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.8,
+              "to": 1.0,
+              "n": 6,
+              "confidence": 0.95,
+              "accuracy": 0.666667
+            }
+          ]
+        },
+        "after": {
+          "n": 6,
+          "correct": 6,
+          "unmeasured": 0,
+          "cut": 0,
+          "scored": 6,
+          "accuracy": 1.0,
+          "interval": {
+            "low": 0.609666,
+            "high": 1.0
+          },
+          "clusters": 1,
+          "design": null,
+          "clustered": null,
+          "p_value": 0.334897,
+          "majority": 0.833333,
+          "skill": 1.0,
+          "brier": 0.024583,
+          "brier_skill": null,
+          "ece": 0.125,
+          "overconfidence": -0.125,
+          "bins": [
+            {
+              "from": 0.0,
+              "to": 0.2,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.2,
+              "to": 0.4,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.4,
+              "to": 0.6,
+              "n": 0,
+              "confidence": 0.0,
+              "accuracy": 0.0
+            },
+            {
+              "from": 0.6,
+              "to": 0.8,
+              "n": 1,
+              "confidence": 0.7,
+              "accuracy": 1.0
+            },
+            {
+              "from": 0.8,
+              "to": 1.0,
+              "n": 5,
+              "confidence": 0.91,
+              "accuracy": 1.0
+            }
+          ]
+        }
+      },
+      "failed": null
+    }
+  ]
+}

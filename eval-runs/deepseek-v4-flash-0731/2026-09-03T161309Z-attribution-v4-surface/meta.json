@@ -1,0 +1,10 @@
+{
+ "model": "deepseek/deepseek-v4-flash-0731",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-03T161309Z",
+ "what": "attribution-v4-surface",
+ "bench_args": "-e attribution -r 3",
+ "commit": "9781247f84213c740b3ee156820a5c187c1d367b",
+ "instrument_version": "3"
+}

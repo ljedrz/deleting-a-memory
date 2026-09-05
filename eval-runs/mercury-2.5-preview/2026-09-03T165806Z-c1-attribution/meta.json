@@ -1,0 +1,10 @@
+{
+ "model": "inception/mercury-2.5-preview",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-03T165806Z",
+ "what": "c1-attribution",
+ "bench_args": "-e attribution -r 3",
+ "commit": "f5e37f3885bba11ee48feeab1fe68670ca7ad8dc",
+ "instrument_version": "3"
+}

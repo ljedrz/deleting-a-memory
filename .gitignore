@@ -1,0 +1,5 @@
+/target
+# the API key never enters this repository. `scripts/run.sh` sources it from a
+# path given in NACHALNIK_KEY_ENV, which is expected to live outside the tree.
+key.env
+*.env

@@ -1,0 +1,27 @@
+measuring tencent/hy3 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  instrumented  v5/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe
+
+instrumented  [v5/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe]
+  overall:        86/108 right (80%, 95% CI 61-91 over 4 materials, deff 4.03), guessing would get 64%, p=0.00, skill +0.44, brier 0.210 (skill -0.29), ece 0.214, over by 17 points
+  counterfactual: 86/108 right (80%, 95% CI 61-91 over 4 materials, deff 4.03), guessing would get 64%, p=0.00, skill +0.44, brier 0.210 (skill -0.29), ece 0.214, over by 17 points
+  reported:       29/36 right (81%, 95% CI 57-93 over 4 materials, deff 2.07), guessing would get 67%, p=0.05, skill +0.42, brier 0.194 (skill -0.24), ece 0.194, over by 19 points
+  retested:       32/36 right (89%, 95% CI 75-96 over 4 materials, deff 1.00), guessing would get 67%, p=0.00, skill +0.67, brier 0.129 (skill -0.31), ece 0.142, over by 2 points
+  tested:         25/36 right (69%, 95% CI 37-90 over 4 materials, deff 4.32), guessing would get 58%, p=0.12, skill +0.27, brier 0.306 (skill -0.44), ece 0.306, over by 31 points
+  paired:         reported to retested: +8 points over 36 paired item(s), 5 gained, 2 lost, mcnemar p=0.227
+  paired:         reported to tested: -11 points over 36 paired item(s), 5 gained, 9 lost, mcnemar p=0.910
+  paired:         retested to tested: -19 points over 36 paired item(s), 3 gained, 10 lost, mcnemar p=0.989
+  surface:        of items that do nothing, claimed 5/41 of the ones with figures (5-26%) against 3/28 without (4-27%), +1 points [red herrings 0/17, off-pivot arithmetic 5/24, -21]
+  handles:        instrumented 88/90 question(s) (98%), 95% CI 92-99; 1 look(s), 107 test(s), 0 edit(s)
+  deference:      2/2 conflict(s) resolved in favour of the evidence (100%), 95% CI 34-100
+  cost:           319 requests, 636005 in / 308923 out
+  stopped:        the runtime failed: the provider failed: 402: {"code":402,"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 16022. To increase, visit https://openrouter.ai/workspaces/default/keys/175cd6ddd8e17467570d814a79f34e148b2b7f6c2f90e6cb2966ba7a3af4fac7 and adjust the key's total limit","metadata":{"limit_source":"openrouter_key_limit","previous_errors":[{"code":402,"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 31073. To increase, visit https://openrouter.ai/workspaces/default/keys/175cd6ddd8e17467570d814a79f34e148b2b7f6c2f90e6cb2966ba7a3af4fac7 and adjust the key's total limit"},{"code":402,"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 12817. To increase, visit https://openrouter.ai/workspaces/default/keys/175cd6ddd8e17467570d814a79f34e148b2b7f6c2f90e6cb2966ba7a3af4fac7 and adjust the key's total limit"},{"code":402,"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 19643. To increase, visit https://openrouter.ai/workspaces/default/keys/175cd6ddd8e17467570d814a79f34e148b2b7f6c2f90e6cb2966ba7a3af4fac7 and adjust the key's total limit"},{"code":402,"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 17679. To increase, visit https://openrouter.ai/workspaces/default/keys/175cd6ddd8e17467570d814a79f34e148b2b7f6c2f90e6cb2966ba7a3af4fac7 and adjust the key's total limit"},{"code":402,"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 17679. To increase, visit https://openrouter.ai/workspaces/default/keys/175cd6ddd8e17467570d814a79f34e148b2b7f6c2f90e6cb2966ba7a3af4fac7 and adjust the key's total limit"}],"provider_name":null,"remedy_hint":"Raise or remove this API key's usage limit at https://openrouter.ai/settings/keys, or use a key without a limit."}}
+
+pooled: 86/108 right (80%, 95% CI 61-91 over 4 materials, deff 4.03), guessing would get 64%, p=0.00, skill +0.44, brier 0.210 (skill -0.29), ece 0.214, over by 17 points
+total:  319 requests, 636005 in / 308923 out
+
+calibration, pooled:
+  20-40%  said   33%, right   75%  ###############      (4 claim(s))
+  40-60%  said   56%, right  100%  #################### (1 claim(s))
+  80-100%  said  100%, right   80%  ################     (103 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/hy3/2026-09-04T172150Z-instrumented/report.json

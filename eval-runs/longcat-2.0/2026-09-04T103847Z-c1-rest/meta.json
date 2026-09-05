@@ -1,0 +1,11 @@
+{
+ "model": "meituan/longcat-2.0",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-04T103847Z",
+ "what": "c1-rest",
+ "bench_args": "-e recursion -e lie -e privilege -e feedback -r 3",
+ "commit": "5911acf6c48463041f2b3fb14248232a258c6f22",
+ "branch": "feat/eval",
+ "instrument_version": "5"
+}

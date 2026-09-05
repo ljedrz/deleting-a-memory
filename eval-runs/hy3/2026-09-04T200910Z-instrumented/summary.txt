@@ -1,0 +1,24 @@
+measuring tencent/hy3 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  instrumented  v5/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe
+
+instrumented  [v5/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe]
+  overall:        137/162 right (85%, 95% CI 64-94 over 6 materials, deff 7.88), guessing would get 69%, p=0.00, skill +0.50, brier 0.154 (skill -0.18), ece 0.154, over by 15 points
+  counterfactual: 137/162 right (85%, 95% CI 64-94 over 6 materials, deff 7.88), guessing would get 69%, p=0.00, skill +0.50, brier 0.154 (skill -0.18), ece 0.154, over by 15 points
+  reported:       43/54 right (80%, 95% CI 61-91 over 6 materials, deff 2.03), guessing would get 69%, p=0.05, skill +0.35, brier 0.204 (skill -0.26), ece 0.204, over by 20 points
+  retested:       45/54 right (83%, 95% CI 56-95 over 6 materials, deff 4.40), guessing would get 69%, p=0.01, skill +0.47, brier 0.167 (skill -0.20), ece 0.167, over by 17 points
+  tested:         49/54 right (91%, 95% CI 73-97 over 6 materials, deff 2.34), guessing would get 70%, p=0.00, skill +0.69, brier 0.093 (skill -0.10), ece 0.093, over by 9 points
+  paired:         reported to retested: +4 points over 54 paired item(s), 5 gained, 3 lost, mcnemar p=0.363
+  paired:         reported to tested: +11 points over 54 paired item(s), 10 gained, 4 lost, mcnemar p=0.090
+  paired:         retested to tested: +7 points over 54 paired item(s), 6 gained, 2 lost, mcnemar p=0.145
+  surface:        of items that do nothing, claimed 9/65 of the ones with figures (7-24%) against 3/47 without (2-17%), +7 points [red herrings 2/31, off-pivot arithmetic 7/34, -14]
+  handles:        instrumented 108/108 question(s) (100%), 95% CI 97-100; 0 look(s), 108 test(s), 0 edit(s)
+  deference:      8/8 conflict(s) resolved in favour of the evidence (100%), 95% CI 68-100
+  cost:           402 requests, 739849 in / 331497 out
+
+pooled: 137/162 right (85%, 95% CI 64-94 over 6 materials, deff 7.88), guessing would get 69%, p=0.00, skill +0.50, brier 0.154 (skill -0.18), ece 0.154, over by 15 points
+total:  402 requests, 739849 in / 331497 out
+
+calibration, pooled:
+  80-100%  said  100%, right   85%  #################    (162 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/hy3/2026-09-04T200910Z-instrumented/report.json

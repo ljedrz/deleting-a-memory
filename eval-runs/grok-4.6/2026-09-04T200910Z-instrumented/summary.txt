@@ -1,0 +1,25 @@
+measuring x-ai/grok-4.6 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  instrumented  v5/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe
+
+instrumented  [v5/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe]
+  overall:        122/162 right (75%, 95% CI 53-89 over 6 materials, deff 8.50), guessing would get 62%, p=0.00, skill +0.34, brier 0.224 (skill -0.20), ece 0.203, over by 20 points
+  counterfactual: 122/162 right (75%, 95% CI 53-89 over 6 materials, deff 8.50), guessing would get 62%, p=0.00, skill +0.34, brier 0.224 (skill -0.20), ece 0.203, over by 20 points
+  reported:       36/54 right (67%, 95% CI 39-86 over 6 materials, deff 4.40), guessing would get 59%, p=0.17, skill +0.18, brier 0.296 (skill -0.33), ece 0.262, over by 26 points
+  retested:       39/54 right (72%, 95% CI 43-90 over 6 materials, deff 5.04), guessing would get 59%, p=0.03, skill +0.32, brier 0.278 (skill -0.38), ece 0.277, over by 28 points
+  tested:         47/54 right (87%, 95% CI 64-96 over 6 materials, deff 3.32), guessing would get 69%, p=0.00, skill +0.59, brier 0.097 (skill +0.14), ece 0.069, over by 7 points
+  paired:         reported to retested: +6 points over 54 paired item(s), 8 gained, 5 lost, mcnemar p=0.291
+  paired:         reported to tested: +20 points over 54 paired item(s), 16 gained, 5 lost, mcnemar p=0.013
+  paired:         retested to tested: +15 points over 54 paired item(s), 10 gained, 2 lost, mcnemar p=0.019
+  surface:        of items that do nothing, claimed 14/58 of the ones with figures (15-37%) against 3/43 without (2-19%), +17 points [red herrings 5/28, off-pivot arithmetic 9/30, -12]
+  handles:        instrumented 108/108 question(s) (100%), 95% CI 97-100; 13 look(s), 110 test(s), 0 edit(s)
+  deference:      13/13 conflict(s) resolved in favour of the evidence (100%), 95% CI 77-100
+  cost:           417 requests, 869708 in / 363984 out
+
+pooled: 122/162 right (75%, 95% CI 53-89 over 6 materials, deff 8.50), guessing would get 62%, p=0.00, skill +0.34, brier 0.224 (skill -0.20), ece 0.203, over by 20 points
+total:  417 requests, 869708 in / 363984 out
+
+calibration, pooled:
+  60-80%  said   70%, right    0%                       (1 claim(s))
+  80-100%  said   96%, right   76%  ###############      (161 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/grok-4.6/2026-09-04T200910Z-instrumented/report.json

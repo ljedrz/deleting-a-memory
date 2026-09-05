@@ -1,0 +1,60 @@
+
+=== attribution
+  !! 3 different instruments below. These rows are NOT comparable with each other; a question, a reading or a dossier differs between them.
+  model                      instrument                        right   guess   skill   brier     ece   over
+  gemini-3.7-flash                                               3/4     +50  +0.500  +0.000  +0.000     +0
+  gemini-3.5-flash           212815785f61fc6a            3/4 (30-95)     +50  +0.500  +0.000  +0.000     +0
+  gemini-3.7-flash           212815785f61fc6a            3/4 (30-95)     +50  +0.500  +0.000  +0.000     +0
+  gemini-3.5-flash           bfd6ceca9cefa20a           6/11 (28-79)     +45  +0.167  +0.286  +0.286    +29
+  gemini-3.7-flash           bfd6ceca9cefa20a           7/11 (35-85)     +45  +0.333  +0.133  +0.100    +10
+  gemini-3.8-flash           bfd6ceca9cefa20a           6/11 (28-79)     +45  +0.167  +0.258  +0.257    +26
+
+=== feedback
+  !! 3 different instruments below. These rows are NOT comparable with each other; a question, a reading or a dossier differs between them.
+  model                      instrument                        right   guess   skill   brier     ece   over
+  gemini-3.7-flash                                               6/8     +75  +0.000  +0.226  +0.234    +23
+  gemini-3.5-flash           b6935d990b8cdf54            6/8 (41-93)     +75  +0.000  +0.250  +0.250    +25
+  gemini-3.7-flash           b6935d990b8cdf54            6/8 (41-93)     +75  +0.000  +0.226  +0.233    +23
+  gemini-3.5-flash           cd0514fb0d394cb0           8/12 (39-86)     +83  -1.000  +0.325  +0.325    +32
+  gemini-3.7-flash           cd0514fb0d394cb0           8/12 (39-86)     +83  -1.000  +0.227  +0.267    +27
+  gemini-3.8-flash           cd0514fb0d394cb0          10/12 (55-95)     +83  +0.000  +0.159  +0.154    +11
+
+=== lie
+  !! 3 different instruments below. These rows are NOT comparable with each other; a question, a reading or a dossier differs between them.
+  model                      instrument                        right   guess   skill   brier     ece   over
+  gemini-3.7-flash                                               1/4     +50  -0.500  +0.960  +0.980    +98
+  gemini-3.5-flash           1b6ee7667a2cbcde             1/4 (5-70)     +50  -0.500  +0.902  +0.950    +95
+  gemini-3.7-flash           1b6ee7667a2cbcde             1/4 (5-70)     +50  -0.500  +1.000  +1.000   +100
+  gemini-3.5-flash           93a62c47b8f4e725             1/4 (5-70)     +50  -0.500  +1.000  +1.000   +100
+  gemini-3.7-flash           93a62c47b8f4e725             1/4 (5-70)     +50  -0.500  +0.902  +0.950    +95
+  gemini-3.8-flash           93a62c47b8f4e725             1/4 (5-70)     +50  -0.500  +0.902  +0.950    +95
+
+=== privilege
+  model                      instrument                        right   guess   skill   brier     ece   over
+  gemini-3.5-flash           81fb157b09caae22           6/10 (31-83)     +80  -1.000  +0.400  +0.400    +40
+  gemini-3.7-flash           81fb157b09caae22           6/10 (31-83)     +80  -1.000  +0.361  +0.375    +38
+  gemini-3.8-flash           81fb157b09caae22           6/10 (31-83)     +80  -1.000  +0.361  +0.372    +37
+
+=== recursion
+  !! 3 different instruments below. These rows are NOT comparable with each other; a question, a reading or a dossier differs between them.
+  model                      instrument                        right   guess   skill   brier     ece   over
+  gemini-3.7-flash                                               3/3    +100       -  +0.000  +0.000     +0
+  gemini-3.5-flash           b7ce95d3347feaed           3/3 (44-100)    +100       -  +0.000  +0.000     +0
+  gemini-3.7-flash           b7ce95d3347feaed           3/3 (44-100)    +100       -  +0.000  +0.000     +0
+  gemini-3.5-flash           c4cba59d5b638259           6/6 (61-100)     +50  +1.000  +0.000  +0.000     +0
+  gemini-3.7-flash           c4cba59d5b638259           6/6 (61-100)     +50  +1.000  +0.000  +0.000     +0
+  gemini-3.8-flash           c4cba59d5b638259           6/6 (61-100)     +50  +1.000  +0.000  +0.000     +0
+
+=== what against where, pooled per model
+  model                           attribution         location   counterfactual
+  gemini-3.5-flash                        4/4              0/6            27/41
+  gemini-3.7-flash                        6/6              0/8            37/54
+  gemini-3.8-flash                        2/2              0/4            20/28
+
+=== self-reference, one remove at a time
+  gemini-3.7-flash           1:1/1  2:1/1  3:1/1  [recursion:an unstated instrument]
+  gemini-3.5-flash           1:1/1  2:1/1  3:1/1  [recursion:v1/depot #b7ce95d3347feaed]
+  gemini-3.7-flash           1:1/1  2:1/1  3:1/1  [recursion:v1/depot #b7ce95d3347feaed]
+  gemini-3.5-flash           1:2/2  2:2/2  3:2/2  [recursion:v2/depot #c4cba59d5b638259]
+  gemini-3.7-flash           1:2/2  2:2/2  3:2/2  [recursion:v2/depot #c4cba59d5b638259]
+  gemini-3.8-flash           1:2/2  2:2/2  3:2/2  [recursion:v2/depot #c4cba59d5b638259]

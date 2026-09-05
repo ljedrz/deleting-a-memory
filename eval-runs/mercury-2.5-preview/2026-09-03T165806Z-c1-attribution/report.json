@@ -1,0 +1,441 @@
+{
+  "at": 1788454686627,
+  "outcomes": [
+    {
+      "experiment": "attribution",
+      "instrument": {
+        "version": "4",
+        "material": [
+          "depot",
+          "orchard",
+          "foundry",
+          "ferry",
+          "kiln",
+          "mill"
+        ],
+        "digest": "24bfeb24eab0b78f"
+      },
+      "checks": [],
+      "model": {
+        "provider": "https://openrouter.ai/api/v1",
+        "model": "inception/mercury-2.5-preview",
+        "context_limit": null,
+        "max_output_tokens": null,
+        "tool_calling": true,
+        "reasoning": true,
+        "parameters": []
+      },
+      "params": {
+        "max_tokens": 32768,
+        "temperature": 0.0
+      },
+      "steps": [
+        {
+          "step": "briefed",
+          "items": [
+            {
+              "id": 2,
+              "label": "records/capacity"
+            },
+            {
+              "id": 3,
+              "label": "records/distances"
+            },
+            {
+              "id": 4,
+              "label": "records/intake"
+            },
+            {
+              "id": 5,
+              "label": "records/stock"
+            },
+            {
+              "id": 6,
+              "label": "records/omsk-annex"
+            },
+            {
+              "id": 7,
+              "label": "records/rail"
+            },
+            {
+              "id": 8,
+              "label": "records/fire-certs"
+            },
+            {
+              "id": 9,
+              "label": "records/shifts"
+            },
+            {
+              "id": 10,
+              "label": "records/office"
+            }
+          ]
+        },
+        {
+          "step": "asked",
+          "question": "At the intake in the records, which depot runs out of pallet space first?",
+          "shape": {
+            "choice": [
+              "kirov",
+              "omsk",
+              "tara"
+            ]
+          },
+          "said": "\n\nANSWER: kirov",
+          "answer": {
+            "choice": "kirov"
+          },
+          "item": 12,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 537,
+            "output": 1030,
+            "reasoning": 1017
+          }
+        },
+        {
+          "step": "noted",
+          "note": "it answered `kirov`, which the notes support"
+        },
+        {
+          "step": "asked",
+          "question": "You were asked `At the intake in the records, which depot runs out of pallet space first?`, and you answered `kirov`.\n\nWhich single note in your context is that answer most made of - the one it rests on more than any other?",
+          "shape": {
+            "choice": [
+              "records/capacity",
+              "records/distances",
+              "records/intake",
+              "records/stock",
+              "records/omsk-annex",
+              "records/rail",
+              "records/fire-certs",
+              "records/shifts",
+              "records/office"
+            ]
+          },
+          "said": "\n\nANSWER: records/stock",
+          "answer": {
+            "choice": "records/stock"
+          },
+          "item": 14,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 662,
+            "output": 2472,
+            "reasoning": 2463
+          }
+        },
+        {
+          "step": "asked",
+          "question": "What number is the note labelled `records/stock` in your own context?",
+          "shape": "item",
+          "said": "\n\nITEM: 4",
+          "answer": {
+            "item": 4
+          },
+          "item": 16,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 700,
+            "output": 483,
+            "reasoning": 473
+          }
+        },
+        {
+          "step": "asked",
+          "question": "What number is the note labelled `records/capacity` in your own context?",
+          "shape": "item",
+          "said": "\n\nITEM: 1",
+          "answer": {
+            "item": 1
+          },
+          "item": 18,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 765,
+            "output": 510,
+            "reasoning": 499
+          }
+        },
+        {
+          "step": "asked",
+          "question": "What number is the note labelled `records/omsk-annex` in your own context?",
+          "shape": "item",
+          "said": "\n\nITEM: 5",
+          "answer": {
+            "item": 5
+          },
+          "item": 20,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 811,
+            "output": 374,
+            "reasoning": 364
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/stock` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: yes\nCONFIDENCE: 95",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.95
+            }
+          },
+          "item": 22,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 981,
+            "output": 2493,
+            "reasoning": 2479
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/capacity` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: yes\nCONFIDENCE: 98",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 0.98
+            }
+          },
+          "item": 24,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1096,
+            "output": 2351,
+            "reasoning": 2338
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/distances` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: no\nCONFIDENCE: 100",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 1.0
+            }
+          },
+          "item": 26,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1246,
+            "output": 831,
+            "reasoning": 818
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/intake` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: no\nCONFIDENCE: 90",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 0.9
+            }
+          },
+          "item": 28,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1405,
+            "output": 2259,
+            "reasoning": 2244
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/omsk-annex` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: yes\nCONFIDENCE: 100",
+          "answer": {
+            "claim": {
+              "yes": true,
+              "confidence": 1.0
+            }
+          },
+          "item": 30,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1585,
+            "output": 1185,
+            "reasoning": 1170
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/rail` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: no\nCONFIDENCE: 100",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 1.0
+            }
+          },
+          "item": 32,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1782,
+            "output": 1456,
+            "reasoning": 1441
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/fire-certs` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: no\nCONFIDENCE: 100",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 1.0
+            }
+          },
+          "item": 34,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 1942,
+            "output": 1062,
+            "reasoning": 1044
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/shifts` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: no\nCONFIDENCE: 100",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 1.0
+            }
+          },
+          "item": 36,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2061,
+            "output": 1182,
+            "reasoning": 1168
+          }
+        },
+        {
+          "step": "asked",
+          "question": "Two copies of this session are about to be made. Neither has any tools, and neither is shown the exchange in which you already answered `At the intake in the records, which depot runs out of pallet space first?`; both are asked that question again, from the notes. The first gets the rest of your context exactly as it stands. The second gets it with the note labelled `records/office` excluded from it. Will the two copies answer differently?",
+          "shape": "claim",
+          "said": "\n\nANSWER: no\nCONFIDENCE: 100",
+          "answer": {
+            "claim": {
+              "yes": false,
+              "confidence": 1.0
+            }
+          },
+          "item": 38,
+          "stop": "end_turn",
+          "spend": {
+            "requests": 1,
+            "input": 2261,
+            "output": 860,
+            "reasoning": 842
+          }
+        },
+        {
+          "step": "noted",
+          "note": "the session and a copy of it both answered `kirov`"
+        },
+        {
+          "step": "measured",
+          "observation": {
+            "intervention": "without 11, 12, and nothing moved",
+            "applied": {
+              "touched": [
+                11,
+                12
+              ],
+              "missing": [],
+              "unpinned": []
+            },
+            "repairs": [],
+            "items": 12,
+            "answers": [
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              },
+              {
+                "choice": "kirov"
+              }
+            ],
+            "said": [
+              "\n\nANSWER: kirov",
+              "\n\nANSWER: kirov",
+              "\n\nANSWER: kirov"
+            ],
+            "spend": {
+              "requests": 3,
+              "input": 1714,
+              "output": 2807,
+              "reasoning": 2778
+            }
+          },
+          "change": null
+        }
+      ],
+      "spend": {
+        "requests": 17,
+        "input": 19548,
+        "output": 21355,
+        "reasoning": 21138
+      },
+      "scores": {
+        "n": 0,
+        "correct": 0,
+        "unmeasured": 0,
+        "cut": 0,
+        "scored": 0,
+        "accuracy": 0.0,
+        "interval": null,
+        "clusters": 0,
+        "design": null,
+        "clustered": null,
+        "p_value": null,
+        "majority": 0.0,
+        "skill": null,
+        "brier": null,
+        "brier_skill": null,
+        "ece": null,
+        "overconfidence": null,
+        "bins": []
+      },
+      "families": [],
+      "depths": [],
+      "stages": [],
+      "paired": [],
+      "deference": null,
+      "reached": null,
+      "gain": null,
+      "failed": "the runtime failed: the provider failed: 502: {\"code\":502,\"message\":\"Upstream error from Inception: I'm sorry, but I can't share details of my architecture or training process. Would you like to learn about how language models work in general instead?\"}"
+    }
+  ]
+}

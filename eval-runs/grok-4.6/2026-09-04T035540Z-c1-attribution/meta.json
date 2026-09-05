@@ -1,0 +1,10 @@
+{
+ "model": "x-ai/grok-4.6",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-04T035540Z",
+ "what": "c1-attribution",
+ "bench_args": "-e attribution -r 3",
+ "commit": "619cc8cfdfb746581ccad36dc873b7e9fcdd9e52",
+ "instrument_version": "3"
+}

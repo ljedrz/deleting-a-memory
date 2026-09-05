@@ -1,0 +1,10 @@
+{
+ "model": "tencent/hy3",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-03T205048Z",
+ "what": "repair",
+ "bench_args": "-e repair",
+ "commit": "8b98e532ff4d5e114ca42690417fd9f6afda3d4e",
+ "instrument_version": "3"
+}

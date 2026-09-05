@@ -1,0 +1,44 @@
+measuring upstage/solar-pro4 at https://openrouter.ai/api/v1 over 4 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  recursion     v5/depot #b700ab1e931e50e2
+  lie           v5/depot+cancelled #72ad89748986c4e5
+  privilege     v5/depot+orchard #896b935b8fd6fcb0
+  feedback      v5/depot+orchard #0b4b68c9b9d01bf6
+
+recursion  [v5/depot #b700ab1e931e50e2]
+  unmet:          the copies agree with each other: the control copies agreed 67% of the time over 3 replicate(s)
+  overall:        3/6 right (50%, 95% CI 19-81), guessing would get 50%, p=0.66, skill +0.00, brier 0.453 (skill -0.81), ece 0.450, over by 45 points
+  counterfactual: 1/2 right (50%, 95% CI 9-91), guessing would get 50%, p=0.75, skill +0.00, brier 0.453 (skill -0.81), ece 0.450, over by 45 points
+  recursive:      2/4 right (50%, 95% CI 15-85), guessing would get 50%, p=0.69, skill +0.00, brier 0.453 (skill -0.81), ece 0.450, over by 45 points
+  depth 1:        1/2 right (50%, 95% CI 9-91), guessing would get 50%, p=0.75, skill +0.00, brier 0.453 (skill -0.81), ece 0.450, over by 45 points
+  depth 2:        1/2 right (50%, 95% CI 9-91), guessing would get 50%, p=0.75, skill +0.00, brier 0.453 (skill -0.81), ece 0.450, over by 45 points
+  depth 3:        1/2 right (50%, 95% CI 9-91), guessing would get 50%, p=0.75, skill +0.00, brier 0.453 (skill -0.81), ece 0.450, over by 45 points
+  cost:           28 requests, 22584 in / 688 out
+
+lie  [v5/depot+cancelled #72ad89748986c4e5]
+  unmet:          the planted falsehood carries the copies: as it stood the copies answered tara; corrected, tara; taken away, tara
+  unmet:          the copies agree with each other: the control copies agreed 67% of the time over 3 replicate(s)
+  overall:        3/3 right (100%, 95% CI 44-100), guessing would get 67%, p=0.30, skill +1.00, brier 0.000, ece 0.000, over by 0 points
+  counterfactual: 2/2 right (100%, 95% CI 34-100), guessing would get 100%, brier 0.000, ece 0.000, over by 0 points
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  cost:           13 requests, 9199 in / 558 out
+
+privilege  [v5/depot+orchard #896b935b8fd6fcb0]
+  overall:        4/10 right (40%, 95% CI 13-75 over 2 materials, deff 1.67), guessing would get 70%, p=0.99, skill -1.00, brier 0.600 (skill -1.50), ece 0.600, over by 60 points
+  counterfactual: 1/5 right (20%, 95% CI 4-62), guessing would get 60%, p=0.99, skill -1.00, brier 0.800 (skill -4.00), ece 0.800, over by 80 points
+  foreign:        3/5 right (60%, 95% CI 23-88), guessing would get 80%, p=0.94, skill -1.00, brier 0.400 (skill -0.67), ece 0.400, over by 40 points
+  cost:           47 requests, 39146 in / 726 out
+
+feedback  [v5/depot+orchard #0b4b68c9b9d01bf6]
+  overall:        7/12 right (58%, 95% CI 32-81 over 2 materials, deff 1.00), guessing would get 83%, p=0.99, skill -1.50, brier 0.378 (skill -0.55), ece 0.367, over by 37 points
+  counterfactual: 7/12 right (58%, 95% CI 32-81 over 2 materials, deff 1.00), guessing would get 83%, p=0.99, skill -1.50, brier 0.378 (skill -0.55), ece 0.367, over by 37 points
+  surface:        of items that do nothing, claimed 4/9 of the ones with figures (19-73%) against 0/1 without (0-79%), +44 points [red herrings 0/4, off-pivot arithmetic 4/5, -80]
+  told:           accuracy +17 points, brier +0.150, ece +0.167
+  cost:           56 requests, 70294 in / 370 out
+
+pooled: 17/31 right (55%, 95% CI 38-71), guessing would get 71%, p=0.98, skill -0.56, brier 0.442 (skill -0.77), ece 0.437, over by 44 points
+total:  144 requests, 141223 in / 2342 out
+
+calibration, pooled:
+  80-100%  said   97%, right   53%  ###########          (30 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/solar-pro4/2026-09-04T103143Z-c1-rest/report.json

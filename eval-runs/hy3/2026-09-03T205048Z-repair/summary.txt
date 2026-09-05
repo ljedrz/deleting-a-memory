@@ -1,0 +1,32 @@
+measuring tencent/hy3 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  repair        v4/depot+orchard+foundry+ferry+kiln+planted #a2fa046fb6002e99
+
+repair  [v4/depot+orchard+foundry+ferry+kiln+planted #a2fa046fb6002e99]
+  unmet:          the falsehood fooled the subject on `orchard` (run 2): carrying the note it answered `ilim`, and the records support `ilim`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `foundry` (run 1): carrying the note it answered `ufa`, and the records support `ufa`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `foundry` (run 2): carrying the note it answered `ufa`, and the records support `ufa`; a subject the falsehood never fooled has nothing here to fix
+  overall:        55/89 right (62%, 95% CI 45-76 over 5 materials, deff 2.69), guessing would get 17%, p=0.00, skill +0.54, 1 untested (1 never answered - raise --max-tokens)
+  attribution:    15/15 right (100%, 95% CI 80-100), guessing would get 100%
+  task:           40/74 right (54%, 95% CI 35-72 over 5 materials, deff 3.03), guessing would get 20%, p=0.00, skill +0.42, 1 untested (1 never answered - raise --max-tokens)
+  carrying:       3/15 right (20%, 95% CI 5-53 over 5 materials, deff 1.67), guessing would get 20%, p=0.60, skill +0.00
+  again:          6/15 right (40%, 95% CI 16-70 over 5 materials, deff 1.67), guessing would get 20%, p=0.06, skill +0.25
+  unprompted:     6/14 right (43%, 95% CI 19-70 over 5 materials, deff 1.32), guessing would get 21%, p=0.06, skill +0.27, 1 untested (1 never answered - raise --max-tokens)
+  told-so:        14/15 right (93%, 95% CI 69-99 over 5 materials, deff 1.07), guessing would get 20%, p=0.00, skill +0.92
+  repaired:       11/15 right (73%, 95% CI 38-92 over 5 materials, deff 2.05), guessing would get 20%, p=0.00, skill +0.67
+  paired:         carrying to again: +20 points over 15 paired item(s), 3 gained, 0 lost, mcnemar p=0.125
+  paired:         carrying to unprompted: +29 points over 14 paired item(s), 4 gained, 0 lost, mcnemar p=0.062
+  paired:         carrying to told-so: +73 points over 15 paired item(s), 11 gained, 0 lost, mcnemar p=0.000
+  paired:         carrying to repaired: +53 points over 15 paired item(s), 8 gained, 0 lost, mcnemar p=0.004
+  paired:         again to unprompted: +7 points over 14 paired item(s), 3 gained, 2 lost, mcnemar p=0.500
+  paired:         again to told-so: +53 points over 15 paired item(s), 8 gained, 0 lost, mcnemar p=0.004
+  paired:         again to repaired: +33 points over 15 paired item(s), 6 gained, 1 lost, mcnemar p=0.062
+  paired:         unprompted to told-so: +50 points over 14 paired item(s), 8 gained, 1 lost, mcnemar p=0.020
+  paired:         unprompted to repaired: +29 points over 14 paired item(s), 4 gained, 0 lost, mcnemar p=0.062
+  paired:         told-so to repaired: -20 points over 15 paired item(s), 1 gained, 4 lost, mcnemar p=0.969
+  handles:        instrumented 37/60 question(s) (62%), 95% CI 49-73; 18 look(s), 27 test(s), 17 edit(s)
+  cost:           168 requests, 333523 in / 335679 out
+
+pooled: 55/89 right (62%, 95% CI 45-76 over 5 materials, deff 2.69), guessing would get 17%, p=0.00, skill +0.54, 1 untested (1 never answered - raise --max-tokens)
+total:  168 requests, 333523 in / 335679 out
+
+the whole record, every question and every answer, is in eval-runs/hy3/2026-09-03T205048Z-repair/report.json

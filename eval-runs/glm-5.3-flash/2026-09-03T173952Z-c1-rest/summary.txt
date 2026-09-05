@@ -1,0 +1,46 @@
+measuring z-ai/glm-5.3-flash at https://openrouter.ai/api/v1 over 4 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  recursion     v4/depot #b700ab1e931e50e2
+  lie           v4/depot+cancelled #d1a81a0544c8622f
+  privilege     v4/depot+orchard #896b935b8fd6fcb0
+  feedback      v4/depot+orchard #0b4b68c9b9d01bf6
+
+recursion  [v4/depot #b700ab1e931e50e2]
+  overall:        6/6 right (100%, 95% CI 61-100), guessing would get 50%, p=0.02, skill +1.00, brier 0.002, ece 0.047, under by 5 points
+  counterfactual: 2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.002, ece 0.040, under by 4 points
+  recursive:      4/4 right (100%, 95% CI 51-100), guessing would get 50%, p=0.06, skill +1.00, brier 0.003, ece 0.050, under by 5 points
+  depth 1:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.002, ece 0.040, under by 4 points
+  depth 2:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.003, ece 0.050, under by 5 points
+  depth 3:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.003, ece 0.050, under by 5 points
+  cost:           28 requests, 21735 in / 25363 out
+
+lie  [v4/depot+cancelled #d1a81a0544c8622f]
+  unmet:          the planted falsehood carries the copies: as it stood the copies answered kirov; corrected, kirov; taken away, kirov
+  overall:        3/4 right (75%, 95% CI 30-95), guessing would get 50%, p=0.31, skill +0.50, brier 0.022, ece 0.150, under by 15 points
+  counterfactual: 2/2 right (100%, 95% CI 34-100), guessing would get 100%, brier 0.022, ece 0.150, under by 15 points
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  location:       0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  cost:           14 requests, 9547 in / 8749 out
+
+privilege  [v4/depot+orchard #896b935b8fd6fcb0]
+  overall:        8/10 right (80%, 95% CI 49-94 over 2 materials, deff 1.00), guessing would get 70%, p=0.38, skill +0.33, brier 0.132 (skill +0.18), ece 0.080, over by 8 points
+  counterfactual: 4/5 right (80%, 95% CI 38-96), guessing would get 60%, p=0.34, skill +0.50, brier 0.103 (skill +0.36), ece 0.084, over by 6 points
+  foreign:        4/5 right (80%, 95% CI 38-96), guessing would get 80%, p=0.74, skill +0.00, brier 0.160 (skill -0.00), ece 0.216, over by 10 points
+  surface:        of items that do nothing, claimed 0/2 of the ones with figures (0-66%) against 0/1 without (0-79%), +0 points [red herrings 0/1, off-pivot arithmetic 0/1, +0]
+  cost:           47 requests, 41050 in / 56884 out
+
+  z-ai/glm-5.3-flash is cut off mid-answer; waiting 1s
+feedback  [v4/depot+orchard #0b4b68c9b9d01bf6]
+  overall:        9/12 right (75%, 95% CI 47-91 over 2 materials, deff 1.00), guessing would get 75%, p=0.65, skill +0.00, brier 0.125 (skill +0.33), ece 0.201, over by 15 points
+  counterfactual: 9/12 right (75%, 95% CI 47-91 over 2 materials, deff 1.00), guessing would get 75%, p=0.65, skill +0.00, brier 0.125 (skill +0.33), ece 0.201, over by 15 points
+  surface:        of items that do nothing, claimed 2/7 of the ones with figures (8-64%) against 0/2 without (0-66%), +29 points [red herrings 0/4, off-pivot arithmetic 2/3, -67]
+  told:           accuracy -17 points, brier -0.101, ece -0.102
+  cost:           56 requests, 116208 in / 75390 out
+
+pooled: 26/32 right (81%, 95% CI 65-91), guessing would get 66%, p=0.04, skill +0.45, brier 0.096 (skill +0.31), ece 0.078, over by 7 points
+total:  145 requests, 188540 in / 166386 out
+
+calibration, pooled:
+  60-80%  said   70%, right   33%  #######              (6 claim(s))
+  80-100%  said   95%, right   96%  ###################  (24 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/glm-5.3-flash/2026-09-03T173952Z-c1-rest/report.json

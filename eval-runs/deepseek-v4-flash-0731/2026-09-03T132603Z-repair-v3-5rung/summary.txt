@@ -1,0 +1,30 @@
+measuring deepseek/deepseek-v4-flash-0731 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition
+  repair        v3/depot+orchard+foundry+ferry+kiln+planted #eed7de26ff68d883
+
+repair  [v3/depot+orchard+foundry+ferry+kiln+planted #eed7de26ff68d883]
+  overall:        2/6 right (33%, 95% CI 10-70), guessing would get 83%, p=1.00, skill -3.00
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  task:           1/5 right (20%, 95% CI 4-62), guessing would get 100%
+  carrying:       0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  again:          0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  unprompted:     0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  told-so:        1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  repaired:       0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  paired:         carrying to again: +0 points over 1 paired item(s), 0 gained, 0 lost
+  paired:         carrying to unprompted: +0 points over 1 paired item(s), 0 gained, 0 lost
+  paired:         carrying to told-so: +100 points over 1 paired item(s), 1 gained, 0 lost, mcnemar p=0.500
+  paired:         carrying to repaired: +0 points over 1 paired item(s), 0 gained, 0 lost
+  paired:         again to unprompted: +0 points over 1 paired item(s), 0 gained, 0 lost
+  paired:         again to told-so: +100 points over 1 paired item(s), 1 gained, 0 lost, mcnemar p=0.500
+  paired:         again to repaired: +0 points over 1 paired item(s), 0 gained, 0 lost
+  paired:         unprompted to told-so: +100 points over 1 paired item(s), 1 gained, 0 lost, mcnemar p=0.500
+  paired:         unprompted to repaired: +0 points over 1 paired item(s), 0 gained, 0 lost
+  paired:         told-so to repaired: -100 points over 1 paired item(s), 0 gained, 1 lost, mcnemar p=1.000
+  handles:        instrumented 3/4 question(s) (75%), 95% CI 30-95; 2 look(s), 3 test(s), 1 edit(s)
+  cost:           12 requests, 23050 in / 37727 out
+  stopped:        the runtime failed: the provider failed: error decoding response body for url (https://openrouter.ai/api/v1/chat/completions)
+
+pooled: 2/6 right (33%, 95% CI 10-70), guessing would get 83%, p=1.00, skill -3.00
+total:  12 requests, 23050 in / 37727 out
+
+the whole record, every question and every answer, is in eval-runs/deepseek-v4-flash-0731/2026-09-03T132603Z-repair-v3-5rung/report.json

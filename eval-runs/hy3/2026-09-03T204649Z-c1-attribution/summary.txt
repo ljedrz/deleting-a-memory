@@ -1,0 +1,19 @@
+measuring tencent/hy3 at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f
+
+attribution  [v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f]
+  unmet:          the copies agree with each other: the control copies agreed 67% of the time over 3 replicate(s)
+  overall:        52/78 right (67%, 95% CI 56-76), guessing would get 55%, p=0.03, skill +0.26, brier 0.109 (skill -0.10), ece 0.093, over by 9 points
+  counterfactual: 48/54 right (89%, 95% CI 78-95 over 6 materials, deff 1.00), guessing would get 76%, p=0.01, skill +0.54, brier 0.109 (skill -0.10), ece 0.093, over by 9 points
+  attribution:    4/6 right (67%, 95% CI 30-90), guessing would get 67%, p=0.68, skill +0.00
+  location:       0/18 right (0%, 95% CI 0-18), guessing would get 33%, p=1.00, skill -0.50
+  surface:        of items that do nothing, claimed 4/24 of the ones with figures (7-36%) against 0/17 without (0-18%), +17 points [red herrings 0/12, off-pivot arithmetic 4/12, -33]
+  cost:           264 requests, 184339 in / 376616 out
+
+pooled: 52/78 right (67%, 95% CI 56-76), guessing would get 55%, p=0.03, skill +0.26, brier 0.109 (skill -0.10), ece 0.093, over by 9 points
+total:  264 requests, 184339 in / 376616 out
+
+calibration, pooled:
+  80-100%  said   98%, right   89%  ##################   (54 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/hy3/2026-09-03T204649Z-c1-attribution/report.json

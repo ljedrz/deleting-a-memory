@@ -1,0 +1,26 @@
+measuring z-ai/glm-5.3-flash at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  instrumented  v4/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe
+
+  z-ai/glm-5.3-flash is cut off mid-answer; waiting 1s
+instrumented  [v4/depot+orchard+foundry+ferry+kiln+mill #49bf2ab6dbaa24fe]
+  overall:        142/162 right (88%, 95% CI 67-96 over 6 materials, deff 8.03), guessing would get 74%, p=0.00, skill +0.52, brier 0.114 (skill -0.06), ece 0.075, over by 7 points
+  counterfactual: 142/162 right (88%, 95% CI 67-96 over 6 materials, deff 8.03), guessing would get 74%, p=0.00, skill +0.52, brier 0.114 (skill -0.06), ece 0.075, over by 7 points
+  reported:       46/54 right (85%, 95% CI 61-95 over 6 materials, deff 3.40), guessing would get 74%, p=0.04, skill +0.43, brier 0.131 (skill -0.04), ece 0.078, over by 6 points
+  retested:       46/54 right (85%, 95% CI 50-97 over 6 materials, deff 6.93), guessing would get 74%, p=0.04, skill +0.43, brier 0.141 (skill -0.11), ece 0.116, over by 12 points
+  tested:         50/54 right (93%, 95% CI 82-97 over 6 materials, deff 1.00), guessing would get 74%, p=0.00, skill +0.71, brier 0.071 (skill -0.03), ece 0.030, over by 3 points
+  paired:         reported to retested: +0 points over 54 paired item(s), 3 gained, 3 lost, mcnemar p=0.656
+  paired:         reported to tested: +7 points over 54 paired item(s), 7 gained, 3 lost, mcnemar p=0.172
+  paired:         retested to tested: +7 points over 54 paired item(s), 8 gained, 4 lost, mcnemar p=0.194
+  surface:        of items that do nothing, claimed 10/66 of the ones with figures (8-26%) against 3/54 without (2-15%), +10 points [red herrings 0/33, off-pivot arithmetic 10/33, -30]
+  handles:        instrumented 108/108 question(s) (100%), 95% CI 97-100; 3 look(s), 108 test(s), 0 edit(s)
+  deference:      6/6 conflict(s) resolved in favour of the evidence (100%), 95% CI 61-100
+  cost:           402 requests, 822192 in / 196787 out
+
+pooled: 142/162 right (88%, 95% CI 67-96 over 6 materials, deff 8.03), guessing would get 74%, p=0.00, skill +0.52, brier 0.114 (skill -0.06), ece 0.075, over by 7 points
+total:  402 requests, 822192 in / 196787 out
+
+calibration, pooled:
+  60-80%  said   64%, right   75%  ###############      (4 claim(s))
+  80-100%  said   95%, right   88%  ##################   (158 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/glm-5.3-flash/2026-09-03T173952Z-instrumented/report.json

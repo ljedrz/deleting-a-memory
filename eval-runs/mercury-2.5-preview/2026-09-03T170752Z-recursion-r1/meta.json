@@ -1,0 +1,10 @@
+{
+ "model": "inception/mercury-2.5-preview",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-03T170752Z",
+ "what": "recursion-r1",
+ "bench_args": "-e recursion -r 1",
+ "commit": "7e3f3a2f1180a0363b8be74474d89190db885127",
+ "instrument_version": "3"
+}

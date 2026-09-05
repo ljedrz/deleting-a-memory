@@ -1,0 +1,11 @@
+{
+ "model": "z-ai/glm-5.3-flash",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-04T130952Z",
+ "what": "repair",
+ "bench_args": "-e repair",
+ "commit": "5911acf6c48463041f2b3fb14248232a258c6f22",
+ "branch": "feat/eval",
+ "instrument_version": "5"
+}

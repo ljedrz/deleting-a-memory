@@ -1,0 +1,18 @@
+measuring meituan/longcat-2.0 at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f
+
+attribution  [v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f]
+  overall:        48/78 right (62%, 95% CI 50-72), guessing would get 59%, p=0.37, skill +0.06, brier 0.189 (skill -0.23), ece 0.187, over by 19 points
+  counterfactual: 44/54 right (81%, 95% CI 69-90 over 6 materials, deff 1.00), guessing would get 81%, p=0.58, skill +0.00, brier 0.189 (skill -0.23), ece 0.187, over by 19 points
+  attribution:    4/6 right (67%, 95% CI 30-90), guessing would get 67%, p=0.68, skill +0.00
+  location:       0/18 right (0%, 95% CI 0-18), guessing would get 33%, p=1.00, skill -0.50
+  surface:        of items that do nothing, claimed 10/26 of the ones with figures (22-57%) against 0/18 without (0-18%), +38 points [red herrings 0/12, off-pivot arithmetic 10/14, -71]
+  cost:           264 requests, 186727 in / 647796 out
+
+pooled: 48/78 right (62%, 95% CI 50-72), guessing would get 59%, p=0.37, skill +0.06, brier 0.189 (skill -0.23), ece 0.187, over by 19 points
+total:  264 requests, 186727 in / 647796 out
+
+calibration, pooled:
+  80-100%  said  100%, right   81%  ################     (53 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/longcat-2.0/2026-09-03T205257Z-c1-attribution/report.json

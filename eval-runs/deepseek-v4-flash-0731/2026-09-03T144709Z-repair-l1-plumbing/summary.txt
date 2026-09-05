@@ -1,0 +1,30 @@
+measuring deepseek/deepseek-v4-flash-0731 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 1 ladder(s) per dossier
+  repair        v3/depot+orchard+foundry+ferry+kiln+planted #eed7de26ff68d883
+
+repair  [v3/depot+orchard+foundry+ferry+kiln+planted #eed7de26ff68d883]
+  unmet:          the falsehood fooled the subject on `orchard` (run 1): carrying the note it answered `ilim`, and the records support `ilim`; a subject the falsehood never fooled has nothing here to fix
+  overall:        12/29 right (41%, 95% CI 26-59 over 5 materials, deff 1.00), guessing would get 17%, p=0.00, skill +0.29, 1 untested (1 never answered - raise --max-tokens)
+  attribution:    5/5 right (100%, 95% CI 57-100), guessing would get 100%
+  task:           7/24 right (29%, 95% CI 14-52 over 5 materials, deff 1.27), guessing would get 21%, p=0.22, skill +0.11, 1 untested (1 never answered - raise --max-tokens)
+  carrying:       1/5 right (20%, 95% CI 3-66 over 5 materials, deff 1.25), guessing would get 20%, p=0.67, skill +0.00
+  again:          0/5 right (0%, 95% CI 0-43), guessing would get 20%, p=1.00, skill -0.25
+  unprompted:     0/5 right (0%, 95% CI 0-43), guessing would get 20%, p=1.00, skill -0.25
+  told-so:        3/5 right (60%, 95% CI 20-90 over 5 materials, deff 1.25), guessing would get 20%, p=0.06, skill +0.50
+  repaired:       3/4 right (75%, 95% CI 26-96 over 4 materials, deff 1.33), guessing would get 25%, p=0.05, skill +0.67, 1 untested (1 never answered - raise --max-tokens)
+  paired:         carrying to again: -20 points over 5 paired item(s), 0 gained, 1 lost, mcnemar p=1.000
+  paired:         carrying to unprompted: -20 points over 5 paired item(s), 0 gained, 1 lost, mcnemar p=1.000
+  paired:         carrying to told-so: +40 points over 5 paired item(s), 2 gained, 0 lost, mcnemar p=0.250
+  paired:         carrying to repaired: +50 points over 4 paired item(s), 2 gained, 0 lost, mcnemar p=0.250
+  paired:         again to unprompted: +0 points over 5 paired item(s), 0 gained, 0 lost
+  paired:         again to told-so: +60 points over 5 paired item(s), 3 gained, 0 lost, mcnemar p=0.125
+  paired:         again to repaired: +75 points over 4 paired item(s), 3 gained, 0 lost, mcnemar p=0.125
+  paired:         unprompted to told-so: +60 points over 5 paired item(s), 3 gained, 0 lost, mcnemar p=0.125
+  paired:         unprompted to repaired: +75 points over 4 paired item(s), 3 gained, 0 lost, mcnemar p=0.125
+  paired:         told-so to repaired: +25 points over 4 paired item(s), 1 gained, 0 lost, mcnemar p=0.500
+  handles:        instrumented 15/20 question(s) (75%), 95% CI 53-89; 12 look(s), 18 test(s), 10 edit(s), 4 refused
+  cost:           74 requests, 177251 in / 384363 out
+
+pooled: 12/29 right (41%, 95% CI 26-59 over 5 materials, deff 1.00), guessing would get 17%, p=0.00, skill +0.29, 1 untested (1 never answered - raise --max-tokens)
+total:  74 requests, 177251 in / 384363 out
+
+the whole record, every question and every answer, is in eval-runs/deepseek-v4-flash-0731/2026-09-03T144709Z-repair-l1-plumbing/report.json

@@ -1,0 +1,14 @@
+{
+  "model": "gemini-3.7-flash",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta/openai",
+  "experiments": "all four",
+  "replicates": 3,
+  "params": {
+    "temperature": 0
+  },
+  "started": "2026-09-03T10:08:53.638012+00:00",
+  "commit": "7d5fd1cab6ddd37d84ba7e64f49f66bbf45dae7a",
+  "tree_dirty": true,
+  "cargo": "cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+  "note": "no API key is recorded anywhere in this directory"
+}

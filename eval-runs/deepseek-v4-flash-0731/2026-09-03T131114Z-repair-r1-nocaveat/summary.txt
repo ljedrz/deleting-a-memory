@@ -1,0 +1,17 @@
+measuring deepseek/deepseek-v4-flash-0731 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition
+  repair        v3/depot+cancelled #a737ee91012060e4
+
+repair  [v3/depot+cancelled #a737ee91012060e4]
+  overall:        3/4 right (75%, 95% CI 30-95), guessing would get 75%, p=0.74, skill +0.00
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  task:           2/3 right (67%, 95% CI 21-94), guessing would get 100%
+  carrying:       0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  told-so:        1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  repaired:       1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  handles:        instrumented 1/1 question(s) (100%), 95% CI 21-100; 1 look(s), 0 test(s), 1 edit(s)
+  cost:           8 requests, 11117 in / 18960 out
+
+pooled: 3/4 right (75%, 95% CI 30-95), guessing would get 75%, p=0.74, skill +0.00
+total:  8 requests, 11117 in / 18960 out
+
+the whole record, every question and every answer, is in eval-runs/deepseek-v4-flash-0731/2026-09-03T131114Z-repair-r1-nocaveat/report.json

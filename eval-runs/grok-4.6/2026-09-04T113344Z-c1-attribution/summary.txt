@@ -1,0 +1,22 @@
+measuring x-ai/grok-4.6 at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v5/depot+orchard+foundry+ferry+kiln+mill #a07494342877cbc9
+
+attribution  [v5/depot+orchard+foundry+ferry+kiln+mill #a07494342877cbc9]
+  unmet:          the copies agree with each other: the control copies agreed 67% of the time over 3 replicate(s)
+  unmet:          the copies agree with each other: the control copies agreed 67% of the time over 3 replicate(s)
+  unmet:          the subject answered the dossier as its notes support: it answered `zlato`, the notes support `ufa`
+  unmet:          the subject answered the dossier as its notes support: it answered `kem`, the notes support `onega`
+  overall:        50/60 right (83%, 95% CI 72-91), guessing would get 62%, p=0.00, skill +0.57, brier 0.155 (skill -0.03), ece 0.101, over by 8 points
+  counterfactual: 44/54 right (81%, 95% CI 54-94 over 6 materials, deff 4.32), guessing would get 69%, p=0.02, skill +0.41, brier 0.155 (skill -0.03), ece 0.101, over by 8 points
+  attribution:    6/6 right (100%, 95% CI 61-100), guessing would get 100%
+  surface:        of items that do nothing, claimed 4/21 of the ones with figures (8-40%) against 0/16 without (0-19%), +19 points [red herrings 0/10, off-pivot arithmetic 4/11, -36]
+  cost:           246 requests, 204705 in / 395428 out
+
+pooled: 50/60 right (83%, 95% CI 72-91), guessing would get 62%, p=0.00, skill +0.57, brier 0.155 (skill -0.03), ece 0.101, over by 8 points
+total:  246 requests, 204705 in / 395428 out
+
+calibration, pooled:
+  60-80%  said   70%, right   80%  ################     (5 claim(s))
+  80-100%  said   92%, right   82%  ################     (49 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/grok-4.6/2026-09-04T113344Z-c1-attribution/report.json

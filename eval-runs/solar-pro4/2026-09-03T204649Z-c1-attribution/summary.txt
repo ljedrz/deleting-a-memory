@@ -1,0 +1,22 @@
+measuring upstage/solar-pro4 at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f
+
+attribution  [v4/depot+orchard+foundry+ferry+kiln+mill #24bfeb24eab0b78f]
+  unmet:          the copies agree with each other: the control copies agreed 67% of the time over 3 replicate(s)
+  unmet:          the subject answered the dossier as its notes support: it answered `tara`, the notes support `kirov`
+  unmet:          the subject answered the dossier as its notes support: it answered `sura`, the notes support `pinega`
+  unmet:          the subject answered the dossier as its notes support: it answered `luza`, the notes support `vyatka`
+  overall:        43/78 right (55%, 95% CI 44-66), guessing would get 60%, p=0.85, skill -0.13, brier 0.254 (skill -0.27), ece 0.232, over by 23 points
+  counterfactual: 39/54 right (72%, 95% CI 59-82 over 6 materials, deff 1.00), guessing would get 80%, p=0.93, skill -0.36, brier 0.254 (skill -0.27), ece 0.232, over by 23 points
+  attribution:    2/6 right (33%, 95% CI 10-70), guessing would get 67%, p=0.98, skill -1.00
+  location:       2/18 right (11%, 95% CI 3-33), guessing would get 33%, p=0.99, skill -0.33
+  surface:        of items that do nothing, claimed 9/27 of the ones with figures (19-52%) against 0/16 without (0-19%), +33 points [red herrings 0/12, off-pivot arithmetic 9/15, -60]
+  cost:           264 requests, 206057 in / 2281 out
+
+pooled: 43/78 right (55%, 95% CI 44-66), guessing would get 60%, p=0.85, skill -0.13, brier 0.254 (skill -0.27), ece 0.232, over by 23 points
+total:  264 requests, 206057 in / 2281 out
+
+calibration, pooled:
+  80-100%  said   95%, right   72%  ##############       (54 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/solar-pro4/2026-09-03T204649Z-c1-attribution/report.json

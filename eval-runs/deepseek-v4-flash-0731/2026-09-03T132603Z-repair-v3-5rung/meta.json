@@ -1,0 +1,10 @@
+{
+ "model": "deepseek/deepseek-v4-flash-0731",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-03T132603Z",
+ "what": "repair-v3-5rung",
+ "bench_args": "-e repair -r 1",
+ "commit": "e6b37d187bd2e3fdfc815c56a0f4347b15aa7383",
+ "instrument_version": "3"
+}

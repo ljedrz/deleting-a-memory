@@ -1,0 +1,46 @@
+measuring deepseek/deepseek-v4-flash-0731 at https://openrouter.ai/api/v1 over 4 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  recursion     v4/depot #b700ab1e931e50e2
+  lie           v4/depot+cancelled #d1a81a0544c8622f
+  privilege     v4/depot+orchard #896b935b8fd6fcb0
+  feedback      v4/depot+orchard #0b4b68c9b9d01bf6
+
+  deepseek/deepseek-v4-flash-0731 is cut off mid-answer; waiting 1s
+recursion  [v4/depot #b700ab1e931e50e2]
+  overall:        5/5 right (100%, 95% CI 57-100), guessing would get 60%, p=0.08, skill +1.00, brier 0.002, ece 0.034, under by 3 points, 1 untested
+  counterfactual: 2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.001, ece 0.030, under by 3 points
+  recursive:      3/3 right (100%, 95% CI 44-100), guessing would get 67%, p=0.30, skill +1.00, brier 0.002, ece 0.037, under by 4 points, 1 untested
+  depth 1:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.001, ece 0.030, under by 3 points
+  depth 2:        2/2 right (100%, 95% CI 34-100), guessing would get 50%, p=0.25, skill +1.00, brier 0.001, ece 0.030, under by 3 points
+  depth 3:        1/1 right (100%, 95% CI 21-100), guessing would get 100%, brier 0.003, ece 0.050, under by 5 points, 1 untested
+  cost:           28 requests, 19554 in / 37278 out
+
+lie  [v4/depot+cancelled #d1a81a0544c8622f]
+  unmet:          the copies agree with each other: the control copies agreed 33% of the time over 3 replicate(s)
+  overall:        0/3 right (0%, 95% CI 0-56), guessing would get 33%, p=1.00, skill -0.50, 1 untested
+  counterfactual: 0/1 right (0%, 95% CI 0-79), guessing would get 100%, 1 untested
+  attribution:    0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  location:       0/1 right (0%, 95% CI 0-79), guessing would get 100%
+  cost:           14 requests, 8330 in / 14232 out
+
+  deepseek/deepseek-v4-flash-0731 is cut off mid-answer; waiting 1s
+privilege  [v4/depot+orchard #896b935b8fd6fcb0]
+  overall:        2/9 right (22%, 95% CI 6-55 over 2 materials, deff 1.00), guessing would get 78%, p=1.00, skill -2.50, brier 0.471 (skill -0.88), ece 0.480, over by 48 points, 1 untested
+  counterfactual: 1/5 right (20%, 95% CI 4-62), guessing would get 80%, p=1.00, skill -3.00, brier 0.628 (skill -1.82), ece 0.643, over by 64 points
+  foreign:        1/4 right (25%, 95% CI 5-70), guessing would get 75%, p=1.00, skill -2.00, brier 0.000, ece 0.010, under by 1 points, 1 untested
+  surface:        of items that do nothing, claimed 2/3 of the ones with figures (21-94%) against 0/1 without (0-79%), +67 points [red herrings 0/1, off-pivot arithmetic 2/2, -100]
+  cost:           47 requests, 33448 in / 257198 out
+
+feedback  [v4/depot+orchard #0b4b68c9b9d01bf6]
+  overall:        8/12 right (67%, 95% CI 39-86 over 2 materials, deff 1.00), guessing would get 83%, p=0.96, skill -1.00, brier 0.333 (skill -0.50), ece 0.333, over by 33 points
+  counterfactual: 8/12 right (67%, 95% CI 39-86 over 2 materials, deff 1.00), guessing would get 83%, p=0.96, skill -1.00, brier 0.333 (skill -0.50), ece 0.333, over by 33 points
+  surface:        of items that do nothing, claimed 4/8 of the ones with figures (22-78%) against 0/2 without (0-66%), +50 points [red herrings 0/4, off-pivot arithmetic 4/4, -100]
+  told:           accuracy +0 points, brier +0.000, ece +0.000
+  cost:           56 requests, 65666 in / 123844 out
+
+pooled: 15/29 right (52%, 95% CI 34-69), guessing would get 66%, p=0.96, skill -0.40, brier 0.281 (skill -0.37), ece 0.274, over by 27 points, 3 untested
+total:  145 requests, 126998 in / 432552 out
+
+calibration, pooled:
+  80-100%  said   99%, right   71%  ##############       (21 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/deepseek-v4-flash-0731/2026-09-03T204649Z-c1-rest/report.json

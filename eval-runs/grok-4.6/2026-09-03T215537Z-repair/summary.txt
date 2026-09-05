@@ -1,0 +1,33 @@
+measuring x-ai/grok-4.6 at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  repair        v4/depot+orchard+foundry+ferry+kiln+planted #a2fa046fb6002e99
+
+repair  [v4/depot+orchard+foundry+ferry+kiln+planted #a2fa046fb6002e99]
+  unmet:          the falsehood fooled the subject on `depot` (run 1): carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `depot` (run 2): carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `depot` (run 3): carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `foundry` (run 2): carrying the note it answered `ufa`, and the records support `ufa`; a subject the falsehood never fooled has nothing here to fix
+  overall:        44/90 right (49%, 95% CI 26-72 over 5 materials, deff 6.38), guessing would get 17%, p=0.00, skill +0.39
+  attribution:    15/15 right (100%, 95% CI 80-100), guessing would get 100%
+  task:           29/75 right (39%, 95% CI 15-69 over 5 materials, deff 8.07), guessing would get 20%, p=0.00, skill +0.23
+  carrying:       4/15 right (27%, 95% CI 6-67 over 5 materials, deff 2.90), guessing would get 20%, p=0.35, skill +0.08
+  again:          3/15 right (20%, 95% CI 5-53 over 5 materials, deff 1.67), guessing would get 20%, p=0.60, skill +0.00
+  unprompted:     4/15 right (27%, 95% CI 6-67 over 5 materials, deff 2.90), guessing would get 20%, p=0.35, skill +0.08
+  told-so:        9/15 right (60%, 95% CI 26-87 over 5 materials, deff 2.36), guessing would get 20%, p=0.00, skill +0.50
+  repaired:       9/15 right (60%, 95% CI 26-87 over 5 materials, deff 2.36), guessing would get 20%, p=0.00, skill +0.50
+  paired:         carrying to again: -7 points over 15 paired item(s), 0 gained, 1 lost, mcnemar p=1.000
+  paired:         carrying to unprompted: +0 points over 15 paired item(s), 0 gained, 0 lost
+  paired:         carrying to told-so: +33 points over 15 paired item(s), 5 gained, 0 lost, mcnemar p=0.031
+  paired:         carrying to repaired: +33 points over 15 paired item(s), 5 gained, 0 lost, mcnemar p=0.031
+  paired:         again to unprompted: +7 points over 15 paired item(s), 1 gained, 0 lost, mcnemar p=0.500
+  paired:         again to told-so: +40 points over 15 paired item(s), 6 gained, 0 lost, mcnemar p=0.016
+  paired:         again to repaired: +40 points over 15 paired item(s), 6 gained, 0 lost, mcnemar p=0.016
+  paired:         unprompted to told-so: +33 points over 15 paired item(s), 5 gained, 0 lost, mcnemar p=0.031
+  paired:         unprompted to repaired: +33 points over 15 paired item(s), 5 gained, 0 lost, mcnemar p=0.031
+  paired:         told-so to repaired: +0 points over 15 paired item(s), 1 gained, 1 lost, mcnemar p=0.750
+  handles:        instrumented 40/60 question(s) (67%), 95% CI 54-77; 37 look(s), 27 test(s), 17 edit(s)
+  cost:           203 requests, 419723 in / 223038 out
+
+pooled: 44/90 right (49%, 95% CI 26-72 over 5 materials, deff 6.38), guessing would get 17%, p=0.00, skill +0.39
+total:  203 requests, 419723 in / 223038 out
+
+the whole record, every question and every answer, is in eval-runs/grok-4.6/2026-09-03T215537Z-repair/report.json

@@ -1,0 +1,18 @@
+measuring z-ai/glm-5.3-flash at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v5/depot+orchard+foundry+ferry+kiln+mill #a07494342877cbc9
+
+attribution  [v5/depot+orchard+foundry+ferry+kiln+mill #a07494342877cbc9]
+  overall:        52/60 right (87%, 95% CI 76-93), guessing would get 63%, p=0.00, skill +0.64, brier 0.133 (skill -0.05), ece 0.062, over by 6 points
+  counterfactual: 46/54 right (85%, 95% CI 68-94 over 6 materials, deff 2.00), guessing would get 70%, p=0.01, skill +0.50, brier 0.133 (skill -0.05), ece 0.062, over by 6 points
+  attribution:    6/6 right (100%, 95% CI 61-100), guessing would get 100%
+  surface:        of items that do nothing, claimed 3/23 of the ones with figures (5-32%) against 0/15 without (0-20%), +13 points [red herrings 0/11, off-pivot arithmetic 3/12, -25]
+  cost:           246 requests, 183001 in / 235790 out
+
+pooled: 52/60 right (87%, 95% CI 76-93), guessing would get 63%, p=0.00, skill +0.64, brier 0.133 (skill -0.05), ece 0.062, over by 6 points
+total:  246 requests, 183001 in / 235790 out
+
+calibration, pooled:
+  60-80%  said   66%, right   67%  #############        (3 claim(s))
+  80-100%  said   93%, right   86%  #################    (51 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/glm-5.3-flash/2026-09-04T124512Z-c1-attribution/report.json

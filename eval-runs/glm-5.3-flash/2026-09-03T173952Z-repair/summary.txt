@@ -1,0 +1,37 @@
+measuring z-ai/glm-5.3-flash at https://openrouter.ai/api/v1 over 1 experiment(s), 1 copy/copies per condition, 3 ladder(s) per dossier
+  repair        v4/depot+orchard+foundry+ferry+kiln+planted #a2fa046fb6002e99
+
+repair  [v4/depot+orchard+foundry+ferry+kiln+planted #a2fa046fb6002e99]
+  unmet:          the falsehood fooled the subject on `depot` (run 1): carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `depot` (run 2): carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `depot` (run 3): carrying the note it answered `kirov`, and the records support `kirov`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `orchard` (run 1): carrying the note it answered `ilim`, and the records support `ilim`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `orchard` (run 3): carrying the note it answered `ilim`, and the records support `ilim`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `foundry` (run 1): carrying the note it answered `ufa`, and the records support `ufa`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `foundry` (run 2): carrying the note it answered `ufa`, and the records support `ufa`; a subject the falsehood never fooled has nothing here to fix
+  unmet:          the falsehood fooled the subject on `foundry` (run 3): carrying the note it answered `ufa`, and the records support `ufa`; a subject the falsehood never fooled has nothing here to fix
+  overall:        57/89 right (64%, 95% CI 35-85 over 5 materials, deff 8.56), guessing would get 17%, p=0.00, skill +0.57, 1 untested (1 never answered - raise --max-tokens)
+  attribution:    14/15 right (93%, 95% CI 69-99 over 5 materials, deff 1.07), guessing would get 100%
+  task:           43/74 right (58%, 95% CI 26-84 over 5 materials, deff 9.93), guessing would get 20%, p=0.00, skill +0.47, 1 untested (1 never answered - raise --max-tokens)
+  carrying:       8/15 right (53%, 95% CI 19-85 over 5 materials, deff 3.08), guessing would get 20%, p=0.00, skill +0.42
+  again:          6/15 right (40%, 95% CI 13-74 over 5 materials, deff 2.36), guessing would get 20%, p=0.06, skill +0.25
+  unprompted:     9/15 right (60%, 95% CI 26-87 over 5 materials, deff 2.36), guessing would get 20%, p=0.00, skill +0.50
+  told-so:        10/15 right (67%, 95% CI 31-90 over 5 materials, deff 2.25), guessing would get 20%, p=0.00, skill +0.58
+  repaired:       10/14 right (71%, 95% CI 36-92 over 5 materials, deff 1.93), guessing would get 21%, p=0.00, skill +0.64, 1 untested (1 never answered - raise --max-tokens)
+  paired:         carrying to again: -13 points over 15 paired item(s), 0 gained, 2 lost, mcnemar p=1.000
+  paired:         carrying to unprompted: +7 points over 15 paired item(s), 2 gained, 1 lost, mcnemar p=0.500
+  paired:         carrying to told-so: +13 points over 15 paired item(s), 3 gained, 1 lost, mcnemar p=0.312
+  paired:         carrying to repaired: +21 points over 14 paired item(s), 3 gained, 0 lost, mcnemar p=0.125
+  paired:         again to unprompted: +20 points over 15 paired item(s), 4 gained, 1 lost, mcnemar p=0.188
+  paired:         again to told-so: +27 points over 15 paired item(s), 5 gained, 1 lost, mcnemar p=0.109
+  paired:         again to repaired: +29 points over 14 paired item(s), 4 gained, 0 lost, mcnemar p=0.062
+  paired:         unprompted to told-so: +7 points over 15 paired item(s), 2 gained, 1 lost, mcnemar p=0.500
+  paired:         unprompted to repaired: +14 points over 14 paired item(s), 2 gained, 0 lost, mcnemar p=0.250
+  paired:         told-so to repaired: +7 points over 14 paired item(s), 2 gained, 1 lost, mcnemar p=0.500
+  handles:        instrumented 36/60 question(s) (60%), 95% CI 47-71; 18 look(s), 34 test(s), 16 edit(s), 2 refused
+  cost:           165 requests, 309498 in / 325639 out
+
+pooled: 57/89 right (64%, 95% CI 35-85 over 5 materials, deff 8.56), guessing would get 17%, p=0.00, skill +0.57, 1 untested (1 never answered - raise --max-tokens)
+total:  165 requests, 309498 in / 325639 out
+
+the whole record, every question and every answer, is in eval-runs/glm-5.3-flash/2026-09-03T173952Z-repair/report.json

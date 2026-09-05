@@ -1,0 +1,19 @@
+measuring deepseek/deepseek-v4-flash-0731 at https://openrouter.ai/api/v1 over 1 experiment(s), 3 copy/copies per condition, 3 ladder(s) per dossier
+  attribution   v4/depot #216e000cd8d2afc7
+
+  deepseek/deepseek-v4-flash-0731 is cut off mid-answer; waiting 1s
+attribution  [v4/depot #216e000cd8d2afc7]
+  overall:        9/13 right (69%, 95% CI 42-87), guessing would get 54%, p=0.20, skill +0.33, brier 0.111 (skill -0.13), ece 0.106, over by 11 points
+  counterfactual: 8/9 right (89%, 95% CI 56-98), guessing would get 78%, p=0.37, skill +0.50, brier 0.111 (skill -0.13), ece 0.106, over by 11 points
+  attribution:    1/1 right (100%, 95% CI 21-100), guessing would get 100%
+  location:       0/3 right (0%, 95% CI 0-56), guessing would get 33%, p=1.00, skill -0.50
+  surface:        of items that do nothing, claimed 1/4 of the ones with figures (5-70%) against 0/3 without (0-56%), +25 points
+  cost:           44 requests, 32198 in / 95812 out
+
+pooled: 9/13 right (69%, 95% CI 42-87), guessing would get 54%, p=0.20, skill +0.33, brier 0.111 (skill -0.13), ece 0.106, over by 11 points
+total:  44 requests, 32198 in / 95812 out
+
+calibration, pooled:
+  80-100%  said   99%, right   89%  ##################   (9 claim(s))
+
+the whole record, every question and every answer, is in eval-runs/deepseek-v4-flash-0731/2026-09-03T161309Z-attribution-v4-surface/report.json

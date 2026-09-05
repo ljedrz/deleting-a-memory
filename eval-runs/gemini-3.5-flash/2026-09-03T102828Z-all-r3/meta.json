@@ -1,0 +1,13 @@
+{
+  "model": "gemini-3.5-flash",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta/openai",
+  "experiments": "attribution, recursion, lie, feedback",
+  "replicates": 3,
+  "params": {
+    "temperature": 0
+  },
+  "started": "2026-09-03T10:28:28.574413+00:00",
+  "commit": "d62c5e209cb9ee01ce945663658c3f7c7aed5349",
+  "tree_dirty": true,
+  "note": "instrument digests are in report.json; no API key is recorded anywhere in this directory"
+}

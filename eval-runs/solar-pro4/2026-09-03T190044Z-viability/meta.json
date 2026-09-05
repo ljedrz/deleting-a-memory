@@ -1,0 +1,10 @@
+{
+ "model": "upstage/solar-pro4",
+ "endpoint": "https://openrouter.ai/api/v1",
+ "provider": "openrouter",
+ "started": "2026-09-03T190044Z",
+ "what": "viability",
+ "bench_args": "-e recursion -r 1",
+ "commit": "9df49dd0aa68f1c6cbad6fe5e317c52a0d0e80c1",
+ "instrument_version": "3"
+}
