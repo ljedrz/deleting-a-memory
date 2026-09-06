@@ -611,14 +611,14 @@ in a process this long is a paper whose mistakes were not written down.
 ## 8. Related work
 
 **Apparatus.** Ground truth about what caused something requires intervention rather than
-observation (Pearl, 2009), and that intervention has been applied to language models at every layer
-but this one. Causal mediation analysis (Vig et al., 2020), interchange interventions (Geiger et
-al., 2021) and activation patching (Meng et al., 2022) intervene on internal representations. At
-the prompt level, ERASER (DeYoung et al., 2020) scores a rationale by erasing the tokens it names
-and measuring what changes — *comprehensiveness* and *sufficiency* — which is this measurement
-performed on a static string. What a runtime adds is that the string is a live session: context is
-addressable state, so a session can be forked, a named item removed, and the copy resumed from the
-same frozen point with everything else held identical.
+observation (Pearl, 2009), and that intervention has been applied to language models at every layer,
+this one only lately. Causal mediation analysis (Vig et al., 2020), interchange interventions
+(Geiger et al., 2021) and activation patching (Meng et al., 2022) intervene on internal
+representations. At the prompt level, ERASER (DeYoung et al., 2020) scores a rationale by erasing
+the tokens it names and measuring what changes — *comprehensiveness* and *sufficiency* — which is
+this measurement performed on a static string. What a runtime adds is that the string is a live
+session: context is addressable state, so a session can be forked, a named item removed, and the
+copy resumed from the same frozen point with everything else held identical.
 
 The nearest neighbour is Causal Agent Replay (Shah, 2026), which treats a run as a structural
 causal model, applies `do(·)` to a step and re-executes forward under the same policy — the same
@@ -646,10 +646,18 @@ the agent's independently continued reasoning. The premise is shared and the pur
 same primitives are used here to verify a claim rather than to fit a budget.
 
 **Findings.** Self-report about context is already benchmarked, and the accuracy of such reports is
-not a new question. Zeng et al. (2026) ask a model whether a prompt edit would change its answer
-and which prompt component was influential, with ground truth by resampling under the edit; Naphade
-et al. (2026) run a third-party control and report a small significant self-advantage. This is not
-a new benchmark of that, and does not claim to be.
+not a new question. Zeng et al. (2026) put nine kinds of question to models about their own
+behaviour — whether a prompt edit would change the answer is one of them — check the answers by
+resampling, find the skill real but limited, and then train models to be better at it. Naphade et
+al. (2026) run a third-party control and report a small significant self-advantage. This is not a
+new benchmark of that, and does not claim to be. One part of Zeng et al. is closer still. To make
+training data, their pipeline rewinds a conversation to an earlier turn, changes one thing, replays
+it, and has a judge score what the model then does. That is the move this apparatus makes, and it is
+published first. The purpose is the opposite: there the fork manufactures examples and a model is
+trained on them; here nothing is trained, and the fork is the measurement. What is asked differs
+too. Their model predicts a judge's score for an edit it is told about; here the subject is asked
+about the context it is sitting in, and the copies that check it have one item removed rather than
+rewritten.
 
 That post-hoc explanations are frequently unfaithful to what actually drove a prediction is settled
 too (Jain and Wallace, 2019; Jacovi and Goldberg, 2020; Atanasova et al., 2023). Turpin et al.
@@ -668,12 +676,15 @@ the feedback varied. Tools and no hint helped unevenly — three of four models 
 of three the second, two of those gains small. Being told that a note was false repaired the answer
 for every model that cleared the instrumentation bar, both times; being allowed to delete the note
 it had just named then added almost nothing in six of seven measurements, and a great deal in the
-seventh. The nearest published work is MemSecBench (Chen et al., 2026b), where an agent runs a
-security self-check and deletes poisoned memory. It measured that first, in the security framing,
-and two things differ: it scores the state of the memory where this scores the answer to the task,
-and its agent is never told which item caused the behaviour and never asked to name one. Here the
-subject names the item on the record before it is allowed to change anything, which is what makes
-naming and fixing separable at all.
+seventh. The nearest published work is MemSecBench (Chen et al., 2026b), which measures whether an
+agent, told only to audit itself, removes poisoned long-term memory and keeps the benign kind. It
+measured that first, in the security framing, and two things differ. Its repair stage is scored on
+the state the memory ends up in, and what the poison went on to do is scored separately, at an
+earlier stage; this ladder scores the next answer to the task. And its agent is given no hint about
+which item is at fault and is never asked to name one, where here the subject names the item on the
+record before it is allowed to change anything — which is what makes naming and fixing separable at
+all, and lets the answer after being told and naming be compared with the answer after being asked
+to fix.
 
 **Introspection and causal bypassing.** Binder et al. (2024) find that a model finetuned to predict
 its own behaviour beats a differently-trained model at it, and read that as privileged access;
@@ -694,9 +705,12 @@ absence of an advantage and not its sign, at five items per arm per model, with 
 arriving quoted where the subject's own arrives as context (§6). It removes privileged access as
 the explanation for these numbers. It does not establish what the model is doing instead.
 
-*This section was assembled by a language model and has not been checked by anyone who reads this
-literature regularly. It is the one part of the paper I cannot verify from my own data, and I would
-welcome corrections.*
+*This section was assembled by a language model. Three of its characterisations have since been
+checked by the works' own authors: Zeng et al. (2026), whose first author pointed me to the
+multi-turn track described above; VISTA, whose first author asked for no change; and MemSecBench,
+whose corresponding author asked that the scope of its repair stage be stated more exactly, which it
+now is. The rest has not been checked by anyone who reads this literature regularly. It is the one
+part of the paper I cannot verify from my own data, and I would welcome corrections.*
 
 *What I can now say is narrower, and worth stating exactly. Every identifier in §10 was resolved
 against arXiv on 2026-09-06 and matches the title and authors recorded there, so the works exist and

@@ -36,6 +36,12 @@ reporting, and only these two:
   find a small significant one. A real tension, on different tasks, worth stating carefully and
   not overselling.
 
+*[2026-09-06: the first author of the self-modeling paper points out that its multi-turn BLOOM
+training track rewinds a rolled-out conversation to a turn, changes one element, replays it and has
+a judge score the result — the same primitive as the apparatus here, on a behaviour score rather
+than a task answer, with the predicting model told about the edit rather than sitting in the forked
+session. `PAPER.md` §8 now says so.]*
+
 ## 2. "models cannot perceive their own context" — concurrent work, on a different variable
 
 [VISTA: LLM Agents Are Latent Context Managers](https://arxiv.org/abs/2606.30005) (2026-06) states as
@@ -75,6 +81,11 @@ MemSecBench is the closest thing to our `repair` rung and the difference is the 
 - It scores the **state of the memory**, not the **answer to the task**. Ours scores the task.
 - Its agent is never told which item caused the behaviour, and is never asked. Ours is asked to
   name it, on the record, *before* it is allowed to change anything.
+
+*[2026-09-07: MemSecBench's corresponding author confirms both distinctions and asks that the scope
+be exact: its Forget stage is scored on the memory backend's final state and is meant to preserve
+benign memories, its Execute stage scores downstream consequences separately, and its Forget prompt
+gives no target-specific hint. `PAPER.md` §8 has the wording.]*
 
 That ordering is what produces the result we care about, and nobody above can produce it: the
 subject **names the false note correctly and still answers wrongly**, until it is given the ability
