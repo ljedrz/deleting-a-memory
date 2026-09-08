@@ -26,7 +26,7 @@ something.
 | [`RESULTS-v5.md`](RESULTS-v5.md) | the same for the second collection, plus the four replication thresholds |
 | [`METHODOLOGY.md`](METHODOLOGY.md) | every metric's definition, the controls, and the eleven known threats to validity — three of them uncontrolled |
 | [`RUNBOOK.md`](RUNBOOK.md) | what was run, in what order, and what it cost |
-| [`RELATED.md`](RELATED.md) | prior and concurrent work. **Assembled with model assistance and not checked by anyone who reads this literature regularly** |
+| [`RELATED.md`](RELATED.md) | prior and concurrent work. Assembled with model assistance, then **three of its characterisations were checked by the authors of the works themselves** — two asked for changes, which `PAPER.md` §8 now carries, and one asked for none. The rest is unchecked |
 | [`eval-runs/`](eval-runs) | every question put and every answer given, 65 runs |
 
 ## checking the numbers
