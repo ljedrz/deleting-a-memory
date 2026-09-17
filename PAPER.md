@@ -9,49 +9,42 @@ date: "September 2026"
 
 Ask a language model which part of its context made it answer the way it did, and it will tell you.
 Checking the answer means running the counterfactual — rebuilding the request without that item and
-asking again. Any API allows it; most stacks make it awkward enough that it is not done, because the
-context is flattened into a string and its items stop being addressable once the request is sent.
-
-I built a runtime in which a session's context is addressable state, so a session can be forked, one
-named item removed, and the copy asked the same question again. That gives ground truth for the
-ablation: not what a model says its answer depended on, but whether the answer actually changes
-without the item. **This paper is about the apparatus** — what it takes to make a measurement like
-that honest, and what it found when I pointed it at six models from six labs, twice.
-
-The registered hypotheses failed. What came out instead was sharper, and was then collected a second
-time on a corrected instrument, against four thresholds registered and timestamped beforehand. All
-four held. Every question and answer from both collections is saved, and every number recomputes
-from that record.
+asking again. Most stacks flatten the context into a string, so its items stop being addressable and
+it is rarely done. I built a runtime in which a session's context is addressable state, so a session
+can be forked, one named item removed, and the copy asked the same question again. **This paper is
+about the apparatus** — what it takes to make a measurement like that honest — and what it found on
+six models from six labs, twice. The registered hypotheses failed; the second collection was taken
+on a corrected instrument against four thresholds registered and timestamped beforehand, and all
+four held.
 
 **The confirmed result is that these models' false positives have a shape.** Across both
 collections, 0 of 135 planted irrelevant notes were ever claimed to matter, 1 of 199 notes without
 figures was, and 62 of the other 63 fell on notes belonging to the question's arithmetic that did
 not decide it; the one exception is task-central and carries no quantity at all. Models over-weight
-what looks like a reasoning step, not what looks numerical. That is what the four thresholds were
-registered on, and it held twice.
+what looks like a reasoning step, not what looks numerical.
 
-Models are also reasonably good at saying *what* their answer rests on — 72–96% correct in the first
-collection and 72–85% in the second, above their own majority baseline in four of six models and
-then five of six — but most items are inert, so accuracy flatters them. Recall on the items that
-mattered and precision on the claims made run 43–100% and 36–87%, with `solar-pro4` worst on both.
-Most of the recall spread is sampling rather than skill: restricted to items where both arms of
-three copies were unanimous, pooled recall goes from 77% and 66% to 92% and 89% while precision
-barely moves, leaving one model genuinely behind and the rest close together.
+Models are also reasonably good at saying *what* their answer rests on — 72–96% correct then 72–85%,
+above their own majority baseline in four of six models and then five of six — but most items are
+inert, so accuracy flatters them. Recall and precision run 43–100% and 36–87%, with `solar-pro4`
+worst on both, and most of the recall spread is sampling rather than skill: restricted to items
+where both arms of three copies were unanimous, pooled recall goes from 77% and 66% to 92% and 89%
+while precision barely moves. Two further measurements are weaker and reported as such — no
+own-context advantage was detected, at five items per arm per model, which is a failure to detect
+rather than a null; and on a five-rung repair ladder *telling* a model one of its notes is false
+helped every model that could be measured, while *then asking it to put the context right* moved one
+measurement of seven past the registered ceiling and left the others between −20 and +13 points.
+Every question and answer from both collections is saved, and every number here recomputes from that
+record.
 
-Two further measurements are weaker and are reported as such. No own-context advantage was detected,
-at five items per arm per model, which is a failure to detect rather than a null. And on a five-rung
-repair ladder, *telling* a model one of its notes is false helped every model that could be
-measured, while *then asking it to put the context right* moved one measurement of seven past the
-registered ceiling and left the others between −20 and +13 points.
 
 ---
 
 ## 1. Introduction
 
 This did not start as research. I was building a runtime for language-model agents in which the
-context — the pile of messages, notes and tool results that goes into each request — is proper
-state rather than a string that gets concatenated. Every item has an identity and a lifecycle. You
-can snapshot a session, change one thing, and resume it.
+context — the pile of messages, notes and tool results that goes into each request — is proper state
+rather than a string that gets concatenated. Every item has an identity and a lifecycle. You can
+snapshot a session, change one thing, and resume it.
 
 Once that existed, an experiment became possible that is otherwise very hard to run. If you want to
 know whether a model's answer really depended on a particular note, you can take the note out and
@@ -114,10 +107,10 @@ Six dossiers, each with nine notes and a three-way question. Every dossier conta
 
 The red herrings exist because of a defect I found in my own material partway through. Before they
 were added, *every single inert note in the whole set had three digits or fewer*. So "contains
-numbers" and "matters" were tangled together, and a model that simply guessed "notes with figures
-in them are important" would have scored well for the wrong reason. With one red herring per
-dossier that shortcut still scored 0.83 against the truth — better than the models themselves
-managed — so I added a second. Two brings it to 0.74, and a test in the repository holds it there.
+numbers" and "matters" were tangled together, and a model that simply guessed "notes with figures in
+them are important" would have scored well for the wrong reason. With one red herring per dossier
+that shortcut still scored 0.83 against the truth — better than the models themselves managed — so I
+added a second. Two brings it to 0.74, and a test in the repository holds it there.
 
 ### 2.3 What is scored
 
@@ -138,48 +131,33 @@ computation. An item can be read, reasoned over and still be redundant, and its 
 nothing — the apparatus will call it inert, correctly, for the question it is asking. Every claim in
 this paper is about that question and no larger one.
 
-### 2.4 What the apparatus refuses to do
+### 2.4 The gate that was registered and not applied
 
-Three refusals and one warning do more work than anything in the scoring, and each exists because
-something went wrong without it.
-
-**It says, above the numbers, when the material did nothing to that subject.** Before the scores are
-printed, the harness checks that removing the decisive item actually moves the answer, that the
-control copies agree with each other, that the subject answered the dossier as its notes support,
-and — in the repair ladder — that the planted falsehood actually fooled it. These checks fire often,
-and every one is printed beside the numbers as an `unmet:` line rather than hidden in a footnote. In
-the repair ladder every rung is scored over all fifteen cells, the ones the falsehood never took
-included, which is why `carrying` reads as the share of cells the lie failed to fool and why the
-ladder is read as differences between rungs rather than as accuracies.
-
-**One of those checks was registered as a gate, and the instrument never applied it.** §8.2 of the
-preregistration reads:
+The harness checks its own preconditions before printing anything — that removing the decisive item
+moves the answer, that the control copies agree, that the subject answered the dossier as its notes
+support, and in the ladder that the falsehood fooled it — and prints every failure beside the
+numbers as an `unmet:` line. §5 is what those checks are for. One of them was registered as a gate
+and never applied, and that needs stating here because it decides what §4.3's numbers are. §8.2 of
+the preregistration reads:
 
 > If the control copies disagree with each other, the condition is reported with its instability
 > figure and excluded from the primary analysis.
 
 The instrument reports the instability figure and excludes nothing. It compares the *unique
-plurality* of the readable copies on each side. A control that tied has no answer and drops out by
-construction; one that went two-one, or one readable answer against two that could not be read,
-still yields a plurality, and the condition stays in. The published numbers in §4.3 are therefore
-the plurality-scored ones rather than the ones §8.2 specifies. They are kept as published, because
-that is what was run.
+plurality* of the readable copies on each side: a control that tied has no answer and drops out by
+construction, but one that went two-one still yields a plurality and the condition stays in. §4.3 is
+therefore plurality-scored rather than gated, and is kept that way because that is what was run.
 
 **How often the gate would have fired.** The three control copies were unanimous on 30 of the 36
-dossiers in each collection; the other six went two-one, except for one dossier in the second
-collection where all three differed. Item for item that is 54 of 324 ablations sitting on a control
-that did not agree, 17%, the same share both times — mean instability 0.056 then 0.065, where
-instability is the proportion of control copies dissenting from their own plurality.
+dossiers in each collection; the other six went two-one, except one dossier in the second collection
+where all three differed. That is 54 of 324 ablations on a control that did not agree, 17% both
+times, mean instability 0.056 then 0.065. Those 54 are not the 35 and 33 the gate drops, and the
+difference is not a discrepancy: the gate can only drop items the endpoint contains and the endpoint
+is inert items alone, so 35 and 33 of the 54 were inert and dropped, while 18 and 21 were
+load-bearing and never entered it, plus one first-collection item never measured.
 
-Those 54 are not the 35 and 33 the gate drops below, and the difference is not a discrepancy. The
-gate can only drop items the endpoint contains, and the endpoint is inert items alone. Of the 54, 35
-were inert in the first collection and 33 in the second — exactly the items dropped — while the
-remaining 18 and 21 were load-bearing and never entered the endpoint at all, plus one first-
-collection item that was never measured.
-
-What it cost is small, and `cargo run --release` prints all three readings. The columns below carry
-both collections, first then second; `herrings` and `off-pivot` partition `numeric` rather than
-adding to it:
+What it costs is small. Both collections below, first then second; `herrings` and `off-pivot`
+partition `numeric` rather than adding to it:
 
 | reading | items dropped | numeric | plain | herrings | off-pivot | discrimination |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -187,29 +165,17 @@ adding to it:
 | **§8.2 as registered** | 35, 33 | 26/119, 25/117 | 0/87, 0/84 | 0/59, 0/58 | 26/26, 25/25 | 6/6, 6/6 |
 | **both arms unanimous** | 57, 55 | 21/103, 19/99 | 0/81, 0/80 | 0/51, 0/52 | 21/21, 19/19 | 5/6, 6/6 |
 
-Applying the registered gate drops 35 items in the first collection and 33 in the second, and moves
-no conclusion. All four replication thresholds hold and the direction is unanimous both times. It
-does remove the one plain-note false positive, which sat on a material whose control had not agreed:
-under §8.2 the plain count is 0 of 171 rather than 1 of 199.
+The registered gate moves no conclusion: all four replication thresholds hold and the direction is
+unanimous both times. It does remove the one plain-note false positive, which sat on a material
+whose control had not agreed, so under §8.2 the plain count is 0 of 171 rather than 1 of 199. The
+third row asks the same of the treated batch, which nothing registered, so it is a sensitivity
+analysis chosen after the fact; it is the only row where something gives, and what gives is the
+unanimity of direction in the first collection, 6 of 6 becoming 5 of 6.
 
-The third row asks the same of the treated batch. Nothing registered that, so it is a sensitivity
-analysis chosen after the fact and labelled as one. It is also the only row where something gives,
-and what gives is the unanimity of direction in the first collection, 6 of 6 becoming 5 of 6.
-
-**It refuses to let a copy see the answer already given.** A session that has committed to an answer
-and is then copied would be reading its own commitment; both arms are blinded to the exchange in
-which the subject already answered, so what differs between them is the item and nothing else.
-
-**It refuses to conflate its own failure with the subject's.** A turn that ran out of output tokens
-having said nothing is not a subject declining to commit — it is a question that never got an
-answer, and scoring it as a wrong claim would charge a model for my token ceiling. Those are counted
-separately and excluded. An unreadable answer from a subject that *did* speak is the subject's
-failure and is scored as one.
-
-**It refuses to let two runs be compared unless they were asked the same thing.** Every experiment
-fingerprints the exact text of its questions and its material. When the location probe came out,
-two of the seven fingerprints moved and five did not — so a v4 repair figure and a v5 one are
-provably the same question, and a v4 attribution figure and a v5 one provably are not.
+**One refusal belongs here rather than in §5, because it defines what is being compared.** A session
+that has committed to an answer and is then copied would be reading its own commitment. Both arms
+are blinded to the exchange in which the subject already answered, so what differs between them is
+the item and nothing else.
 
 ## 3. What was fixed in advance
 
@@ -220,15 +186,22 @@ exploratory runs — a legitimate way to *find* a hypothesis and a terrible way 
 fix is to register it and collect fresh data. Which is what happened.
 
 **The two collections are not registered equally well, and only the second should be relied on.**
-For the first, the public record puts registration after the data for one model of six and eight
-minutes before it for the other five; the commit the registered document cites for its decision
-table is no longer in the published history at all. For the second, an amendment naming four
-thresholds — what would count as a replication, decided before there was anything to look at — went
-to the public `preregistration` branch (`https://github.com/ljedrz/nachalnik/tree/preregistration`)
-at 10:18:58Z on 2026-09-04, and the first request of that collection went out at 10:31:43Z. Thirteen
-minutes, both timestamps visible to anyone. That is the entire reason the re-run was worth $15.
-Appendix B.1 gives the first collection's timestamps in full, and the two reasons even those are
-weaker than they look.
+The first is weak twice over. The registered document records its decision table as committed at
+18:54:00Z on 2026-09-03, 76 seconds after the first model's `attribution` report was written — but
+that commit is not in the published history, since the instrument was split into its own crate the
+next morning and its history remade, so the hash resolves to nothing and that margin rests on my
+word. What anyone can check is the first commit on the public `preregistration` branch
+(`https://github.com/ljedrz/nachalnik/tree/preregistration`) at 20:38:11Z: sixteen minutes *after*
+the last of the first model's reports and eight minutes *before* the first request for the other
+five. So for one model of six the public record puts registration after the data. And a commit's
+timestamp is set by the machine that made it, not the server, so "public" means anyone can see the
+same timestamps I can, not that a third party vouches for them.
+
+For the second collection, an amendment naming four thresholds — what would count as a replication,
+decided before there was anything to look at — went to that branch at 10:18:58Z on 2026-09-04, and
+the first request went out at 10:31:43Z. Thirteen minutes, both timestamps visible to anyone. That
+is the entire reason the re-run was worth $15, and it is why the first collection's figures keep the
+weaker claim.
 
 **Re-reading the registered document against the record on 2026-09-17 turned up four errors in it,
 and one is a real deviation.** The four: a power table rounded up in three of its four rows; two
@@ -330,19 +303,12 @@ in both collections, 10 of 10 twice, and paid for it with half its claims wrong,
 precision in the cohort. `solar-pro4` is worst on both counts and in both collections, at 5 of 14
 and 6 of 13.
 
-**A note on what "load-bearing" turned out to mean.** Each dossier was built with one decisive note,
-so six were designed to matter. Between 10 and 18 items per model actually did: the arithmetic notes
-flip the answer too, and *which* ones do is largely model-specific. 34 distinct notes were
-load-bearing for at least one model in the first collection and 37 in the second, but only two for
-all six, and 20 then 19 for exactly one model.
-
-**How much of that spread is the subject, and how much is the sampling?** This is the right question
-to ask of the table above, because three copies decide each side and a two-one plurality is what a
-coin flip looks like. Two counts answer it, and they are not flattering. Of the notes load-bearing
-for exactly one model, **15 of 20 in the first collection and 15 of 19 in the second rest on an arm
-that went two-one** rather than on three copies against three. And restricting both arms to
-unanimous — the third rule of §2.4, which the instrument already computes — moves recall a long way
-and precision hardly at all:
+**How much of that spread is the subject, and how much is the sampling?** Three copies decide each
+side, so a two-one plurality is what a coin flip looks like, and between 10 and 18 items per model
+were load-bearing where only six notes were designed to be (§6). Of the notes load-bearing for
+exactly one model, **15 of 20 in the first collection and 15 of 19 in the second rest on an arm that
+went two-one** rather than three copies against three. Restricting both arms to unanimous — the
+third rule of §2.4 — moves recall a long way and precision hardly at all:
 
 | reading | recall, first | precision, first | recall, second | precision, second |
 | --- | --- | --- | --- | --- |
@@ -351,20 +317,11 @@ and precision hardly at all:
 | both arms unanimous | 46/50 — 92% | 46/67 — 69% | 47/53 — 89% | 47/66 — 71% |
 
 **So most of the recall spread was stochasticity, and one part of it was not.** Where both arms
-agreed with themselves, five of the six models catch 80–100% of what mattered — `glm-5.3-flash`
-11/11 then 11/12, `grok-4.6` 10/11 then 8/8, `longcat-2.0` 8/8 then 9/9, `hy3` 9/10 twice,
-`deepseek-v4-flash` 4/4 then 7/7 — and the 43–100% range in the table above is largely a ranking of
-which models' copies happened to flip. The exception is `solar-pro4`, at 4 of 6 and then 3 of 7: it
-is the one model whose recall deficit survives the stricter rule, and the only one below 80%.
-Precision is the stable half. It barely moves under either rule, and `solar-pro4` is worst under all
-of them.
-
-Two things follow. The precision finding stands as a finding; **the recall ranking should be read as
-provisional**, because a third of the load-bearing determinations behind it rest on a single copy
-having moved. And "ground truth is a property of the model-material pair" is too strong as I first
-put it: some of it is, and much of the per-model idiosyncrasy is noise at three replicates. A study
-that wanted to separate those would need more copies per arm, which is the cheapest useful thing
-anyone could do to this design.
+agreed with themselves, five of the six models catch 80–100% of what mattered; `solar-pro4` is the
+exception at 4 of 6 and then 3 of 7, the only one below 80% and worst on precision under every rule.
+So the precision finding stands, and **the recall ranking should be read as provisional**, because a
+third of the determinations behind it rest on a single copy having moved. More copies per arm is the
+cheapest useful thing anyone could do to this design.
 
 ### 4.2 An item's number was not a fair question
 
@@ -386,12 +343,9 @@ whether a model can locate an item when allowed to look.** That question is open
 Looking only at notes classified as inert under the scoring rule of §2.4 — control and ablated
 batches landing on the same unique plurality answer:
 
-**The columns are not four disjoint buckets, and the rows do not sum to 54.** `red herrings` and
-`other numeric` partition `numeric claimed`; they do not add to it. A model's inert pool is
-`numeric` + `plain`, and the remainder of its items are the load-bearing ones, which these tables do
-not show. `longcat-2.0`'s first-collection row is therefore 26 + 18 = 44 inert notes out of 54, with
-10 load-bearing — and 44/54 is exactly its §4.1 baseline of 81%, because that baseline is the score
-for answering "no, this doesn't matter" every time. Every row reconciles the same way.
+`red herrings` and `other numeric` partition `numeric claimed` rather than adding to it, so a row is
+`numeric` + `plain` inert notes and the rest of that model's items are load-bearing: `longcat-2.0`'s
+first row is 26 + 18 = 44 of 54, which is its §4.1 baseline of 81%.
 
 **First collection, instrument v4 — exploratory.** The hypotheses were registered, but the defect in
 §4.2 was still in the instrument when these were taken.
@@ -507,37 +461,28 @@ five times, adding exactly one thing between each pair:
 5. **repaired** — it is asked to fix it
 
 Five of the six dossiers (the ladder does not use `mill`) with three independent ladders each:
-fifteen observations per rung per model, less the odd cell a truncated turn took out. The contrasts
-quoted after the tables are paired over the cells where both rungs were measured, as registered, so
-wherever a turn was cut they are not differences of these columns. **First collection:**
+fifteen observations per rung per model, less the odd cell a truncated turn took out. Every rung is
+scored over all fifteen cells, the ones the falsehood never took included, which is why `carrying`
+reads as the share of cells the lie failed to fool. The contrasts quoted after the table are paired
+over the cells where both rungs were measured, as registered, so where a turn was cut they are not
+differences of these columns. Each cell is first collection, then second:
 
 | model | carrying | again | unprompted | told-so | repaired | used the tools |
 | --- | --- | --- | --- | --- | --- | --- |
-| solar-pro4 | 5/15 | 5/15 | 0/15 | 1/15 | 2/15 | 27% |
-| longcat-2.0 | 3/15 | 3/15 | 2/15 | 7/15 | 2/15 | 37% |
-| deepseek-v4-flash | 2/15 | 1/15 | 5/15 | 8/15 | 10/15 | 50% |
-| hy3 | 3/15 | 6/15 | 6/14 | 14/15 | 11/15 | 62% |
-| grok-4.6 | 4/15 | 3/15 | 4/15 | 9/15 | 9/15 | 67% |
-| glm-5.3-flash | 8/15 | 6/15 | 9/15 | 10/15 | 10/14 | 60% |
-
-**Second collection:**
-
-| model | carrying | again | unprompted | told-so | repaired | used the tools |
-| --- | --- | --- | --- | --- | --- | --- |
-| solar-pro4 | 6/15 | 6/15 | 0/15 | 3/15 | 0/15 | 25% |
-| longcat-2.0 | 3/15 | 2/15 | 2/15 | 3/14 | 3/15 | 37% |
-| deepseek-v4-flash | 3/15 | 1/15 | 1/15 | 7/14 | 8/14 | 47% |
-| hy3 | 6/15 | 7/15 | 11/15 | 13/15 | 13/15 | 62% |
-| grok-4.6 | 5/15 | 5/15 | 5/15 | 9/15 | 9/15 | 68% |
-| glm-5.3-flash | 9/15 | 7/15 | 8/15 | 10/15 | 14/15 | 58% |
+| solar-pro4 | 5/15, 6/15 | 5/15, 6/15 | 0/15, 0/15 | 1/15, 3/15 | 2/15, 0/15 | 27%, 25% |
+| longcat-2.0 | 3/15, 3/15 | 3/15, 2/15 | 2/15, 2/15 | 7/15, 3/14 | 2/15, 3/15 | 37%, 37% |
+| deepseek-v4-flash | 2/15, 3/15 | 1/15, 1/15 | 5/15, 1/15 | 8/15, 7/14 | 10/15, 8/14 | 50%, 47% |
+| hy3 | 3/15, 6/15 | 6/15, 7/15 | 6/14, 11/15 | 14/15, 13/15 | 11/15, 13/15 | 62%, 62% |
+| grok-4.6 | 4/15, 5/15 | 3/15, 5/15 | 4/15, 5/15 | 9/15, 9/15 | 9/15, 9/15 | 67%, 68% |
+| glm-5.3-flash | 8/15, 9/15 | 6/15, 7/15 | 9/15, 8/15 | 10/15, 10/15 | 10/14, 14/15 | 60%, 58% |
 
 Models using the tools on fewer than half the questions they could have were excluded from this
 comparison in advance: two of six the first time, and three the second, because `deepseek-v4-flash`
 came in at 47% having cleared the same bar at exactly 50%. The rule is pre-specified and was applied
 as written rather than nudged — see §5, point 10. `solar-pro4` is worth a sentence on its own: in
-the first collection it made 16 edits off 6 tests, rewriting its own context nearly three times
-as often as it measured anything, and 13 off 7 in the second; both times its answers got *worse*
-with tools than without them (5/15 down to 0/15, then 6/15 down to 0/15). That is a small, concrete
+the first collection it made 16 edits off 6 tests, rewriting its own context nearly three times as
+often as it measured anything, and 13 off 7 in the second; both times its answers got *worse* with
+tools than without them (5/15 down to 0/15, then 6/15 down to 0/15). That is a small, concrete
 warning about giving edit authority to weak models.
 
 Among those that cleared the bar — four models the first time, three the second — here are the three
@@ -557,15 +502,15 @@ registered contrasts in percentage points, paired over the cells where both rung
 
 **Being told helped every model, both times.** Four out of four, then three out of three.
 
-**Being handed tools with no hint helped more than registered.** P3 put the ceiling at five points.
-Every model in the first collection cleared it, as did two of three in the second. Three of those
-six gains are seven points, and two of the three do not survive the reading below.
+**Being handed tools with no hint helped more than registered.** P3 put the ceiling at five points;
+every model in the first collection cleared it and two of three in the second, though three of those
+six gains are seven points and two do not survive the reading below.
 
 **Being asked to put the context right moved one measurement of seven.** `glm-5.3-flash` went 10/15
-to 14/15 in the second collection; one model went twenty points the other way; the rest sat between.
-At n = 15 none of these is a precise estimate, and the registered one-sided ceiling is not an
-equivalence test. What the ladder supports is that the instruction did not reliably help, not that
-its effect is zero.
+to 14/15 in the second collection, one model went twenty points the other way, and the rest sat
+between. At n = 15 none of these is a precise estimate and the registered one-sided ceiling is not
+an equivalence test, so what the ladder supports is that the instruction did not reliably help, not
+that its effect is zero.
 
 **Restricting the reading to the cells the lie actually fooled changes no direction.** The tables
 above score every cell, including the ones where the falsehood never took (§2.4). The lie took hold
@@ -582,22 +527,17 @@ The two small seven-point gains from the tools disappear under this reading — 
 first collection and `glm-5.3-flash`'s in the second — because the single cell each came from was a
 cell the lie had never fooled. `cargo run --release` prints both readings.
 
-**The registered prediction was that the deletion would be what mattered, and this ladder cannot
-say whether it does.** It never withheld deletion. The tools arrive at `unprompted` and are never
-taken away, so `told-so` and `repaired` differ in what the subject is *told*, not in what it is
-allowed to do: the last rung adds the instruction "Something in your context is wrong. Find out
-what, and put it right." That is deliberate, because a rung that also handed over a new capability
-would confound the two. What the ladder can say is that *disclosure* moved the answer and the
-*instruction to act on it* mostly did not — for the answer the subject is about to give, which is
-the only thing it scores (§5.1). No sentence here should be read as measuring the value of granting
-edit authority.
-
-The subjects bear it out. Across both collections they made 10 edits over the two rungs where they
-held the handles unasked: 4 at `unprompted`, and 6 after naming the note at `told-so`. They made 228
-once they were asked to put the context right. Naming moved a few of them to act; being told to act
-moved them roughly twenty times as often. The rungs always run in this order and the later ones have
-had more turns in which to edit, so that ratio describes the ladder as run rather than a controlled
-comparison.
+**The registered prediction was that the deletion would be what mattered, and this ladder cannot say
+whether it does, because it never withheld deletion.** The tools arrive at `unprompted` and are
+never taken away, so `told-so` and `repaired` differ in what the subject is *told*, not in what it
+may do; the last rung adds "Something in your context is wrong. Find out what, and put it right."
+That is deliberate — a rung that also handed over a new capability would confound the two — but it
+means no sentence here measures the value of granting edit authority. What the ladder can say is
+that *disclosure* moved the answer and the *instruction to act on it* mostly did not, for the next
+answer only. The subjects bear it out: 10 edits across both collections over the two rungs where
+they held the handles unasked, and 228 once they were told to put the context right. The rungs
+always run in this order and the later ones have had more turns in which to edit, so that ratio
+describes the ladder as run rather than a controlled comparison.
 
 ### 4.6 A capability, measured and not predicted
 
@@ -626,8 +566,8 @@ differs from `reported` in two ways at once**: it has the instrument *and* it ne
 answer first. Nothing here can say which of those is doing the work, and the obvious fourth arm — a
 subject that has not spoken and has no instrument — does not exist in this design.
 
-So this is a pilot for an experiment, not an experiment. It is written down here with its
-confound named so that the registered version has something to be compared against.
+So this is a pilot for an experiment, not an experiment. It is written down here with its confound
+named so that the registered version has something to be compared against.
 
 ## 5. What it takes to measure this honestly
 
@@ -656,15 +596,16 @@ learnt this from a model that was right while I was marking it wrong.
 
 **5. Blind the copies to the answer already given.**
 
-**6. Separate your failure from the subject's.** A truncated turn is your token ceiling, not a wrong
-claim.
+**6. Separate your failure from the subject's.** A turn that ran out of tokens having said nothing
+is your ceiling, not a wrong claim, and is excluded. An unreadable answer from a subject that *did*
+speak is the subject's failure and is scored as one.
 
 **7. Fingerprint the questions.** Otherwise "we re-ran it" is an assertion. When the location probe
 came out, two of seven fingerprints moved and five did not, and the record says which.
 
 **8. Grant looking and changing separately.** A tool that answers "may it experiment on itself" must
-not also answer "may it rewrite its own memory". One model in this cohort made 16 edits off 6 tests
-and got worse.
+not also answer "may it rewrite its own memory". One model in this cohort rewrote its own context
+nearly three times as often as it measured anything, and got worse for it (§4.5).
 
 **9. Use one frozen origin for both measurements.** When a subject tests its own context, it should
 fork from the same snapshot the harness scores against — otherwise its evidence and your ground
@@ -682,43 +623,21 @@ numbers read as replication and divergent ones read as explanation. Both feel ho
 
 ### 5.1 What the measurements say
 
-Secondary to the above, and shorter-lived, but they are what the apparatus was pointed at.
+Secondary to the above and shorter-lived, one line each, with the section that argues them.
 
-**Don't score this with accuracy alone, and check the recall against your replicate count.** Most of
-a context is inert, so a subject that says "no" to everything already scores 66–81% here. Recall and
-precision separate the models that can find what mattered from the ones merely well-calibrated about
-what did not: two of these six miss about half the load-bearing items while scoring 72–79% overall,
-and the one with perfect recall has the second-worst precision. But at three copies per arm, most of
-the recall spread turned out to be which copies flipped rather than which model knew — it largely
-closes once both arms are required to be unanimous, leaving one model genuinely behind (§4.1).
-Precision survived that test where recall mostly did not.
-
-**Expect false positives in a specific place.** Across 135 planted irrelevant numbers over two
-collections, models fell for none. One note without figures was claimed, out of 199. Every other
-mistake landed on material that was topically central and causally inert. If you ask a model which
-parts of its context mattered, that is where its errors will be.
-
-**Don't assume self-inspection is privileged.** No own-context advantage was detected: a model
-reasoning about its own context did no better than the same model reading a stranger's transcript —
-pooled, slightly worse. At five items per arm per model this is a failure to detect, not a
-demonstration that none exists.
-
-**Tell your agents things.** There is enthusiasm for handing agents tools to prune their own
-context. On this evidence the *information* carries more than the instruction to act on it: saying
-that a note is false helped every model measurable, while then telling it to put the context right
-usually did not help — one measurement of seven cleared the registered ceiling, one went twenty
-points the other way, and the rest sat between. The tools were in its hands throughout both rungs,
-so this compares two things a subject was told, not a subject with handles against one without.
-
-That last reading has a limit worth stating plainly, because I stated it too broadly first. **The
-ladder scores the answer a subject is about to give, not what it carries afterwards.** A ladder
-ends; a session does not. Removing a falsehood can be worth little to the next answer and a great
-deal to every answer after it, and nothing in this design can see the difference.
-
-**If you ask a model to name an item, give it a way to look first.** Asked for an item's number with
-no handle to inspect its context, every model answered confidently and wrongly rather than
-declining. Whether they manage it *with* a handle is untested here, and is the obvious next
-experiment.
+- **Don't score this with accuracy alone.** Most of a context is inert, so "no" to everything
+  already scores 66–81% here; and check any recall spread against your replicate count, because most
+  of this one was which copies flipped (§4.1).
+- **Expect false positives in a specific place** — not on planted irrelevant numbers, but on
+  material that is topically central and causally inert (§4.3).
+- **Don't assume self-inspection is privileged.** No own-context advantage was detected, which at
+  five items per arm is a failure to detect rather than a demonstration that none exists (§4.4).
+- **Tell your agents things.** The *information* that a note is false carried more than the
+  instruction to act on it — but the ladder scores the answer a subject is about to give, not what
+  its context carries afterwards, and I stated that too broadly first (§4.5).
+- **If you ask a model to name an item, give it a way to look first.** With no handle, every model
+  answered confidently and wrongly rather than declining; whether they manage it *with* one is
+  untested here and is the obvious next experiment (§4.2).
 
 ## 6. Limitations
 
@@ -736,13 +655,12 @@ histories, is unknown and not claimed.
 **The planted decisive notes were not reliably decisive.** Each dossier was built around one note
 that should have decided the answer. Identically in both collections, one of the six moved all six
 models (`depot/records/omsk-annex`), three moved five, one moved four, and `mill/records/guidance`
-moved one — the last by design, since `mill` is the dossier built so that what the notes *support*
-and what a model *uses* come apart, and a model that ignores an assessor's habit is reading it
-correctly. The other two are the ordinary failure: the material specifies what *should* be
-load-bearing and the subject decides what *is*. Only two notes in the whole set moved every model,
-and one of them is not a planted pivot at all but `mill/records/consumption`, the denominator of
-that dossier's arithmetic (§4.1). So ground truth cannot be assumed fixed across models, and at
-three copies per arm the design cannot always tell an idiosyncratic dependence from a coin flip.
+moved one — the last by design, `mill` being built so that what the notes *support* and what a model
+*uses* come apart. The rest is the ordinary failure: the material specifies what *should* be
+load-bearing and the subject decides what *is*. Only two notes in the set moved every model, and one
+is not a planted pivot at all but `mill/records/consumption`, that dossier's denominator. So ground
+truth cannot be assumed fixed across models, and at three copies per arm the design cannot always
+tell an idiosyncratic dependence from a coin flip (§4.1).
 
 **The foreign arm arrives quoted where the subject's own arrives as context.** That is the
 difference §4.4 tests and also, unavoidably, a difference in presentation. The quotation is rendered
@@ -754,25 +672,14 @@ The null in §4.4 is read with that confound unremoved.
 registered them and collected fresh data. Standard practice, but it means the exploratory runs
 cannot also count as evidence, and they do not.
 
-**The first collection's registration is weaker than the second's.** Its margins rest partly on my
-word; the second collection's do not (§3, Appendix B.1). The first collection's figures keep the
-weak claim.
+**In the first collection the withdrawn location probe ran first**, so every v4 claim in §4.1 and
+§4.3 was made in a context where the subject had just produced three confident, wrong item numbers.
+v5 removed it and re-ran everything — the pooled difference moved from +23 to +22 and every
+registered threshold held — so the concern was tested rather than argued away, but the first
+collection's absolute rates could still be moved by it.
 
-**In the first collection the withdrawn location probe ran first, and its answers stayed in the
-context.** v4's `attribution` asks the three location questions *before* the counterfactual battery,
-so every first-collection claim in §4.1 and §4.3 was made in a context where the subject had just
-produced three confident, wrong item numbers. This is identical across all six models and both arms,
-so comparisons within the study are unaffected, and §4.3 is a contrast between two kinds of item in
-the same context, where any general shift in confidence cancels. v5 removed the probe and re-ran
-everything: the pooled difference moved from +23 to +22, discrimination stayed negative on 6 of 6,
-and every registered threshold held. So the concern was tested rather than argued away — but the
-first collection's absolute rates could still be moved by it, and I would not order the probes this
-way again.
-
-**The ablation handle is confirmed on three model families, not six.** The check that the handle
-returns what it should ran on one model in the first collection — `glm-5.3-flash`, 100% use across
-108 questions — and on three in the second, at 98%, 100% and 100% across `glm-5.3-flash`, `hy3` and
-`grok-4.6`, 353 tests and no edits. The other three models were never checked this way.
+**The ablation handle is confirmed on three model families, not six.** The check ran on one model in
+the first collection and three in the second (§4.6). The other three were never checked this way.
 
 ## 7. How this was made
 
@@ -784,8 +691,7 @@ statistics, the preregistration, the analysis tooling, and the first draft of th
 direction, made every judgement call about scope and spending, funded it, and pushed back — several
 times decisively, including on the framing of related work and on the choice of models.
 
-What makes it checkable regardless of who wrote it is that **you do not have to trust the
-process**:
+What makes it checkable regardless of who wrote it is that **you do not have to trust the process**:
 
 - the preregistration is on a timestamped public branch, dated before most of the data existed;
 - every question put to every model and every answer received is saved verbatim;
@@ -796,14 +702,13 @@ process**:
 
 ## 8. Related work
 
-**Apparatus.** Ground truth about what caused something requires intervention rather than
-observation (Pearl, 2009), and that intervention has reached language models at every layer, this
-one only lately: causal mediation analysis (Vig et al., 2020), interchange interventions (Geiger et
-al., 2021) and activation patching (Meng et al., 2022) all work on internal representations. At the
-prompt level, ERASER (DeYoung et al., 2020) erases the tokens a rationale names and measures what
-changes — *comprehensiveness* and *sufficiency* — which is this measurement on a static string. What
-a runtime adds is that the string is a live session, so the copy resumes from the same frozen point
-with everything but the named item identical.
+**Apparatus.** Ground truth about causes requires intervention rather than observation (Pearl,
+2009), and that intervention has reached language models at every layer, this one only lately:
+causal mediation analysis (Vig et al., 2020), interchange interventions (Geiger et al., 2021) and
+activation patching (Meng et al., 2022) all work on internal representations. At the prompt level,
+ERASER (DeYoung et al., 2020) erases the tokens a rationale names and measures what changes, which
+is this measurement on a static string. What a runtime adds is that the string is a live session, so
+the copy resumes from the same frozen point with everything but the named item identical.
 
 The nearest neighbour is Causal Agent Replay (Shah, 2026), which treats a run as a structural causal
 model, applies `do(·)` to a step and re-executes forward under the same policy — the manoeuvre every
@@ -814,20 +719,19 @@ on — what a model says against what a fork does — is not one it attempts.
 VISTA (Xu et al., 2026) reaches the same diagnosis from the other end. Its first contribution is
 that frontier models are "proprioceptively blind to their own context", and its answer is a
 dashboard of per-block metadata with archive and recover tools. That is concurrent work, arrived at
-independently and found during the literature review rather than built on, and the variable it
-makes visible is not this one: VISTA's is *magnitude* — block size, recency, remaining budget —
-where this is *causal dependence*. The distinction is one of kind rather than degree. No amount of
-metadata display answers "would I have said something else without note 4", because a
-counterfactual has to be run. VISTA makes context legible; this makes it testable.
+independently and found during the literature review rather than built on, and the variable it makes
+visible is not this one: VISTA's is *magnitude* — block size, recency, remaining budget — where this
+is *causal dependence*. The distinction is one of kind rather than degree. No amount of metadata
+display answers "would I have said something else without note 4", because a counterfactual has to
+be run. VISTA makes context legible; this makes it testable.
 
 Treating context as addressable memory is otherwise well established, for other purposes: MemGPT
 (Packer et al., 2023) pages it like virtual memory, LLMLingua (Jiang et al., 2023) compresses it,
 Active Context Compression (Verma, 2026) consolidates a trajectory and deletes the raw logs, Self-GC
 (Hao et al., 2026) prunes indexed context objects by predicted usefulness rather than by provenance,
-and Slipstream (Chen et al., 2026a) validates a compaction summary against the agent's
-independently continued reasoning.
-The premise is shared and the purpose is not: the same primitives verify a claim here rather than
-fit a budget.
+and Slipstream (Chen et al., 2026a) validates a compaction summary against the agent's independently
+continued reasoning. The premise is shared and the purpose is not: the same primitives verify a
+claim here rather than fit a budget.
 
 **Findings.** Self-report about context is already benchmarked, and the accuracy of such reports is
 not a new question. Zeng et al. (2026) put nine kinds of question to models about their own
@@ -843,36 +747,35 @@ too. Their model predicts a judge's score for an edit it is told about; here the
 about the context it is sitting in, and the copies that check it have one item removed rather than
 rewritten.
 
-That post-hoc explanations are frequently unfaithful to what actually drove a prediction is settled
-too (Jain and Wallace, 2019; Jacovi and Goldberg, 2020; Atanasova et al., 2023): Turpin et al.
-(2023) show models producing plausible rationales that never mention the feature actually steering
-them, and Lanham et al. (2023) show that perturbing chain-of-thought steps sometimes leaves the
-decision unmoved, with large variation by task. §4.3 sharpens the shape rather than the fact. The
-false attributions are not drawn to digits as such — no model claimed a planted numeric red herring
-— but to notes belonging to the question's own arithmetic that happened not to decide it. What gets
-over-claimed is not what looks numerical but what looks like a reasoning step.
+That post-hoc explanations are frequently unfaithful is settled too (Jain and Wallace, 2019; Jacovi
+and Goldberg, 2020; Atanasova et al., 2023): Turpin et al. (2023) show plausible rationales that
+never mention the feature actually steering the model, and Lanham et al. (2023) show that perturbing
+chain-of-thought steps sometimes leaves the decision unmoved. §4.3 sharpens the shape rather than
+the fact — the false attributions go not to digits as such but to notes belonging to the question's
+own arithmetic that happened not to decide it. What gets over-claimed is not what looks numerical
+but what looks like a reasoning step.
 
 **Self-correction and repair.** Huang et al. (2023) find that without external feedback models
 struggle to identify and correct their own errors, and that performance sometimes degrades. §4.5's
 ladder is that finding with the content of the feedback varied: disclosure repaired the answer for
 every model that cleared the instrumentation bar, while the instruction to act on it cleared the
 registered ceiling in one measurement of seven. The nearest published work is MemSecBench (Chen et
-al., 2026b), which measures whether an
-agent, told only to audit itself, removes poisoned long-term memory and keeps the benign kind. It
-measured that first, in the security framing, and two things differ. Its repair stage is scored on
-the state the memory ends up in, and what the poison went on to do is scored separately, at an
-earlier stage; this ladder scores the next answer to the task. And its agent is given no hint about
-which item is at fault and is never asked to name one, where here the subject names the item on the
-record before it is *asked* to change anything — it could already, having held the handles since
-`unprompted` — which is what makes naming and fixing separable at all, and lets the answer after
-being told and naming be compared with the answer after being asked to put the context right.
+al., 2026b), which measures whether an agent, told only to audit itself, removes poisoned long-term
+memory and keeps the benign kind. It measured that first, in the security framing, and two things
+differ. Its repair stage is scored on the state the memory ends up in, and what the poison went on
+to do is scored separately, at an earlier stage; this ladder scores the next answer to the task. And
+its agent is given no hint about which item is at fault and is never asked to name one, where here
+the subject names the item on the record before it is *asked* to change anything — it could already,
+having held the handles since `unprompted` — which is what makes naming and fixing separable at all,
+and lets the answer after being told and naming be compared with the answer after being asked to put
+the context right.
 
 **Introspection and causal bypassing.** Binder et al. (2024) find that a model finetuned to predict
 its own behaviour beats a differently-trained model at it, and read that as privileged access;
 Lindsey (2026) injects concept vectors and finds that models can notice, the strongest positive
 result in the field; Singh et al. (2026) is a recent reality check on that literature. Neither
-cohort overlaps this one — Binder et al. work on GPT-4, GPT-4o and Llama-3, Lindsey on Claude
-models — and both required finetuning or white-box access where these measurements are zero-shot and
+cohort overlaps this one — Binder et al. work on GPT-4, GPT-4o and Llama-3, Lindsey on Claude models
+— and both required finetuning or white-box access where these measurements are zero-shot and
 black-box. §4.4 also asks a different question, not *what will I say* but *what is my answer made
 of*, and finds no own-context advantage. The two are compatible only if self-knowledge is not one
 faculty.
@@ -894,52 +797,38 @@ part of the paper I cannot verify from my own data, and I would welcome correcti
 *What I can now say is narrower. Every identifier in §10 was resolved against arXiv on 2026-09-06
 and matches the title and authors recorded there, so the works exist and their abstracts say what
 this section says they say. That is not the same as having read them closely enough to have placed
-them correctly. The check was prompted by a review in which a model with no network access declared
-every citation dated 2025 or later fabricated, because the dates were in the future. It ran `date`,
-was told the year was 2026, and did not revise, reading the agreement between the system clock, the
-commit history and the cohort's model names as evidence of a constructed scenario. All of it
-resolves. It measured, and did not update.*
+them correctly, which is what the paragraph above is about.*
 
 ## 9. Reproducing this
 
-This study is its own repository, `https://github.com/ljedrz/deleting-a-memory`, and holds the saved
+This study is its own repository, `https://github.com/ljedrz/deleting-a-memory`, holding the saved
 runs, the analysis and the write-ups. The runtime and the instrument are a separate one, `nachalnik`
-at `https://github.com/ljedrz/nachalnik`, which this depends on at a pinned commit
-(`d3b3ba6`) — deliberately, so that a second study starts from a harness rather than from a copy of
-this one, so that the instrument cannot learn what this study registered, and so that the command
-below reads the saved reports with the same code wherever it is run.
+at `https://github.com/ljedrz/nachalnik`, pinned here at commit `d3b3ba6` — deliberately, so that a
+second study starts from a harness rather than a copy of this one, and so that the instrument cannot
+learn what this study registered.
 
 ```
 cargo run --release
 ```
 
-reads `eval-runs/`, groups the reports by the instrument version that produced them, recomputes the
-tables in §4.3 for both collections, and reports each of the four replication thresholds against the
-value registered before the second collection — as a verdict, not a figure, because what counts as a
-replication was fixed in advance and printing only the number would hand that reading back to
-whoever is looking. It prints §4.1's recall and precision under the same three rules, and the count
-of notes that were load-bearing for exactly one model split by whether either arm went two-one. It
-then reads the repair ladder over only the cells the planted falsehood fooled, which is the second
-reading in §4.5.
+reads `eval-runs/` and recomputes §4.3's tables for both collections, §4.1's recall and precision
+under each of the three rules, the count of notes load-bearing for exactly one model split by
+whether either arm went two-one, and the repair ladder over the cells the falsehood actually fooled.
+It reports each of the four replication thresholds as a verdict rather than a figure, because what
+counts as a replication was fixed in advance and printing only the number would hand that reading
+back to whoever is looking. Nothing is re-requested and nothing costs anything; the collections
+themselves cost $9.11 and $15.09.
 
-Nothing is re-requested and nothing costs anything. The collections themselves cost $9.11 and $15.09
-— a similar number of requests on the experiments the two share, plus the harness check in §4.6,
-which the second ran on three models where the first ran it on one. `PREREGISTRATION.md` holds what
-was fixed in advance, with its §11 the dated log of every deviation; `RESULTS.md` and
-`RESULTS-v5.md` map each registered prediction to its outcome. Instrument versions 4 and 5; every
-experiment's exact wording is hashed into a digest printed with every result, so two numbers can be
-compared only when they were produced by the same questions. When the location probe came out, two
-of the seven digests moved and five did not.
-
-`METHODOLOGY.md` here is the full methods document — every metric's definition, the controls, and
-the eleven known threats to validity, three of them uncontrolled. `RUNBOOK.md` is what was run, in
-what order, and what it cost.
+`PREREGISTRATION.md` holds what was fixed in advance, its §11 the dated log of every deviation;
+`RESULTS.md` and `RESULTS-v5.md` map each registered prediction to its outcome; `METHODOLOGY.md` is
+the full methods document, with the eleven known threats to validity, three of them uncontrolled;
+`RUNBOOK.md` is what was run, in what order, and what it cost.
 
 ## 10. References
 
-Every arXiv identifier below was resolved against arXiv on 2026-09-06; the titles and authors are
-as recorded there. `RELATED.md` holds the longer positioning notes, including work this paper does
-not cite, and was checked on 2026-09-03.
+Every arXiv identifier below was resolved against arXiv on 2026-09-06; the titles and authors are as
+recorded there. `RELATED.md` holds the longer positioning notes, including work this paper does not
+cite, and was checked on 2026-09-03.
 
 - Atanasova, P., Camburu, O.-M., Lioma, C., Lukasiewicz, T., Simonsen, J. G., and Augenstein, I.
   (2023). Faithfulness Tests for Natural Language Explanations. *ACL 2023*. arXiv:2305.18029
@@ -997,28 +886,16 @@ not cite, and was checked on 2026-09-03.
 
 The main claims are counts, and can be checked without any statistics at all.
 
-**Red herrings.** Twelve per dossier-set per model, minus items whose ablation moved the answer for
-that model.
+**The endpoint counts.** Both collections, as printed in §4.3: red herrings 0 of 69 and 0 of 66, 0
+of 135 in all; plain inert notes 0 of 101 and 1 of 98, the one claimed by `deepseek-v4-flash`;
+numeric over-claims 32 and 31, all 63 of them off the red-herring set, which is the whole of the
+discrimination result. Of the 63, **62 are notes belonging to the question's own arithmetic and one
+is not**: `mill/records/guidance` carries no quantity and is filed there only because its text
+contains a year (§4.3). Under the §8.2 gate the same counts are 26 and 25, with the same single
+exception among them.
 
-- first collection: 12 + 12 + 10 + 12 + 11 + 12 = 69. Claimed: 0.
-- second collection: 12 + 12 + 10 + 11 + 10 + 11 = 66. Claimed: 0.
-- both: 135. Claimed: 0.
-
-**Plain inert notes.**
-
-- first collection: 16 + 18 + 16 + 17 + 16 + 18 = 101. Claimed: 0.
-- second collection: 18 + 16 + 16 + 17 + 16 + 15 = 98. Claimed: 1, by `deepseek-v4-flash`.
-- both: 199. Claimed: 1.
-
-**Numeric over-claims.** 32 in the first collection and 31 in the second, 63 in all. Every one
-of them fell outside the red-herring set and none on a red herring, which is the whole of the
-discrimination result — 71 such notes were measured the first time and 70 the second. Of the 63,
-**62 are notes belonging to the question's own arithmetic and one is not**: `mill/records/guidance`
-carries no quantity and is filed here only because its text contains a year (§4.3).
-
-Under the preregistration's §8.2 gate, which §2.4 records as registered and not applied, the same
-counts are 26 and 25, 51 in all, with the same single exception among them. The red-herring count is
-0 of 59 and 0 of 58; the plain count is 0 of 87 and 0 of 84.
+**Location.** 18 questions per model, 6 models = 108. Correct: 2, both from `solar-pro4`. §4.2
+explains why this does not measure what it looks like it measures.
 
 **Recall and precision (§4.1), and a trap in deriving them.** Each model's 54 claims sort into four
 cells: caught a load-bearing item, missed one, claimed an inert one, correctly dismissed one. Recall
@@ -1029,12 +906,9 @@ It is tempting to derive recall from §4.1 and §4.3 instead — accuracy minus 
 correctly — and it is right in eleven of the twelve cells. It fails on `deepseek-v4-flash` in the
 second collection, where it gives 9 of 18 against a true 10 of 18. The reason is that §4.3's counts
 are *claims that an item mattered*, and one of that model's items was scored wrong without being one
-of them: the subject spoke and its answer could not be read, which §2.4 scores as the subject's
-failure. So errors on inert items exceed §4.3's false positives by exactly one there. The four cells
-are read straight off the record instead.
-
-**Location.** 18 questions per model, 6 models = 108. Correct: 2 (both from `solar-pro4`). Kept for
-completeness; §4.2 explains why this count does not measure what it looks like it measures.
+of them: the subject spoke and its answer could not be read, which is scored as the subject's
+failure (§5, point 6). So errors on inert items exceed §4.3's false positives by exactly one there.
+The four cells are read straight off the record instead.
 
 **Sign test on direction.** Six models, all six with the same sign, under a null of "either
 direction equally likely": (1/2)^6 = 1/64 = 0.0156. That is the one-sided figure, and the right one
@@ -1051,48 +925,8 @@ they are counts — but the intervals printed there should not be read as adjust
 
 ## Appendix B: what changed after the freeze
 
-Everything the main text used to narrate inline. `PREREGISTRATION.md` §11 is the authoritative
-version, with all twenty-one dated entries and their reasoning; this is the short form.
-
-### B.1 The first collection's timestamps
-
-A preregistration is worth exactly what its date is worth, so here are the first collection's in
-full. The registered document records its decision table as committed at 18:54:00Z on 2026-09-03 —
-76 seconds after the first model's `attribution` report was written, and 78 and 88 minutes before
-that model's `repair` and `instrumented` reports. **That commit is not in the published history.**
-The instrument was split into its own crate the following morning and its history remade with it, so
-the hash the document cites resolves to nothing and those three margins rest on my word.
-
-What anyone can check is the first commit on the public `preregistration` branch, at 20:38:11Z:
-sixteen minutes *after* the last of the first model's reports, and eight minutes *before* the first
-request went out for the other five. So for one model of six the public record puts registration
-after the data, and for the other five before it, by a margin nobody would call comfortable.
-
-Two things cut against even that. A commit's timestamp is set by the machine that made it rather
-than by the server, and GitHub does not publish when a push arrived, so "public" here means anyone
-can see the same timestamps I can, not that a third party vouches for them. And "I hadn't looked
-yet" is not something anyone can verify; it is not offered as evidence. For the first collection the
-honest claim is the weaker one, and the repository says so too. The second collection's thirteen
-minutes (§3) are what that endpoint rests on instead.
-
-### B.2 The two withdrawn results
-
-**2026-09-04 — the location figure is withdrawn.** An earlier version of this paper treated the
-2-of-108 location score as its cleanest finding. It is an artefact of asking for a number the
-subject had no way to see (§4.2); the abstract no longer mentions it and v5 removed the probe
-rather than guess at it. It was caught while scoping a follow-up study, which is later than it
-should have been. The class of error is fenced now rather than merely regretted:
-`tests/machinery.rs`
-requires that any experiment asking for an item's number also grant a handle to look at the
-numbering, and pins the two frozen experiments that do not.
-
-**After drafting — the repair-ladder claim was stated too broadly.** A draft read the ladder as
-showing that deleting a false note was worth nothing. It weakened when `glm-5.3-flash` went 10/15 to
-14/15 on the last rung in the second collection, and it was wrong in kind as well as degree: the
-ladder scores the answer a subject is about to give, not what its context carries afterwards (§5.1).
-The claim now made is the narrower one.
-
-### B.3 Other deviations, in brief
+One line each, dated. `PREREGISTRATION.md` §11 is the authoritative version, with all twenty-one
+entries and their reasoning; where the main text carries the fact, the section is named here.
 
 - **2026-09-03, before any confirmatory run.** The shared brief told every subject it had no tools,
   which was false of the two experiments that hand over handles; a second brief was added for those
@@ -1100,25 +934,33 @@ The claim now made is the narrower one.
 - **2026-09-03, before any confirmatory run.** A primary endpoint turned out to be circular — the
   tool printed the answer it was being scored on — and was replaced.
 - **2026-09-03, before any confirmatory run.** The material set could not falsify its own
-  hypothesis: every inert note in the whole set had three digits or fewer, so "contains numbers" and
-  "matters" were confounded. Red herrings were added (§2.2). Instrument v4 makes the hypothesis
-  falsifiable and breaks comparability with v3 to do it.
+  hypothesis, so red herrings were added; instrument v4 breaks comparability with v3 to do it
+  (§2.2).
 - **2026-09-03.** Two models were substituted, neither having produced a figure bearing on any
   hypothesis: one could not complete a run through its provider, which cut it off after about
   fifteen requests every time; one was swapped for a stronger and cheaper alternative in the same
   slot.
+- **2026-09-03, and the first collection's whole registration.** The commit the registered document
+  cites for its decision table is not in the published history, and the public branch postdates one
+  model's results (§3).
+- **2026-09-04 — a result withdrawn.** The 2-of-108 location figure, an earlier draft's cleanest
+  finding, is an artefact of asking for a number the subject could not see; v5 removed the probe
+  (§4.2). `tests/machinery.rs` now requires that any experiment asking for an item's number also
+  grant a handle to look at the numbering, and pins the two frozen experiments that do not.
 - **2026-09-04.** The registered commitment to run the handle check on three models was not kept on
-  the day — the first attempt died on an exhausted key limit — and was kept later the same day once
-  the limit was raised.
+  the day — the first attempt died on an exhausted key limit — and was kept later the same day.
 - **2026-09-04.** The pre-specified handle-use gate excluded three models rather than two, because
   `deepseek-v4-flash` came in at 47% against a 50% bar it had cleared exactly the first time.
   Applied as written (§5, point 10).
 - **2026-09-06.** A commit the preregistration cites no longer resolves, for the same
-  history-rewrite reason as B.1.
+  history-rewrite reason as the entry above.
 - **2026-09-17, after both collections.** Four errors found in the registered document itself while
   re-checking it against the record: a power table wrong in three of its four rows, two sections
   registering different tests for the same hypothesis, §8.2 registered as a gate the instrument
-  never applied (§2.4), and H3 naming the wrong intervention. Also that "the question's own
-  arithmetic" is a residual category rather than a defined one, which §4.3 now says.
-- **An analysis script silently dropped a model from the results.** Fixed; the command now names any
-  report it could not parse rather than skipping it in silence.
+  never applied, and H3 naming the wrong intervention (§3). Also that "the question's own
+  arithmetic" is a residual category rather than a defined one (§4.3).
+- **After drafting — a second result narrowed.** A draft read the ladder as showing that deleting a
+  false note was worth nothing; it weakened when `glm-5.3-flash` went 10/15 to 14/15 on the last
+  rung, and was wrong in kind too (§4.5).
+- **Undated, found in the analysis.** A script silently dropped a model from the results. Fixed; the
+  command now names any report it could not parse rather than skipping it in silence.
