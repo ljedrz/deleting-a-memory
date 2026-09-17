@@ -40,9 +40,11 @@ Reads `eval-runs/`, groups the reports by the instrument version **and** the dig
 question text — two numbers are comparable only when the same questions produced them — prints the
 primary endpoint per model for each collection, reports the four replication thresholds against the
 values registered beforehand, prints the endpoint again under the §8.2 control-agreement gate that
-was registered and not applied and under a stricter two-arm rule, and then reads the repair ladder
-twice: over every cell, which is the reading the results tables carry, and over only the cells the
-planted falsehood fooled, which is the reading the registered precondition asks for. Any report it
+was registered and not applied and under a stricter two-arm rule, prints recall and precision under
+those same three rules together with how much of the per-model variation in what was load-bearing
+rests on a two-one plurality, and then reads the repair ladder twice: over every cell, which is the
+reading the results tables carry, and over only the cells the planted falsehood fooled, which is the
+reading the registered precondition asks for. Any report it
 could not parse is named at the end rather than skipped in silence. The first build fetches the
 pinned commit of nachalnik (`d3b3ba6`) and needs nothing else. Nothing is re-requested and nothing
 costs anything: the figures are recomputed from the saved record, which is the point of saving it.

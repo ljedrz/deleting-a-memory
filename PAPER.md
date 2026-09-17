@@ -23,19 +23,26 @@ time on a corrected instrument, against four thresholds registered and timestamp
 four held. Every question and answer from both collections is saved, and every number recomputes
 from that record.
 
-Models are reasonably good at saying *what* their answer rests on: 72–96% correct in the first
+**The confirmed result is that these models' false positives have a shape.** Across both
+collections, 0 of 135 planted irrelevant notes were ever claimed to matter, 1 of 199 notes without
+figures was, and 62 of the other 63 fell on notes belonging to the question's arithmetic that did
+not decide it; the one exception is task-central and carries no quantity at all. Models over-weight
+what looks like a reasoning step, not what looks numerical. That is what the four thresholds were
+registered on, and it held twice.
+
+Models are also reasonably good at saying *what* their answer rests on — 72–96% correct in the first
 collection and 72–85% in the second, above their own majority baseline in four of six models and
-then five of six. But most items are inert, so accuracy flatters them. Split into recall on the
-items that mattered and precision on the claims they made, it runs 43–100% and 36–87%: the two
-weakest models miss about half of what mattered, and the model with perfect recall has the worst
-precision in the cohort. Their false positives are not random. Across both collections, 0 of 135 planted
-irrelevant notes were ever claimed to matter, 1 of 199 notes without figures was, and 62 of the
-other 63 fell on notes belonging to the question's arithmetic that did not decide it; the one
-exception is task-central and carries no quantity at all. **No own-context advantage was detected**:
-reasoning about your own context was no more accurate than reading a transcript of someone else's.
-And on a five-rung repair ladder, *telling* a model one of its notes is false helped every model
-that could be measured, while *then asking it to put the context right* moved one measurement of
-seven past the registered ceiling and left the others between −20 and +13 points.
+then five of six — but most items are inert, so accuracy flatters them. Recall on the items that
+mattered and precision on the claims made run 43–100% and 36–87%, with `solar-pro4` worst on both.
+Most of the recall spread is sampling rather than skill: restricted to items where both arms of
+three copies were unanimous, pooled recall goes from 77% and 66% to 92% and 89% while precision
+barely moves, leaving one model genuinely behind and the rest close together.
+
+Two further measurements are weaker and are reported as such. No own-context advantage was detected,
+at five items per arm per model, which is a failure to detect rather than a null. And on a five-rung
+repair ladder, *telling* a model one of its notes is false helped every model that could be
+measured, while *then asking it to put the context right* moved one measurement of seven past the
+registered ceiling and left the others between −20 and +13 points.
 
 ---
 
@@ -319,17 +326,45 @@ load-bearing items it caught; precision is the share of its "this mattered" clai
 This reorders the models. `solar-pro4` and `deepseek-v4-flash` miss roughly half of what actually
 mattered — solar catches 5 of 11 and then 6 of 14 — so their 72–79% accuracy is mostly the credit
 for saying "no" to inert notes. `longcat-2.0` is the mirror image: it caught every load-bearing item
-in both collections, 10 of 10 twice, and paid for it with the worst precision in the cohort, half
-its claims wrong. Its accuracy sits level with its baseline for that reason, not because it cannot
-tell.
+in both collections, 10 of 10 twice, and paid for it with half its claims wrong, the second-worst
+precision in the cohort. `solar-pro4` is worst on both counts and in both collections, at 5 of 14
+and 6 of 13.
 
 **A note on what "load-bearing" turned out to mean.** Each dossier was built with one decisive note,
-so six were designed to matter. Between 10 and 18 items per model actually did. The arithmetic notes
-flip the answer too, and *which* ones do is largely model-specific: 34 distinct notes were
+so six were designed to matter. Between 10 and 18 items per model actually did: the arithmetic notes
+flip the answer too, and *which* ones do is largely model-specific. 34 distinct notes were
 load-bearing for at least one model in the first collection and 37 in the second, but only two for
-all six, and 20 then 19 for exactly one model. Ground truth here is a property of the
-model-material pair rather than of the material, which is why every denominator in this paper is
-per-model.
+all six, and 20 then 19 for exactly one model.
+
+**How much of that spread is the subject, and how much is the sampling?** This is the right question
+to ask of the table above, because three copies decide each side and a two-one plurality is what a
+coin flip looks like. Two counts answer it, and they are not flattering. Of the notes load-bearing
+for exactly one model, **15 of 20 in the first collection and 15 of 19 in the second rest on an arm
+that went two-one** rather than on three copies against three. And restricting both arms to
+unanimous — the third rule of §2.4, which the instrument already computes — moves recall a long way
+and precision hardly at all:
+
+| reading | recall, first | precision, first | recall, second | precision, second |
+| --- | --- | --- | --- | --- |
+| as published | 62/81 — 77% | 62/94 — 66% | 59/89 — 66% | 59/91 — 65% |
+| §8.2 as registered | 56/64 — 88% | 56/82 — 68% | 52/68 — 76% | 52/77 — 68% |
+| both arms unanimous | 46/50 — 92% | 46/67 — 69% | 47/53 — 89% | 47/66 — 71% |
+
+**So most of the recall spread was stochasticity, and one part of it was not.** Where both arms
+agreed with themselves, five of the six models catch 80–100% of what mattered — `glm-5.3-flash`
+11/11 then 11/12, `grok-4.6` 10/11 then 8/8, `longcat-2.0` 8/8 then 9/9, `hy3` 9/10 twice,
+`deepseek-v4-flash` 4/4 then 7/7 — and the 43–100% range in the table above is largely a ranking of
+which models' copies happened to flip. The exception is `solar-pro4`, at 4 of 6 and then 3 of 7: it
+is the one model whose recall deficit survives the stricter rule, and the only one below 80%.
+Precision is the stable half. It barely moves under either rule, and `solar-pro4` is worst under all
+of them.
+
+Two things follow. The precision finding stands as a finding; **the recall ranking should be read as
+provisional**, because a third of the load-bearing determinations behind it rest on a single copy
+having moved. And "ground truth is a property of the model-material pair" is too strong as I first
+put it: some of it is, and much of the per-model idiosyncrasy is noise at three replicates. A study
+that wanted to separate those would need more copies per arm, which is the cheapest useful thing
+anyone could do to this design.
 
 ### 4.2 An item's number was not a fair question
 
@@ -445,6 +480,14 @@ Reflecting on its own context bought a model nothing: three exact ties each time
 out slightly worse both times. Nor are the two arms interchangeable per model. The own-minus-foreign
 difference falls within the registered ten points on four of six models the first time and three of
 six the second, and where it misses it misses by twenty to forty points, in both directions.
+
+**Those are the two registered readings, and the registration states them differently (§3).** The
+ten-point band above is P6 as §4 of the preregistration puts it, two-sided and per model. §10 states
+the failure condition one-sided instead — H4 fails if the *own* arm beats the foreign arm by more
+than ten points with an interval excluding zero — and **neither collection meets it**, since every
+per-model interval contains zero: the two models whose own arm led by more than ten points have
+intervals running −32 to +60 and −31 to +60. Both readings are reported because neither was retired
+in favour of the other after the data was in.
 
 What holds without exception is the weaker thing: every per-model interval contains zero, both
 times, as does each pooled one. At five items per arm per model this is a failure to detect. It is
@@ -641,11 +684,14 @@ numbers read as replication and divergent ones read as explanation. Both feel ho
 
 Secondary to the above, and shorter-lived, but they are what the apparatus was pointed at.
 
-**Don't score this with accuracy alone.** Most of a context is inert, so a subject that says "no" to
-everything already scores 66–81% here. Recall and precision separate the models that can find what
-mattered from the ones that are merely well-calibrated about what did not: two of these six miss
-about half the load-bearing items while scoring 72–79% overall, and the one with perfect recall has
-the worst precision (§4.1).
+**Don't score this with accuracy alone, and check the recall against your replicate count.** Most of
+a context is inert, so a subject that says "no" to everything already scores 66–81% here. Recall and
+precision separate the models that can find what mattered from the ones merely well-calibrated about
+what did not: two of these six miss about half the load-bearing items while scoring 72–79% overall,
+and the one with perfect recall has the second-worst precision. But at three copies per arm, most of
+the recall spread turned out to be which copies flipped rather than which model knew — it largely
+closes once both arms are required to be unanimous, leaving one model genuinely behind (§4.1).
+Precision survived that test where recall mostly did not.
 
 **Expect false positives in a specific place.** Across 135 planted irrelevant numbers over two
 collections, models fell for none. One note without figures was claimed, out of 199. Every other
@@ -686,6 +732,17 @@ independent has run this.
 **The materials are synthetic and all of one shape** — three options, an arithmetic question, a
 buried correction. Whether any of this generalises to real agent contexts, with tool output and long
 histories, is unknown and not claimed.
+
+**The planted decisive notes were not reliably decisive.** Each dossier was built around one note
+that should have decided the answer. Identically in both collections, one of the six moved all six
+models (`depot/records/omsk-annex`), three moved five, one moved four, and `mill/records/guidance`
+moved one — the last by design, since `mill` is the dossier built so that what the notes *support*
+and what a model *uses* come apart, and a model that ignores an assessor's habit is reading it
+correctly. The other two are the ordinary failure: the material specifies what *should* be
+load-bearing and the subject decides what *is*. Only two notes in the whole set moved every model,
+and one of them is not a planted pivot at all but `mill/records/consumption`, the denominator of
+that dossier's arithmetic (§4.1). So ground truth cannot be assumed fixed across models, and at
+three copies per arm the design cannot always tell an idiosyncratic dependence from a coin flip.
 
 **The foreign arm arrives quoted where the subject's own arrives as context.** That is the
 difference §4.4 tests and also, unavoidably, a difference in presentation. The quotation is rendered
@@ -799,7 +856,8 @@ over-claimed is not what looks numerical but what looks like a reasoning step.
 struggle to identify and correct their own errors, and that performance sometimes degrades. §4.5's
 ladder is that finding with the content of the feedback varied: disclosure repaired the answer for
 every model that cleared the instrumentation bar, while the instruction to act on it cleared the
-registered ceiling in one measurement of seven. The nearest published work is MemSecBench (Chen et al., 2026b), which measures whether an
+registered ceiling in one measurement of seven. The nearest published work is MemSecBench (Chen et
+al., 2026b), which measures whether an
 agent, told only to audit itself, removes poisoned long-term memory and keeps the benign kind. It
 measured that first, in the security framing, and two things differ. Its repair stage is scored on
 the state the memory ends up in, and what the poison went on to do is scored separately, at an
@@ -859,8 +917,10 @@ reads `eval-runs/`, groups the reports by the instrument version that produced t
 tables in §4.3 for both collections, and reports each of the four replication thresholds against the
 value registered before the second collection — as a verdict, not a figure, because what counts as a
 replication was fixed in advance and printing only the number would hand that reading back to
-whoever is looking. It then reads the repair ladder over only the cells the planted falsehood
-fooled, which is the second reading in §4.5.
+whoever is looking. It prints §4.1's recall and precision under the same three rules, and the count
+of notes that were load-bearing for exactly one model split by whether either arm went two-one. It
+then reads the repair ladder over only the cells the planted falsehood fooled, which is the second
+reading in §4.5.
 
 Nothing is re-requested and nothing costs anything. The collections themselves cost $9.11 and $15.09
 — a similar number of requests on the experiments the two share, plus the harness check in §4.6,
@@ -1021,7 +1081,8 @@ minutes (§3) are what that endpoint rests on instead.
 2-of-108 location score as its cleanest finding. It is an artefact of asking for a number the
 subject had no way to see (§4.2); the abstract no longer mentions it and v5 removed the probe
 rather than guess at it. It was caught while scoping a follow-up study, which is later than it
-should have been. The class of error is fenced now rather than merely regretted: `tests/machinery.rs`
+should have been. The class of error is fenced now rather than merely regretted:
+`tests/machinery.rs`
 requires that any experiment asking for an item's number also grant a handle to look at the
 numbering, and pins the two frozen experiments that do not.
 
@@ -1050,10 +1111,10 @@ The claim now made is the narrower one.
   the day — the first attempt died on an exhausted key limit — and was kept later the same day once
   the limit was raised.
 - **2026-09-04.** The pre-specified handle-use gate excluded three models rather than two, because
-  `deepseek-v4-flash` came in at 47% against a 50% bar it had cleared exactly the first time. Applied
-  as written (§5, point 10).
-- **2026-09-06.** A commit the preregistration cites no longer resolves, for the same history-rewrite
-  reason as B.1.
+  `deepseek-v4-flash` came in at 47% against a 50% bar it had cleared exactly the first time.
+  Applied as written (§5, point 10).
+- **2026-09-06.** A commit the preregistration cites no longer resolves, for the same
+  history-rewrite reason as B.1.
 - **2026-09-17, after both collections.** Four errors found in the registered document itself while
   re-checking it against the record: a power table wrong in three of its four rows, two sections
   registering different tests for the same hypothesis, §8.2 registered as a gate the instrument

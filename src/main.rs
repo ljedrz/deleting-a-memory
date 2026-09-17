@@ -145,6 +145,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         unanimity(version, runs);
     }
 
+    for (version, _, runs) in &collections {
+        skill(version, runs);
+    }
+
+    for (version, _, runs) in &collections {
+        idiosyncratic(version, runs);
+    }
+
     ladders("eval-runs")?;
 
     if !unreadable.is_empty() {
@@ -795,4 +803,257 @@ fn reports(root: &str, wanted: impl Fn(&str) -> bool) -> std::io::Result<Vec<Pat
     found.sort();
 
     Ok(found)
+}
+
+/// Caught, claimed, missed and correctly dismissed, for one selection of items.
+#[derive(Default, Clone, Copy)]
+struct Confusion {
+    /// Load-bearing, and the subject said so.
+    caught: usize,
+    /// Inert, and the subject said it mattered.
+    over: usize,
+    /// Load-bearing, and the subject said it did not matter or said nothing readable.
+    missed: usize,
+    /// Inert, and the subject said so.
+    dismissed: usize,
+}
+
+impl Confusion {
+    /// Of the items that mattered, the share the subject named.
+    fn recall(&self) -> Option<f64> {
+        let n = self.caught + self.missed;
+        (n > 0).then(|| self.caught as f64 / n as f64)
+    }
+
+    /// Of the items the subject named, the share that mattered.
+    fn precision(&self) -> Option<f64> {
+        let n = self.caught + self.over;
+        (n > 0).then(|| self.caught as f64 / n as f64)
+    }
+
+    fn absorb(&mut self, other: &Self) {
+        self.caught += other.caught;
+        self.over += other.over;
+        self.missed += other.missed;
+        self.dismissed += other.dismissed;
+    }
+}
+
+/// One report's counterfactual claims as a confusion matrix, under each of the three rules.
+///
+/// note: this is `split` over the whole battery rather than over the inert half of it. The
+/// endpoint in §4.3 is deliberately restricted to items whose removal changed nothing, because
+/// there the correct claim is known to be "no" for every one; recall needs the other half, so it
+/// is counted here and kept out of the endpoint. An unreadable *claim* counts as a miss when the
+/// item was load-bearing, which is how the scores already treat it: the subject was asked to
+/// commit and did not.
+fn confusion(report: &Report) -> [Confusion; 3] {
+    let mut out = [Confusion::default(); 3];
+
+    for outcome in &report.outcomes {
+        let mut labels: BTreeMap<u64, String> = BTreeMap::new();
+        let mut control: Option<&[Answer]> = None;
+        let mut treated: BTreeMap<String, &[Answer]> = BTreeMap::new();
+
+        for step in &outcome.steps {
+            match step {
+                Step::Briefed { items } => {
+                    labels = items.iter().map(|i| (i.id.0, i.label.clone())).collect();
+                    control = None;
+                    treated.clear();
+                }
+                Step::Measured {
+                    observation,
+                    change,
+                } => match change {
+                    None => control = Some(&observation.answers),
+                    Some(_) => {
+                        if let Some(tail) = observation.intervention.rsplit("without ").next()
+                            && let Ok(id) = tail.trim().parse::<u64>()
+                            && let Some(label) = labels.get(&id)
+                        {
+                            treated.insert(label.clone(), &observation.answers);
+                        }
+                    }
+                },
+                Step::Resolved(r) => {
+                    if !r.measured || r.about != Kind::Counterfactual {
+                        continue;
+                    }
+                    let mattered = match &r.happened {
+                        Answer::Claim { yes, .. } => *yes,
+                        _ => continue,
+                    };
+                    let Some(label) = r.label.as_deref() else {
+                        continue;
+                    };
+                    let claimed = matches!(r.claimed, Answer::Claim { yes: true, .. });
+                    let control_agrees = control.is_some_and(unanimous);
+                    let treated_agrees = treated.get(label).copied().is_some_and(unanimous);
+                    for (i, keep) in [true, control_agrees, control_agrees && treated_agrees]
+                        .into_iter()
+                        .enumerate()
+                    {
+                        if !keep {
+                            continue;
+                        }
+                        match (mattered, claimed) {
+                            (true, true) => out[i].caught += 1,
+                            (true, false) => out[i].missed += 1,
+                            (false, true) => out[i].over += 1,
+                            (false, false) => out[i].dismissed += 1,
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+
+    out
+}
+
+/// Recall and precision per model, and what the two unanimity rules do to them.
+///
+/// note: accuracy is the wrong single number here and this is why. Most of a dossier is inert, so
+/// a subject that says "no" to everything scores its inert share - 66% to 81% across this cohort -
+/// without naming a single thing that mattered. The pooled rows under the stricter rules are the
+/// answer to a fair question about the spread: if recall is partly measuring which copies happened
+/// to flip, restricting to items where both arms were unanimous should move it.
+fn skill(version: &str, runs: &[(String, Report, String)]) {
+    println!("\ninstrument v{version}: recall and precision, one row per model\n");
+    println!(
+        "  {:<34}{:>10}{:>12}{:>16}{:>18}",
+        "model", "recall", "precision", "recall, firm", "precision, firm"
+    );
+
+    let mut pooled = [Confusion::default(); 3];
+    for (model, report, _) in runs {
+        let c = confusion(report);
+        if c[0].caught + c[0].missed == 0 {
+            continue;
+        }
+        let show = |x: &Confusion, of: fn(&Confusion) -> Option<f64>, a: usize, b: usize| match of(x)
+        {
+            Some(_) => format!("{a}/{}", a + b),
+            None => "-".to_owned(),
+        };
+        println!(
+            "  {:<34}{:>10}{:>12}{:>16}{:>18}",
+            model,
+            show(&c[0], Confusion::recall, c[0].caught, c[0].missed),
+            show(&c[0], Confusion::precision, c[0].caught, c[0].over),
+            show(&c[2], Confusion::recall, c[2].caught, c[2].missed),
+            show(&c[2], Confusion::precision, c[2].caught, c[2].over),
+        );
+        for i in 0..3 {
+            pooled[i].absorb(&c[i]);
+        }
+    }
+
+    println!();
+    for (i, what) in ["as published", "§8.2 as registered", "both arms unanimous"]
+        .into_iter()
+        .enumerate()
+    {
+        let p = &pooled[i];
+        let pct = |x: Option<f64>| match x {
+            Some(v) => format!("{:.0}%", v * 100.0),
+            None => "-".to_owned(),
+        };
+        println!(
+            "  {what:<22} recall {}/{} = {:<6} precision {}/{} = {:<6} ({} items kept)",
+            p.caught,
+            p.caught + p.missed,
+            pct(p.recall()),
+            p.caught,
+            p.caught + p.over,
+            pct(p.precision()),
+            p.caught + p.over + p.missed + p.dismissed,
+        );
+    }
+}
+
+/// For one collection: which notes were load-bearing, for how many models, and on what evidence.
+///
+/// note: §4.1 reports that only two notes moved the answer for all six models while 19 or 20 moved
+/// it for exactly one, and that ground truth is therefore a property of the model-material pair.
+/// A fair objection is that a note load-bearing for exactly one model might be sampling noise
+/// rather than a fact about that model, since three copies per arm decide it. This separates the
+/// two: a determination where both arms were unanimous is three copies against three, and one
+/// where either arm went two-one rests on a single copy having moved.
+fn idiosyncratic(version: &str, runs: &[(String, Report, String)]) {
+    // (material, label) -> how many models it was load-bearing for, and how many of those
+    // determinations had both arms unanimous
+    let mut seen: BTreeMap<(String, String), (usize, usize)> = BTreeMap::new();
+    let mut models = 0usize;
+
+    for (_, report, _) in runs {
+        let mut counted = false;
+        for outcome in &report.outcomes {
+            let mut labels: BTreeMap<u64, String> = BTreeMap::new();
+            let mut control: Option<&[Answer]> = None;
+            let mut treated: BTreeMap<String, &[Answer]> = BTreeMap::new();
+
+            for step in &outcome.steps {
+                match step {
+                    Step::Briefed { items } => {
+                        labels = items.iter().map(|i| (i.id.0, i.label.clone())).collect();
+                        control = None;
+                        treated.clear();
+                    }
+                    Step::Measured {
+                        observation,
+                        change,
+                    } => match change {
+                        None => control = Some(&observation.answers),
+                        Some(_) => {
+                            if let Some(tail) = observation.intervention.rsplit("without ").next()
+                                && let Ok(id) = tail.trim().parse::<u64>()
+                                && let Some(label) = labels.get(&id)
+                            {
+                                treated.insert(label.clone(), &observation.answers);
+                            }
+                        }
+                    },
+                    Step::Resolved(r) => {
+                        if !r.measured || r.about != Kind::Counterfactual {
+                            continue;
+                        }
+                        counted = true;
+                        if r.happened != Answer::yes(true) {
+                            continue;
+                        }
+                        let (Some(material), Some(label)) =
+                            (r.material.as_deref(), r.label.as_deref())
+                        else {
+                            continue;
+                        };
+                        let firm = control.is_some_and(unanimous)
+                            && treated.get(label).copied().is_some_and(unanimous);
+                        let entry = seen
+                            .entry((material.to_owned(), label.to_owned()))
+                            .or_insert((0, 0));
+                        entry.0 += 1;
+                        entry.1 += usize::from(firm);
+                    }
+                    _ => {}
+                }
+            }
+        }
+        models += usize::from(counted);
+    }
+
+    let only_one: Vec<_> = seen.values().filter(|(n, _)| *n == 1).collect();
+    let firm_of_those = only_one.iter().filter(|(_, f)| *f == 1).count();
+    let all_models = seen.values().filter(|(n, _)| *n == models).count();
+
+    println!("\ninstrument v{version}: which notes were load-bearing, and for how many models\n");
+    println!("  {} distinct notes moved at least one model's answer", seen.len());
+    println!("  {all_models} moved every one of the {models} models");
+    println!(
+        "  {} moved exactly one model, of which {firm_of_those} had both arms unanimous and {} rested on a two-one plurality",
+        only_one.len(),
+        only_one.len() - firm_of_those
+    );
 }
