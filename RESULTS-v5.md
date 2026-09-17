@@ -9,9 +9,17 @@ is, because the subject has no way to see the numbering and v4 scored the result
 finding. Two digests moved (`attribution`, `lie`); five did not. Nothing else changed — hypotheses,
 analysis plan, gates and the §9.1 decision table are as registered for v4.
 
-**Total: 4,366 requests, 5.74M in / 6.75M out, $15.09.** (v4 was $9.11 for a similar request count
-on the shared experiments; v5 also ran `instrumented` on three models where v4 ran it on one.
-`deepseek-v4-flash`'s repair run alone produced 1.07M output tokens.)
+**Total, summing every saved v5 outcome under `eval-runs/`: 5,343 requests, 8.03M in / 7.23M out.**
+The inclusion rule is stated because it matters: that sum counts both the three `instrumented` runs
+that stopped early on the key's credit limit and the three that replaced them, since both are in
+the record. It is recomputable from the `spend` field of the saved reports. The **$15.09** is the
+provider's billing total for the day and is not derivable from them. (v4 was $9.11 for a similar
+request count on the shared experiments; v5 also ran `instrumented` on three models where v4 ran it
+on one. `deepseek-v4-flash`'s repair run alone produced 1.07M output tokens.)
+
+*Corrected 2026-09-17: this line previously read 4,366 requests, 5.74M in / 6.75M out. No subset of
+the saved v5 reports reproduces those figures — 4,366 is the count `PREREGISTRATION.md` §11 records
+for the sweep at the moment the credit limit hit, which is not a v5 total and was carried over.*
 
 ## the four registered replication thresholds
 
@@ -22,10 +30,24 @@ on the shared experiments; v5 also ran `instrumented` on three models where v4 r
 | plain inert claimed ≤ 2% | 0/101 | **1/98 (1.0%)** | replicates |
 | numeric over-claims on the question's own arithmetic ≥ 90% | 32/32 | **31/31 (100%)** | replicates |
 
-All four hold. **The probe-ordering confound did not move the endpoint.** In v4 the three location
-probes ran before the counterfactual battery, so every claim was made in a context where the
-subject had just invented three item numbers; §6 disclosed that and could not rule it out. With the
-probes gone the pooled difference is +22 against v4's +23.
+All four hold. Two qualifications, neither of which moves a verdict, both printed by
+`cargo run --release`:
+
+- The fourth row's category is "numeric and not on the dossier's planted-decoy list", which is
+  looser than its name. Sixty-two of the sixty-three over-claims across both collections are
+  genuinely quantities the question is computed from; one is a task-central note whose only digits
+  are a year (`PAPER.md` §4.3).
+- **§8.2 registered a control-agreement gate that the instrument never applied**, so the endpoint
+  admits items whose control copies disagreed (`PAPER.md` §2.4). Applying it drops 35 of 241 items
+  in v4 and 33 of 234 in v5, and all four thresholds still hold: herrings 0/59 and 0/58, plain 0/87
+  and 0/84, over-claims off the pivot 26/26 and 25/25, discrimination negative on 6 of 6 both times.
+  The one plain over-claim below sat on a material whose control had not agreed, so under §8.2 it
+  drops and the plain count across both collections is 0 of 171 rather than 1 of 199.
+
+**The probe-ordering confound did not move the endpoint.** In v4 the three location probes ran
+before the counterfactual battery, so every claim was made in a context where the subject had just
+invented three item numbers; §6 disclosed that and could not rule it out. With the probes gone the
+pooled difference is +22 against v4's +23.
 
 | model | v4 numeric / plain | v5 numeric / plain | v4 disc | v5 disc |
 | --- | --- | --- | --- | --- |
@@ -35,7 +57,11 @@ probes gone the pooled difference is +22 against v4's +23.
 | `grok-4.6` | 3/21 · 0/16 | 4/21 · 0/16 | −30 | −36 |
 | `hy3` | 4/24 · 0/17 | 5/23 · 0/17 | −33 | −42 |
 | `glm-5.3-flash` | 2/23 · 0/18 | 3/23 · 0/15 | −18 | −25 |
-| **pooled** | 32/140 · 0/101 | 31/136 · **1/98** | +23 | +22 |
+| **pooled** | 32/140 · 0/101 | 31/136 · **1/98** | −45 | −44 |
+
+The pooled `disc` cells previously carried +23 and +22, which are the pooled *differences* quoted in
+the paragraph above, not discrimination. Pooled discrimination is the red-herring rate minus the
+off-pivot-arithmetic rate: 0/69 − 32/71 in v4 and 0/66 − 31/70 in v5.
 
 **One plain inert note was claimed**, by `deepseek-v4-flash`. v4's write-up says no model ever
 claimed a note without figures was load-bearing when it was not. Across both collections that is
@@ -68,15 +94,16 @@ is wrong, did help — and on hy3 it helped a great deal.
 (grok +27, hy3 +13, glm +13). Direction positive 3 of 3, as in v4.
 
 **P5 — `told-so` → `repaired` gains ≤ 20 points: HELD in 2 of 3, not unanimously.** hy3 0, grok 0,
-**glm +27**. This is the one place v5 differs from v4 in kind rather than degree: v4 found being
-allowed to remove the false note, having already named it, worth approximately nothing on 4 of 4
-models, and here one model gained 10/15 → 14/15 from it. n = 15 on one model, so this is a
-counterexample and not a reversal — but v4's flat reading should not be repeated as though it were
-unqualified.
+**glm +27**. The rung adds the instruction to put the context right, not the ability to do it — the
+handles arrive at `unprompted` and stay. This is the one place v5 differs from v4 in kind rather
+than degree: v4 found being asked to fix the note, having already named it, worth approximately
+nothing on 4 of 4 models, and here one model gained 10/15 → 14/15 from it. n = 15 on one model, so
+this is a counterexample and not a reversal — but v4's flat reading should not be repeated as if it
+were unqualified.
 
 ## H4 — privileged access
 
-**P6 — own arm vs foreign arm within 10 points: HELD.**
+**P6 — own arm vs foreign arm: the interval half held 6 of 6, the point-estimate half 3 of 6.**
 
 | model | own | foreign |
 | --- | --- | --- |
@@ -88,10 +115,19 @@ unqualified.
 | `glm-5.3-flash` | 5/5 | 5/5 |
 | **pooled** | **19/30** | **22/30** |
 
-Three exact ties, two in favour of the foreign arm, one in favour of the own arm. Reasoning about
-your own context is no better than reading a transcript of somebody else's, and pooled it is
-slightly worse. Five items per arm per model, so the intervals are very wide; the finding is the
-absence of an advantage, not its sign.
+Three exact ties, two in favour of the foreign arm, one in favour of the own arm. §4 registers P6
+per model as |own − foreign| ≤ 10 points *with an interval containing 0*: solar −40, longcat −40
+and hy3 +20 fall outside the ten-point band, so the point-estimate half holds on three of six
+(v4: four of six). Every per-model interval contains 0, and so does the pooled one — 19/30 against
+22/30 is −10 points, 95% CI −32 to +13.
+
+§10 states H4's failure condition one-sidedly, and on that rule **H4 did not fail** here either:
+the only model whose own arm led by more than ten points is hy3, whose interval runs −31 to +60.
+The conflict between the two halves of the registration is logged in `PREREGISTRATION.md` §11.
+
+Reasoning about your own context is no better than reading a transcript of somebody else's, and
+pooled it is slightly worse. Five items per arm per model, so the intervals are very wide; the
+finding is the absence of a detected advantage, not its sign, and not equivalence.
 
 ## harness validation (no prediction attaches)
 

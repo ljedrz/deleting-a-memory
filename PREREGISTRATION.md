@@ -712,6 +712,76 @@ can be checked is this branch's first commit, `fd7521a`, at 22:38:11 +0200 on 20
 all four of stage 1's reports, and eight minutes before the first request of the remaining five
 models. For the first collection the checkable margin is that one.
 
+**2026-09-17, after both collections: §6's power table is wrong in three of its four rows.** The
+column headed `P(d ≥ 5)` is the upper tail of a binomial with π = 0.25. Exactly, it is 0.370, 0.753,
+0.930 and 0.984 at n = 16, 24, 32 and 40; §6 prints 0.37, 0.76, 0.94 and 0.99, so the last three are
+each rounded up by a step. The table stands as registered and is corrected here rather than in
+place, because a frozen document edited whenever it turns out to be wrong is not a frozen document.
+Nothing downstream moves: the registered choice was 40 items per model with 32 as the floor, and
+that is the same choice under either set of figures — at n = 40 the design has 98% power to reach
+d ≥ 5 rather than 99%.
+
+**2026-09-17, after both collections: §4 and §10 do not register the same test for H4.** P6 in §4
+reads `|own − foreign| ≤ 10 points, interval containing 0`, per model, under §4's standing rule that
+predictions are stated per model unless said otherwise. §10 reads "H4 fails if the own arm *beats*
+the foreign arm by more than 10 points with an interval excluding 0" — one-sided, and silent on the
+case where the foreign arm leads. The two come apart on this data. P6's point-estimate half holds on
+four of six models in v4 and three of six in v5: `solar-pro4` is −40 both times, `grok-4.6` +20 in
+v4, `hy3` +20 in v5 and `longcat-2.0` −40 in v5. §10's failure condition is met by neither
+collection, since every per-model interval contains 0 — the two models whose own arm led by more
+than ten points have intervals running −32 to +60 and −31 to +60.
+
+Both readings are recorded and neither is retired in favour of the other after the fact.
+`RESULTS.md` and `RESULTS-v5.md` reported P6 as "HELD" without saying which of the two they meant,
+and now report the two halves separately. The defect is in this document rather than in the data: a prediction and
+its falsification condition should have been written as one sentence, and §4's ten-point band should
+have said whether it was one-sided. A replication should fix the wording before collecting, not
+choose between them afterwards.
+
+**2026-09-17, after both collections: §8.2 was registered as a gate and the instrument never
+applied it.** This is a deviation, and the first entry here that is one in the strict sense. §8.2
+says that if the control copies disagree with each other the condition "is reported with its
+instability figure and **excluded from the primary analysis**". The instrument reports the
+instability figure and excludes nothing: `Observation::majority` takes the unique plurality of the
+readable copies on each side, so only a tie drops out, and a control that went two-one, or one
+readable answer against two that could not be read, still yields a plurality and the condition stays
+in. The published figures are the plurality-scored ones.
+
+They are kept as published, because they are what was run and replacing them now would leave nobody
+able to tell which numbers came from which rule. Applying §8.2 as written drops 35 of 241 endpoint
+items in v4 and 33 of 234 in v5, and moves no verdict: the endpoint becomes 26/119 numeric against
+0/87 plain and then 25/117 against 0/84, red herrings claimed 0/59 and 0/58, every numeric
+over-claim still off the pivot at 26/26 and 25/25, and discrimination negative on 6 of 6 models in
+both collections, against the bar of 5 registered above. One thing does move: the single plain-note
+over-claim sat on a material whose control had not agreed, so under §8.2 the plain count across both
+collections is 0 of 171 rather than 1 of 199.
+
+A third reading, asking the same of the treated batch as well, was **not** registered by anything and
+is reported as a sensitivity analysis rather than as a rule: it drops 57 and 55 items, and is the
+only reading where a result gives way - the unanimity of direction in v4, 6 of 6 becoming 5 of 6,
+still above the registered bar. `cargo run --release` prints all three side by side. A replication
+should either apply §8.2 in the harness or drop it from the registration; carrying a gate the code
+does not implement is the failure this entry exists to record.
+
+**2026-09-17, after both collections: H3 names the wrong intervention.** §3 states H3 as a subject
+that "answers it correctly once it *can* remove the item". It could already: `repair` grants
+`inspect` and `amend` before the `unprompted` rung and never withdraws them, deliberately, so that a
+difference between two rungs is not also a difference in what the subject was offered. What
+`told-so` → `repaired` adds is the instruction "Something in your context is wrong. Find out what,
+and put it right." P5's numbers are unaffected and the contrast is the registered one; what was
+mislabelled is which manipulation it identifies. The ladder therefore does not measure the value of
+granting edit authority, and the write-ups no longer say it does. The subjects make the distinction
+visible: 10 edits across both collections over the two rungs where they held the handles unasked,
+and 228 once they were told to put the context right.
+
+**2026-09-17, after both collections: "the question's own arithmetic" is a residual category.** The
+instrument sorts an inert numeric note into "red herring" if it appears on its dossier's decoy list
+and into "the question's arithmetic" otherwise, and "numeric" is any two adjacent digits. One note
+falls through that: `mill/records/guidance` carries no quantity and trips the test on the year 2019.
+`longcat-2.0` claimed it once in v4. So 62 of the 63 numeric over-claims are arithmetic and the
+sixty-third is a task-central note that is not; P2b's registered threshold of 90% is met either way.
+Recorded rather than recategorised, because the decoy lists are part of the frozen material.
+
 ## 12. decisions, and the one still open
 
 1. **The models**, by exact identifier. — Settled 2026-09-03, and with it this document is

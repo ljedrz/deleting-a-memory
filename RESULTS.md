@@ -1,8 +1,10 @@
 # results
 
-Collected 2026-09-03/04, instrument **v4**, six models from six labs. Every figure here comes
-from `eval-runs/`, and every one is recomputable from the saved reports with
-`cargo run --example pool`.
+Collected 2026-09-03/04, instrument **v4**, six models from six labs. Every figure here comes from
+`eval-runs/` and is recomputable from the saved reports. `cargo run --release` prints the primary
+endpoint, the four replication thresholds, the unanimity sensitivity reading and both readings of
+the repair ladder; the accuracy, location and own-versus-foreign tables below are read off the
+reports' own scores rather than out of that command.
 
 This document maps each **registered prediction** to what happened, in the order §4 lists them. It
 does not restate any hypothesis, propose any new one, or argue for a framing. `PREREGISTRATION.md`
@@ -42,10 +44,13 @@ p = 0.891.
 
 **P2b — the red herrings over-claimed at a rate within 20 points of the off-pivot arithmetic:
 FAILED, and unanimously in one direction.** Discrimination is negative on **6 of 6** models, sign
-test **p = 0.016**. Not one of the six claimed a single one of the sixty-nine red herrings — notes
-carrying figures for all three options on a dimension with no bearing on the question. Every numeric
-over-claim in the entire cohort, thirty-two of them, fell on a note belonging to the question's own
-arithmetic that did not decide it.
+test **p = 0.031 two-sided** — the direction was not registered in advance for this collection, so
+the two-sided figure is the right one here; the one-sided 0.016 belongs to v5, where it was. Not one
+of the six claimed a single one of the sixty-nine red herrings — notes carrying figures for all
+three options on a dimension with no bearing on the question. Every numeric over-claim in the entire
+cohort, thirty-two of them, fell on a note the instrument files as off-pivot arithmetic; thirty-one
+of those are genuinely a capacity, intake, rate, stock or threshold, and one — `longcat-2.0` on
+`mill/records/guidance` — is a task-central note whose only digits are a year. See `PAPER.md` §4.3.
 
 §4 registered the four-row outcome table for exactly this, and the row that occurred is the second:
 *"dismissed / over-claimed → the cue is 'resembles the question's arithmetic', a different and much
@@ -57,7 +62,9 @@ capability, claimed that a note without figures was load-bearing when it was not
 
 ## the repair ladder (H2, H3)
 
-Fifteen observations per rung — five dossiers, three independent ladders each.
+Fifteen observations per rung — five dossiers, three independent ladders each. Where a turn was cut
+the rung carries the smaller denominator. The contrasts below are **paired over the cells where both
+rungs were measured**, as §3 and §7 register them, so they are not differences of these columns.
 
 | model | carrying | again | unprompted | told-so | repaired | handle use |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -74,11 +81,20 @@ tests**, rewriting its own context more often than it measured it, and its answe
 the handles than without them (5/15 carrying → 0/15 unprompted). A model that edits without
 measuring is a finding about giving edit authority to weak models, and is not evidence about H2.
 
+**Correction, 2026-09-17.** P3 and P5 were first published as differences of the whole-rung
+percentages in the table above. The registration reads all three contrasts as paired, and two cells
+here have a cut turn, so the readings come apart on exactly those two: `hy3`'s `again` →
+`unprompted` is **+7 paired** where the marginal reading gave ~0, and `glm`'s `told-so` →
+`repaired` is **+7 paired** where it gave +5. The paired figures are used below. **P3's tally moves
+from one of four to zero of four**; P4 and P5 are unchanged. `cargo run --release` now prints both
+readings of the ladder, which is how this was found.
+
 Among the four that cleared the gate:
 
-**P3 — `again` → `unprompted` gains ≤ 5 points: FAILED.** One of four, p = 0.938. Measured:
-deepseek +27, glm +20, grok +7, hy3 ~0. Handing a subject the ability to inspect and ablate its own
-context, with no hint that anything is wrong, **did** help two of the four.
+**P3 — `again` → `unprompted` gains ≤ 5 points: FAILED.** Zero of four, p = 1.000. Measured:
+deepseek +27, glm +20, grok +7, hy3 +7. Handing a subject the ability to inspect and ablate its own
+context, with no hint that anything is wrong, **did** help — past the registered five points on all
+four, and substantially on two.
 
 **P4 — `unprompted` → `told-so` gains ≥ 40 points: FAILED at the registered threshold.** One of
 four, p = 0.938. Measured: hy3 +50, grok +33, deepseek +20, glm +7. The *direction* is 4 of 4
@@ -86,15 +102,29 @@ four, p = 0.938. Measured: hy3 +50, grok +33, deepseek +20, glm +7. The *directi
 
 **P5 — `told-so` → `repaired` gains ≤ 20 points, i.e. H3 fails: HELD, 4 of 4, p = 0.062.** H3 was
 registered in the expectation of failure (§10) after the first complete ladder contradicted it, and
-it failed. Measured: deepseek +13, glm +5, grok 0, hy3 −20. Being allowed to remove the false note,
-having already named it, is worth approximately nothing.
+it failed. Measured: deepseek +13, glm +7, grok 0, hy3 −20. Being asked to put the context right,
+having already named the note, is worth approximately nothing. The handles were granted at
+`unprompted` and never withdrawn, so this rung adds an instruction rather than a permission; see
+`PAPER.md` §4.5.
 
 ## the secondary endpoints
 
-**P6 — H4, own arm vs foreign arm within 10 points: HELD.** Reasoning about your own context scored
-the same as reasoning about a transcript of someone else's, on every model: solar 1/5 vs 3/5,
-deepseek 1/5 vs 1/4, hy3 3/5 vs 3/5, longcat 3/5 vs 3/5, grok 3/5 vs 2/5, glm 4/5 vs 4/5. Three
-exact ties, one pair five points apart, one each way. There is no privileged access.
+**P6 — H4, own arm vs foreign arm: the interval half held 6 of 6, the point-estimate half 4 of 6.**
+§4 registers P6 per model as |own − foreign| ≤ 10 points *with an interval containing 0*. Measured:
+solar 1/5 vs 3/5 (−40), deepseek 1/5 vs 1/4 (−5), hy3 3/5 vs 3/5 (0), longcat 3/5 vs 3/5 (0), grok
+3/5 vs 2/5 (+20), glm 4/5 vs 4/5 (0). Three exact ties, one pair five points apart, and two models
+outside the ten-point band, one each way. Every per-model interval contains 0, and so does the
+pooled one: 15/30 own against 16/29 foreign, −5 points, 95% CI −29 to +19.
+
+§10 states H4's failure condition one-sidedly — it fails only if the own arm *beats* the foreign
+arm by more than 10 points with an interval excluding 0 — and on that rule **H4 did not fail**. The
+only model whose own arm led by more than ten points is grok, whose interval runs −32 to +60. The
+two halves of the registration therefore do not ask the same question of this row; the conflict is
+logged in `PREREGISTRATION.md` §11 rather than settled here in favour of whichever reads better.
+
+What five items per arm supports is the absence of a *detected* own-context advantage, not
+equivalence between the arms. This document previously read "there is no privileged access", which
+is a claim about the world these counts cannot carry, and has been corrected rather than kept.
 
 **Counterfactual accuracy against the majority baseline**, which bears on the thesis directly:
 
@@ -137,9 +167,11 @@ allowed to look is untested and open. See `PAPER.md` §4.2 and `PREREGISTRATION.
 
 ## what the registered plan says happens now
 
-Every confirmatory hypothesis failed except H4, which predicted a null and got one. One registered
-prediction produced a significant unanimous result — P2b, in the direction opposite to the
-hypothesis it belonged to.
+Every confirmatory hypothesis failed except H4, which predicted a null and was not falsified: §10's
+condition for sinking it was not met, though §4's per-model form of the same prediction held on four
+of six models on the point estimate and six of six on the interval. `PREREGISTRATION.md` §11 records
+why those are two different tests. One registered prediction produced a significant unanimous
+result — P2b, in the direction opposite to the hypothesis it belonged to.
 
 §9.1's standing rules apply: **no new hypotheses**, and the honest paper is the one the data
 supports. It is not the paper this instrument was built to write, and §9.1 registered in advance

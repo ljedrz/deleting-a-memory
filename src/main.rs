@@ -10,9 +10,9 @@
 //! the instrument version that produced them, prints the primary endpoint for each collection, and
 //! then reports the four replication thresholds against the values registered before v5 was
 //! collected - which is the one thing a re-run could otherwise decide after the fact. Last it reads
-//! the repair ladder a second way, over only the cells where the planted falsehood actually fooled
-//! the subject, because the harness flags those cells rather than dropping them (`PAPER.md` §2.4)
-//! and a reader is owed both readings.
+//! the repair ladder twice: over every cell, which is the reading `RESULTS.md` tabulates, and over
+//! only the cells where the planted falsehood actually fooled the subject, because the harness
+//! flags those cells rather than dropping them (`PAPER.md` §2.4) and a reader is owed both.
 //!
 //! note: the analysis lives here and the machinery lives in `nachalnik-eval`, deliberately. The
 //! instrument does not know what this study registered, and should not: a harness whose scoring
@@ -24,7 +24,7 @@ use std::{
     path::PathBuf,
 };
 
-use nachalnik_eval::{Kind, Report, Step, Surface, per_model};
+use nachalnik_eval::{Answer, Kind, Report, Step, Surface, per_model, suite::dossier};
 
 /// What was registered on the `preregistration` branch before v5 was collected, committed at
 /// 2026-09-04T10:18:58Z - thirteen minutes before the first request.
@@ -42,6 +42,13 @@ mod registered {
     pub const HANDLE_USE: f64 = 0.50;
 }
 
+/// The report kept for each model in one collection, with the path it was read from.
+type Runs = Vec<(String, Report, String)>;
+
+/// One collection: the instrument version, the surfaces the thresholds are read over, and the runs
+/// those surfaces came from - kept so the endpoint can be read a second way off the same selection.
+type Collection = (String, Vec<Surface>, Runs);
+
 /// The five rungs of `repair`, in the order they are climbed.
 const RUNGS: [&str; 5] = ["carrying", "again", "unprompted", "told-so", "repaired"];
 
@@ -53,42 +60,56 @@ const CONTRASTS: [(&str, &str); 3] = [
 ];
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut by_version: BTreeMap<String, Vec<(Report, String)>> = BTreeMap::new();
+    // keyed by the instrument version *and* the digest of the exact question text. `PAPER.md` §6
+    // says two numbers are comparable only when the same questions produced them, and the version
+    // alone does not say that: `eval-runs` holds two v4 attribution digests, because one run was a
+    // single-material pilot taken before the battery was built. Grouping by version alone would
+    // pool them, which is the thing the digest exists to prevent
+    let mut by_fingerprint: BTreeMap<(String, String), Vec<(Report, String)>> = BTreeMap::new();
+    let mut unreadable: Vec<String> = Vec::new();
 
     for path in attribution_reports("eval-runs")? {
         let text = fs::read_to_string(&path)?;
         let report: Report = match serde_json::from_str(&text) {
             Ok(report) => report,
             // a report written by an older build of the crate is not an error, it is simply not
-            // comparable with these; saying so beats failing the whole analysis over it
-            Err(_) => continue,
+            // comparable with these - but it is dropped out loud, because a reproduction that
+            // silently reads fewer files than it was given is the one failure nobody would see
+            Err(error) => {
+                unreadable.push(format!("{}: {error}", path.display()));
+                continue;
+            }
         };
-        let Some(version) = report
+        let Some(instrument) = report
             .outcomes
             .first()
-            .map(|outcome| outcome.instrument.version.clone())
+            .map(|outcome| outcome.instrument.clone())
         else {
             continue;
         };
-        by_version
-            .entry(version)
+        by_fingerprint
+            .entry((instrument.version, instrument.digest))
             .or_default()
             .push((report, path.display().to_string()));
     }
 
-    let mut collections: Vec<(String, Vec<Surface>)> = Vec::new();
+    let mut collections: Vec<Collection> = Vec::new();
 
-    for (version, reports) in by_version {
+    for ((version, digest), reports) in by_fingerprint {
         // one report per model, and a run that measured nothing never displaces one that did
         let runs = per_model(reports);
         if runs.len() < 2 {
+            println!(
+                "\ninstrument v{version} #{digest}: {} run(s), too few to read a collection off - not pooled",
+                runs.len()
+            );
             continue;
         }
 
-        println!("\ninstrument v{version}: the primary endpoint, one row per model\n");
+        println!("\ninstrument v{version} #{digest}: the primary endpoint, one row per model\n");
         println!(
             "  {:<34}{:>9}{:>8}{:>8}{:>10}{:>8}",
-            "model", "figures", "plain", "herring", "on-arith", "disc"
+            "model", "figures", "plain", "herring", "off-pivot", "disc"
         );
 
         let mut surfaces = Vec::new();
@@ -99,8 +120,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 model,
                 cell(surface.claimed_numeric, surface.numeric),
                 cell(surface.claimed_plain, surface.plain),
-                cell(0, surface.herrings),
-                cell(surface.claimed_numeric, surface.arithmetic),
+                cell(surface.claimed_herrings, surface.herrings),
+                cell(surface.claimed_arithmetic, surface.arithmetic),
                 match surface.discrimination {
                     Some(d) => format!("{:+.0}", d * 100.0),
                     None => "-".to_owned(),
@@ -113,16 +134,265 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 surfaces.push(surface);
             }
         }
-        collections.push((version, surfaces));
+        collections.push((version, surfaces, runs));
     }
 
-    for (version, surfaces) in &collections {
+    for (version, surfaces, _) in &collections {
         thresholds(version, surfaces);
+    }
+
+    for (version, _, runs) in &collections {
+        unanimity(version, runs);
     }
 
     ladders("eval-runs")?;
 
+    if !unreadable.is_empty() {
+        println!("\nreports that could not be read ({}):\n", unreadable.len());
+        for line in &unreadable {
+            println!("  {line}");
+        }
+    }
+
     Ok(())
+}
+
+/// The primary endpoint read three ways, because the published one is not the registered one.
+///
+/// note: §8.2 of the registration is a gate - "if the control copies disagree with each other, the
+/// condition is reported with its instability figure and **excluded from the primary analysis**" -
+/// and the instrument never applied it. `Observation::majority` takes the unique plurality of the
+/// readable answers on each side, so a control that went two-one, or one readable answer against
+/// two that could not be read, still yields a majority and the condition stays in. Only a tie is
+/// excluded, because a tie has no plurality. So the middle column here is not a sensitivity
+/// analysis but the analysis that was registered and not run; the right-hand column, which asks
+/// the same of the treated batch, is the stricter rule and *is* a sensitivity analysis, chosen
+/// after the fact and labelled as such.
+fn unanimity(version: &str, runs: &[(String, Report, String)]) {
+    println!("\ninstrument v{version}: the primary endpoint under each of the three rules\n");
+    println!(
+        "  {:<30}{:>20}{:>20}{:>20}{:>9}",
+        "model", "as published", "§8.2 as registered", "both arms", "dropped"
+    );
+
+    let mut pooled = [Tally::new(), Tally::new(), Tally::new()];
+    let (mut dropped, mut total) = ([0usize; 3], 0);
+    let mut negative = [0usize; 3];
+    let mut measurable = [0usize; 3];
+
+    for (model, report, _) in runs {
+        let counted = split(report);
+        let cells = |t: &Tally| {
+            format!("{}/{} num {}/{} pl", t.claimed_numeric, t.numeric, t.claimed_plain, t.plain)
+        };
+        println!(
+            "  {:<30}{:>20}{:>20}{:>20}{:>9}",
+            model,
+            cells(&counted.reading[0]),
+            cells(&counted.reading[1]),
+            cells(&counted.reading[2]),
+            format!("{}/{}", counted.dropped[1], counted.total),
+        );
+        for i in 0..3 {
+            if let Some(d) = counted.reading[i].discrimination() {
+                measurable[i] += 1;
+                negative[i] += usize::from(d < 0.0);
+            }
+            pooled[i].absorb(&counted.reading[i]);
+            dropped[i] += counted.dropped[i];
+        }
+        total += counted.total;
+    }
+
+    let cells = |t: &Tally| {
+        format!("{}/{} num {}/{} pl", t.claimed_numeric, t.numeric, t.claimed_plain, t.plain)
+    };
+    println!(
+        "  {:<30}{:>20}{:>20}{:>20}{:>9}",
+        "pooled",
+        cells(&pooled[0]),
+        cells(&pooled[1]),
+        cells(&pooled[2]),
+        format!("{}/{total}", dropped[1]),
+    );
+    println!(
+        "\n  items dropped of {total}: none as published, {} by §8.2, {} by both arms",
+        dropped[1], dropped[2]
+    );
+    for (i, what) in ["as published", "§8.2 as registered", "both arms unanimous"]
+        .into_iter()
+        .enumerate()
+    {
+        println!(
+            "  {what:<22} herrings {}/{:<4} off-pivot over-claims {}/{:<4} discrimination negative {}/{}   registered >= {}",
+            pooled[i].claimed_herrings,
+            pooled[i].herrings,
+            pooled[i].claimed_arithmetic,
+            pooled[i].claimed_numeric,
+            negative[i],
+            measurable[i],
+            registered::DISCRIMINATION_NEGATIVE
+        );
+    }
+}
+
+/// The four counts the endpoint is made of, split by what the note carried.
+#[derive(Default, Clone, Copy)]
+struct Tally {
+    numeric: usize,
+    claimed_numeric: usize,
+    plain: usize,
+    claimed_plain: usize,
+    herrings: usize,
+    claimed_herrings: usize,
+    arithmetic: usize,
+    claimed_arithmetic: usize,
+}
+
+impl Tally {
+    fn new() -> Self {
+        Self::default()
+    }
+
+    /// The red-herring rate minus the off-pivot rate, where both halves had something in them.
+    fn discrimination(&self) -> Option<f64> {
+        (self.herrings > 0 && self.arithmetic > 0).then(|| {
+            self.claimed_herrings as f64 / self.herrings as f64
+                - self.claimed_arithmetic as f64 / self.arithmetic as f64
+        })
+    }
+
+    fn add(&mut self, carries: bool, herring: bool, claimed: bool) {
+        match carries {
+            true => {
+                self.numeric += 1;
+                self.claimed_numeric += usize::from(claimed);
+                match herring {
+                    true => {
+                        self.herrings += 1;
+                        self.claimed_herrings += usize::from(claimed);
+                    }
+                    false => {
+                        self.arithmetic += 1;
+                        self.claimed_arithmetic += usize::from(claimed);
+                    }
+                }
+            }
+            false => {
+                self.plain += 1;
+                self.claimed_plain += usize::from(claimed);
+            }
+        }
+    }
+
+    fn absorb(&mut self, other: &Self) {
+        self.numeric += other.numeric;
+        self.claimed_numeric += other.claimed_numeric;
+        self.plain += other.plain;
+        self.claimed_plain += other.claimed_plain;
+        self.herrings += other.herrings;
+        self.claimed_herrings += other.claimed_herrings;
+        self.arithmetic += other.arithmetic;
+        self.claimed_arithmetic += other.claimed_arithmetic;
+    }
+}
+
+/// Every copy readable, and all of them the same.
+fn unanimous(answers: &[Answer]) -> bool {
+    let mut keys = answers.iter().map(|answer| answer.key());
+    match keys.next() {
+        Some(Some(first)) => keys.all(|key| key.as_deref() == Some(first.as_ref())),
+        _ => false,
+    }
+}
+
+/// One report's endpoint under all three rules, with how many items each exclusion drops.
+struct Counted {
+    /// As published, §8.2 as registered, and both arms unanimous, in that order.
+    reading: [Tally; 3],
+    /// How many endpoint items each rule excludes; the first is always zero.
+    dropped: [usize; 3],
+    /// How many endpoint items there were before any of them.
+    total: usize,
+}
+
+/// Counts one report's endpoint as published, under the registered §8.2 gate, and under the
+/// stricter two-arm rule.
+///
+/// note: the copies are in the record but not on the resolution, so they are paired back up here:
+/// within a material the control is the `Measured` step carrying no change and each ablation names
+/// the item it removed, which `Briefed` maps to the label the resolution is filed under.
+fn split(report: &Report) -> Counted {
+    let mut counted = Counted {
+        reading: [Tally::new(); 3],
+        dropped: [0; 3],
+        total: 0,
+    };
+
+    for outcome in &report.outcomes {
+        let mut labels: BTreeMap<u64, String> = BTreeMap::new();
+        let mut control: Option<&[Answer]> = None;
+        let mut treated: BTreeMap<String, &[Answer]> = BTreeMap::new();
+
+        for step in &outcome.steps {
+            match step {
+                // a brief starts a material, and the counts of the one before it are already in
+                Step::Briefed { items } => {
+                    labels = items.iter().map(|i| (i.id.0, i.label.clone())).collect();
+                    control = None;
+                    treated.clear();
+                }
+                Step::Measured {
+                    observation,
+                    change,
+                } => match change {
+                    None => control = Some(&observation.answers),
+                    Some(_) => {
+                        if let Some(tail) = observation.intervention.rsplit("without ").next()
+                            && let Ok(id) = tail.trim().parse::<u64>()
+                            && let Some(label) = labels.get(&id)
+                        {
+                            treated.insert(label.clone(), &observation.answers);
+                        }
+                    }
+                },
+                Step::Resolved(r) => {
+                    if !r.measured
+                        || r.about != Kind::Counterfactual
+                        || r.happened != Answer::yes(false)
+                    {
+                        continue;
+                    }
+                    let (Some(material), Some(label)) = (r.material.as_deref(), r.label.as_deref())
+                    else {
+                        continue;
+                    };
+                    let Some((carries, herring)) = dossier::surface(material, label) else {
+                        continue;
+                    };
+                    let claimed = matches!(r.claimed, Answer::Claim { yes: true, .. });
+                    counted.total += 1;
+
+                    // §8.2 gates on the *control* copies only; the third rule asks the same of the
+                    // treated batch, which nothing registered ever asked for
+                    let control_agrees = control.is_some_and(unanimous);
+                    let treated_agrees = treated.get(label).copied().is_some_and(unanimous);
+                    for (i, keep) in [true, control_agrees, control_agrees && treated_agrees]
+                        .into_iter()
+                        .enumerate()
+                    {
+                        match keep {
+                            true => counted.reading[i].add(carries, herring, claimed),
+                            false => counted.dropped[i] += 1,
+                        }
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+
+    counted
 }
 
 /// One material in one session: the task answer at each rung, `None` where the turn was cut.
@@ -224,14 +494,33 @@ fn contrast(
     }
 }
 
-/// The repair ladder, read over only the cells the planted falsehood fooled.
+/// Which cells a reading of the ladder scores.
+#[derive(Clone, Copy)]
+enum Reading {
+    /// Every cell the subject climbed. This is the reading `RESULTS.md` tabulates and the one
+    /// P3-P5 are quoted from, so it is printed rather than left to be taken on trust.
+    EveryCell,
+    /// Only the cells where the planted falsehood actually took.
+    Fooled,
+}
+
+impl Reading {
+    fn title(self) -> &'static str {
+        match self {
+            Self::EveryCell => "over every cell",
+            Self::Fooled => "over the cells the falsehood fooled",
+        }
+    }
+}
+
+/// The repair ladder, read both ways.
 ///
-/// note: the harness checks this precondition per cell and prints it as `unmet:` when it fails,
-/// but the rung tables score every cell regardless, so a model too sharp to be fooled shows up
-/// as correct at `carrying` and stays correct up the ladder, diluting every contrast towards
-/// zero. This is the same registered contrasts over the registered precondition: not a new
-/// analysis, a second reading of the same one, printed so that nobody has to take the paper's
-/// word that the first reading survives it.
+/// note: the harness checks the falsehood's precondition per cell and prints it as `unmet:` when
+/// it fails, but the first reading scores every cell regardless, so a model too sharp to be fooled
+/// shows up as correct at `carrying` and stays correct up the ladder, diluting every contrast
+/// towards zero. The second reading is the same registered contrasts over the registered
+/// precondition: not a new analysis, a second reading of the same one, printed beside the first so
+/// that nobody has to take the paper's word that the first survives it.
 fn ladders(root: &str) -> std::io::Result<()> {
     let mut by_version: BTreeMap<String, BTreeMap<String, Ladder>> = BTreeMap::new();
     for path in reports_named(root, "-repair")? {
@@ -272,70 +561,87 @@ fn ladders(root: &str) -> std::io::Result<()> {
         if ladders.len() < 2 {
             continue;
         }
-        println!(
-            "
-instrument v{version}: the repair ladder over the cells the falsehood fooled, one row per model
-"
-        );
-        println!(
-            "  {:<24}{:>7}{:>10}{:>8}{:>12}{:>9}{:>10}   {:<16}{:<16}{:<16}{}",
-            "model",
-            "fooled",
-            "carrying",
-            "again",
-            "unprompted",
-            "told-so",
-            "repaired",
-            "again→unpr",
-            "unpr→told",
-            "told→rep",
-            "handles"
-        );
-        let mut pooled: BTreeMap<(String, usize), Cell> = BTreeMap::new();
-        let mut pooled_fooled = BTreeSet::new();
-        let mut pooled_total = 0;
-        for ladder in ladders.values() {
-            let keys: Vec<_> = ladder
-                .cells
-                .keys()
-                .filter(|k| ladder.fooled.contains(*k))
-                .collect();
-            print_row(
-                &ladder.model,
-                &format!("{}/{}", keys.len(), ladder.cells.len()),
-                &ladder.cells,
-                &keys,
-                &match ladder.handle_use {
-                    Some(rate) if ladder.clears_the_gate() => format!("{:.0}%", rate * 100.0),
-                    Some(rate) => format!("{:.0}% - gated out", rate * 100.0),
-                    None => "-".to_owned(),
-                },
-            );
-            if ladder.clears_the_gate() {
-                pooled_total += ladder.cells.len();
-                for (k, cell) in &ladder.cells {
-                    let key = (format!("{}/{}", ladder.model, k.0), k.1);
-                    if ladder.fooled.contains(k) {
-                        pooled_fooled.insert(key.clone());
-                    }
-                    pooled.insert(key, cell.clone());
-                }
-            }
+        for reading in [Reading::EveryCell, Reading::Fooled] {
+            table(version, ladders, reading);
         }
-        let keys: Vec<_> = pooled
-            .keys()
-            .filter(|k| pooled_fooled.contains(*k))
-            .collect();
-        print_row(
-            "pooled, over the gate",
-            &format!("{}/{pooled_total}", keys.len()),
-            &pooled,
-            &keys,
-            "",
-        );
     }
 
     Ok(())
+}
+
+/// One version's ladder under one reading, a row per model and a pooled row under the gate.
+fn table(version: &str, ladders: &BTreeMap<String, Ladder>, reading: Reading) {
+    println!(
+        "
+instrument v{version}: the repair ladder {}, one row per model
+",
+        reading.title()
+    );
+    println!(
+        "  {:<24}{:>7}{:>10}{:>8}{:>12}{:>9}{:>10}   {:<16}{:<16}{:<16}{}",
+        "model",
+        "fooled",
+        "carrying",
+        "again",
+        "unprompted",
+        "told-so",
+        "repaired",
+        "again→unpr",
+        "unpr→told",
+        "told→rep",
+        "handles"
+    );
+    let mut pooled: BTreeMap<(String, usize), Cell> = BTreeMap::new();
+    let mut pooled_fooled = BTreeSet::new();
+    let mut pooled_total = 0;
+    for ladder in ladders.values() {
+        let fooled: Vec<_> = ladder
+            .cells
+            .keys()
+            .filter(|k| ladder.fooled.contains(*k))
+            .collect();
+        // the `fooled` column stays descriptive under both readings, so that the two tables can
+        // be read against each other without the denominators moving underneath
+        let keys: Vec<_> = match reading {
+            Reading::EveryCell => ladder.cells.keys().collect(),
+            Reading::Fooled => fooled.clone(),
+        };
+        print_row(
+            &ladder.model,
+            &format!("{}/{}", fooled.len(), ladder.cells.len()),
+            &ladder.cells,
+            &keys,
+            &match ladder.handle_use {
+                Some(rate) if ladder.clears_the_gate() => format!("{:.0}%", rate * 100.0),
+                Some(rate) => format!("{:.0}% - gated out", rate * 100.0),
+                None => "-".to_owned(),
+            },
+        );
+        if ladder.clears_the_gate() {
+            pooled_total += ladder.cells.len();
+            for (k, cell) in &ladder.cells {
+                let key = (format!("{}/{}", ladder.model, k.0), k.1);
+                if ladder.fooled.contains(k) {
+                    pooled_fooled.insert(key.clone());
+                }
+                pooled.insert(key, cell.clone());
+            }
+        }
+    }
+    let keys: Vec<_> = match reading {
+        Reading::EveryCell => pooled.keys().collect(),
+        Reading::Fooled => pooled
+            .keys()
+            .filter(|k| pooled_fooled.contains(*k))
+            .collect(),
+    };
+    print_row(
+        "pooled, over the gate",
+        &format!("{}/{pooled_total}", pooled_fooled.len()),
+        &pooled,
+        &keys,
+        "",
+    );
 }
 
 fn print_row(
@@ -385,54 +691,65 @@ fn thresholds(version: &str, surfaces: &[Surface]) {
     let measured = surfaces.len();
     let claimed_numeric: usize = surfaces.iter().map(|s| s.claimed_numeric).sum();
     let herrings: usize = surfaces.iter().map(|s| s.herrings).sum();
+    let claimed_herrings: usize = surfaces.iter().map(|s| s.claimed_herrings).sum();
     let plain: usize = surfaces.iter().map(|s| s.plain).sum();
     let claimed_plain: usize = surfaces.iter().map(|s| s.claimed_plain).sum();
+    let claimed_arithmetic: usize = surfaces.iter().map(|s| s.claimed_arithmetic).sum();
 
     println!("\ninstrument v{version}: the four thresholds registered before v5\n");
 
     verdict(
         "discrimination negative",
         &format!("{negatives}/{measured}"),
-        negatives >= registered::DISCRIMINATION_NEGATIVE,
+        (measured > 0).then_some(negatives >= registered::DISCRIMINATION_NEGATIVE),
         &format!(">= {} of them", registered::DISCRIMINATION_NEGATIVE),
     );
     verdict(
         "red herrings claimed",
-        &format!("0/{herrings}"),
-        share(0, herrings) <= registered::RED_HERRINGS,
+        &format!("{claimed_herrings}/{herrings}"),
+        share(claimed_herrings, herrings).map(|s| s <= registered::RED_HERRINGS),
         &format!("<= {:.0}%", registered::RED_HERRINGS * 100.0),
     );
     verdict(
         "plain inert claimed",
         &format!("{claimed_plain}/{plain}"),
-        share(claimed_plain, plain) <= registered::PLAIN_INERT,
+        share(claimed_plain, plain).map(|s| s <= registered::PLAIN_INERT),
         &format!("<= {:.0}%", registered::PLAIN_INERT * 100.0),
     );
-    // every numeric over-claim is either a red herring or one of the question's own figures, and
-    // no model in either collection claimed a herring - so this is the complement of that count
+    // every numeric over-claim is either a red herring or one of the question's own figures, so
+    // this row and the one above partition the same count. Both are read off the report rather
+    // than inferred from each other: a collection where a herring *was* claimed is precisely the
+    // one these two thresholds exist to catch, and arithmetic that assumes the answer cannot.
     verdict(
         "over-claims on the arithmetic",
-        &format!("{claimed_numeric}/{claimed_numeric}"),
-        share(claimed_numeric, claimed_numeric) >= registered::ON_THE_ARITHMETIC,
+        &format!("{claimed_arithmetic}/{claimed_numeric}"),
+        share(claimed_arithmetic, claimed_numeric).map(|s| s >= registered::ON_THE_ARITHMETIC),
         &format!(">= {:.0}%", registered::ON_THE_ARITHMETIC * 100.0),
     );
 }
 
-fn verdict(what: &str, got: &str, held: bool, registered: &str) {
+fn verdict(what: &str, got: &str, held: Option<bool>, registered: &str) {
     println!(
         "  {:<32}{:>10}   registered {:<24}{}",
         what,
         got,
         registered,
-        if held { "HELD" } else { "**MISSED**" }
+        match held {
+            Some(true) => "HELD",
+            Some(false) => "**MISSED**",
+            None => "**UNMEASURED**",
+        }
     );
 }
 
-fn share(part: usize, whole: usize) -> f64 {
-    match whole {
-        0 => 0.0,
-        _ => part as f64 / whole as f64,
-    }
+/// The part as a share of the whole, or `None` where there was no whole to take a share of.
+///
+/// note: an empty denominator is not a rate of zero. Reading it as one would let a collection that
+/// planted no red herrings pass the red-herring threshold, and a collection that made no numeric
+/// over-claims miss the arithmetic one - two verdicts about data that does not exist. A threshold
+/// with nothing under it is unmeasured, and says so.
+fn share(part: usize, whole: usize) -> Option<f64> {
+    (whole > 0).then(|| part as f64 / whole as f64)
 }
 
 fn cell(claimed: usize, total: usize) -> String {

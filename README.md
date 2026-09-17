@@ -4,8 +4,9 @@ An instrument for checking what a model says about its own context — and two c
 measurements taken with it, on six models from six labs.
 
 Ask a language model which part of its context made it answer the way it did, and it will tell you.
-Nobody can check the answer: every runtime hands the model a string, and once the request is sent
-the counterfactual is gone. So a stated reason can be shown implausible, never wrong.
+Checking the answer means rebuilding the request without that item and asking again. Any API allows
+it; most stacks flatten the context into a string, so the items stop being addressable and it is
+rarely done.
 
 [nachalnik](https://github.com/ljedrz/nachalnik) is a runtime in which a session's context is
 addressable state. A session can be forked, one named item removed, and the copy asked the same
@@ -35,12 +36,18 @@ something.
 cargo run --release
 ```
 
-Reads `eval-runs/`, groups the reports by the instrument version that produced them, prints the
+Reads `eval-runs/`, groups the reports by the instrument version **and** the digest of the exact
+question text — two numbers are comparable only when the same questions produced them — prints the
 primary endpoint per model for each collection, reports the four replication thresholds against the
-values registered beforehand, and then reads the repair ladder over only the cells the planted
-falsehood fooled. The first build fetches the pinned commit of nachalnik (`d3b3ba6`) and needs
-nothing else. Nothing is re-requested and nothing costs anything: the figures in the paper are
-recomputed from the saved record, which is the point of saving it.
+values registered beforehand, prints the endpoint again under the §8.2 control-agreement gate that
+was registered and not applied and under a stricter two-arm rule, and then reads the repair ladder
+twice: over every cell, which is the reading the results tables carry, and over only the cells the
+planted falsehood fooled, which is the reading the registered precondition asks for. Any report it
+could not parse is named at the end rather than skipped in silence. The first build fetches the
+pinned commit of nachalnik (`d3b3ba6`) and needs nothing else. Nothing is re-requested and nothing
+costs anything: the figures are recomputed from the saved record, which is the point of saving it.
+The accuracy, location and own-versus-foreign tables in the results documents are read off the
+reports' own scores rather than out of this command.
 
 The analysis lives here and the machinery lives in `nachalnik-eval`, deliberately. The instrument
 does not know what this study registered, and should not — a harness whose scoring moves with
